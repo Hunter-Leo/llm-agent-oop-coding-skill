@@ -70,6 +70,14 @@ The agent will:
 | `references/07-oop-principles.md` | OOP & SOLID principles with examples |
 | `references/08-coding-standards.md` | Coding standards: universal + Python / TypeScript / Java |
 
+## Installation
+
+Install using [skills](https://github.com/vercel-labs/skills):
+
+```bash
+npx skills add https://github.com/Hunter-Leo/llm-agent-oop-coding-skill --skill spec-coding-skill -a kiro-cli -g -y
+```
+
 ## Requirements
 
 - A LLM agent with file read/write and shell execution capabilities (e.g. Kiro, Claude Code)
