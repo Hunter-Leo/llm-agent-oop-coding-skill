@@ -1,8 +1,10 @@
 # Phase 06 — Execution
 
-## start-and-resume.md
+## Step 0 — Create start-and-resume.md (mandatory gate)
 
-Before starting execution, produce `.dev/[NNN]-[req-name]/generated/start-and-resume.md`:
+**Do not begin the execution loop until this file exists.**
+
+Create `.dev/[NNN]-[req-name]/generated/start-and-resume.md`:
 
 ```markdown
 # Start and Resume Guide
@@ -27,27 +29,42 @@ Before starting execution, produce `.dev/[NNN]-[req-name]/generated/start-and-re
 
 ## Execution Loop
 
-Repeat for each task in `tasks.md`:
+Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
 
 ```
-1. Mark task as `in-progress` in tasks.md
-2. Read plan.md and relevant generated docs to confirm the approach
-3. Read all affected existing source files (in sections if large)
-4. Implement the minimal change needed
-5. Run existing tests — ensure no regressions
-6. Write new unit tests covering this task's logic
-7. Run new tests — they must all pass before continuing
-8. Update tasks.md:
-   a. Set task status to `done`
-   b. Record implementation summary in the task's Notes — note any deviation from plan.md
-9. Commit: git commit following the Git Workflow rules
+1.  Mark task as `in-progress` in tasks.md
+2.  Read plan.md and relevant generated docs to confirm the approach for this task
+3.  Read all affected existing source files (in sections if large)
+4.  Before writing any code, read the following standards documents:
+      - init.md § Constitution — language-specific rules for this requirement
+      - [07-oop-principles.md](07-oop-principles.md) — OOP & SOLID principles
+      - [08-coding-standards.md](08-coding-standards.md) — docstring format, type annotation, test naming
+5.  Implement the minimal change needed
+6.  Verify code against Constitution:
+      [ ] All function/method parameters and return types annotated
+      [ ] Every new file has a module-level docstring
+      [ ] Every new class has a class-level docstring
+      [ ] Every new public function has a full docstring (Args / Returns / Raises)
+      [ ] No hardcoded secrets or environment-specific values
+      [ ] No linting errors introduced
+7.  Run existing tests — must pass (no regressions)
+8.  Read [08-coding-standards.md](08-coding-standards.md) § Testing to confirm test file naming and coverage requirements, then write unit tests:
+      [ ] Normal cases covered
+      [ ] Edge cases covered
+      [ ] Error / exception cases covered
+9.  Run new tests — all must pass before continuing
+10. Update tasks.md:
+      a. Set status to `done`
+      b. Write implementation summary in Notes (include any deviation from plan.md)
+11. Commit following [Git Workflow](#git-workflow):
+      git commit -m "[NNN] T-XXX <type>: <imperative summary ≤ 72 chars>"
 ```
 
-**The mandatory flow for every task: check docs → modify code → update tasks.md**
+**Mandatory flow: check docs → implement → verify → test → update tasks.md → commit**
 
-**Never skip a step. Never batch multiple tasks into one loop iteration.**
+---
 
-### Mid-Execution New Tasks
+## Mid-Execution New Tasks
 
 If a new task is discovered during execution (e.g. a dependency that was missed in planning):
 
@@ -57,7 +74,9 @@ If a new task is discovered during execution (e.g. a dependency that was missed 
 
 Do not execute an unplanned task without first recording it in `tasks.md`.
 
-### tasks.md Update Rules
+---
+
+## tasks.md Update Rules
 
 Every update to `tasks.md` must include **two things**:
 
@@ -104,19 +123,15 @@ Before modifying any existing file:
 - Understand the call graph: who calls this, what does this call
 - Make the smallest change that satisfies the task requirement
 
-See [00-agent-execution.md](00-agent-execution.md) for full file reading and writing discipline.
-
----
-
-## Quality Checkpoints
-
-See [00-agent-execution.md](00-agent-execution.md) for the full self-check checklist that must be completed before marking any task `done`.
-
 ---
 
 ## Handling Blockers
 
-See [00-agent-execution.md](00-agent-execution.md) for the full blocker handling policy.
+When a task cannot proceed:
+
+1. Record in `tasks.md` Notes: what was attempted, what failed, what is needed
+2. Set task status to `blocked`
+3. Ask the user for guidance before continuing
 
 ---
 
@@ -137,15 +152,13 @@ git checkout -b <type>/[NNN]-[req-name]
 
 ### Commit Messages
 
-Follow Google Style commit messages. Format:
+Format:
 
 ```
 [NNN] T-XXX <type>: <short summary in imperative mood>
 
 <optional body: what and why, not how>
 ```
-
-**Type values:** `feat` · `fix` · `refactor` · `test` · `docs` · `chore`
 
 **Examples:**
 
@@ -165,6 +178,8 @@ Follow Google Style commit messages. Format:
 
 ---
 
-## File Writing Discipline
+## File Reading and Writing Discipline
 
-See [00-agent-execution.md](00-agent-execution.md) for file reading and writing discipline rules.
+- Read files in sections if large — never load an entire large file at once
+- Write one file at a time; do not exceed ~200 lines in a single write
+- Do not rewrite an entire file when only a small change is needed — use targeted edits

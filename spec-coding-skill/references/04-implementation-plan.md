@@ -2,6 +2,11 @@
 
 Produce `plan.md` after all prerequisite and algorithm design documents are complete.
 
+Before writing `plan.md`:
+1. Read all completed prerequisite documents (`inspect.md`, `research.md`, `algorithm-design.md` — whichever exist)
+2. Read `init.md § Constitution` — the plan must respect the coding constraints defined there
+3. Read [07-oop-principles.md](07-oop-principles.md) — all class and module design must follow OOP & SOLID principles
+
 ## Output
 
 `.dev/[NNN]-[req-name]/generated/plan.md`

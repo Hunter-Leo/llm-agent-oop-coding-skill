@@ -6,10 +6,10 @@ This phase is **optional**. Evaluate each trigger below and produce the correspo
 
 | Condition | Document to produce |
 |---|---|
-| Task modifies existing code | `inspect.md` |
-| Task introduces a new technology or third-party library | `research.md` |
+| Requirement modifies existing code | `inspect.md` |
+| Requirement introduces a new technology or third-party library | `research.md` |
 | Requirement involves performance issues or optimization | `profiling.md` |
-| Task is a bug fix | `diagnosis.md` |
+| Requirement is a bug fix | `diagnosis.md` |
 
 ## inspect.md
 

@@ -77,11 +77,12 @@ All generated documents go under `.dev/[NNN]-[req-name]/generated/`.
 
 ### # Constitution
 
-Coding standards for this specific requirement. Copy the relevant sections from:
+Coding standards for this specific requirement. First read the following documents, then copy and trim the relevant sections:
+
 - [07-oop-principles.md](07-oop-principles.md) — OOP & SOLID principles
 - [08-coding-standards.md](08-coding-standards.md) — language-specific standards
 
-Trim to only the languages and rules that apply to this requirement.
+Keep only the languages and rules that apply to this requirement.
 
 ## After Creating init.md
 
