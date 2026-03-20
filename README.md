@@ -7,16 +7,18 @@ A spec-driven skill for LLM agents to plan and implement large-scale coding task
 Guides an agent through six phases — from requirement definition to code execution — using a disciplined, document-first workflow. Each phase produces a concrete artifact that the next phase builds on.
 
 ```
-Phase 01 — Initialization        (required)
+Phase 01 — Initialization              (required)
               ↓
-Phase 02 — Prerequisite Tasks    (optional)
-Phase 03 — Algorithm Design      (optional)
+Phase 02 — Prerequisite Tasks          (optional)
+Phase 03 — Algorithm Design            (optional)
               ↓
-Phase 04 — Implementation Plan   (required)
+Phase 04 — Implementation Plan         (required)
               ↓
-Phase 05 — Task Planning         (required)
+Phase 05 — Task Planning               (required)
               ↓
-Phase 06 — Execution             (required)
+Phase 06 — Create start-and-resume.md  (required)
+              ↓
+Phase 07 — Execution                   (required)
 ```
 
 ## Usage

@@ -68,9 +68,9 @@ Ordered list of documents to produce. Use this template:
 > Complete all checked prerequisite documents before proceeding to the required documents below.
 
 **Required documents** (always, in order):
-- [ ] `generated/plan.md`
-- [ ] `generated/tasks.md`
-- [ ] `generated/start-and-resume.md`
+- [ ] `generated/plan.md`              — Phase 04
+- [ ] `generated/tasks.md`             — Phase 05
+- [ ] `generated/start-and-resume.md`  — Phase 06 (must exist before any task execution)
 ```
 
 All generated documents go under `.dev/[NNN]-[req-name]/generated/`.

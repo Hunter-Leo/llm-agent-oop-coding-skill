@@ -1,28 +1,57 @@
-# Phase 06 — Execution
+# Phase 06 — Create start-and-resume.md / Phase 07 — Execution
 
-## Step 0 — Create start-and-resume.md (mandatory gate)
+## Step 0 — Phase 06: Create start-and-resume.md (mandatory gate)
 
 **Do not begin the execution loop until this file exists.**
 
 Create `.dev/[NNN]-[req-name]/generated/start-and-resume.md`:
 
 ```markdown
-# Start and Resume Guide
+# Start and Resume Guide — [NNN]-[req-name]
 
 ## Quick Start
-1. Read `init.md` to understand the requirement scope and constitution
-2. Read `plan.md` to understand the technical approach
-3. Read `tasks.md` to find the next pending task
+1. Read `init.md` — requirement scope
+2. Read `plan.md` — technical approach
+3. Read `tasks.md` — find the next `not-started` task
+4. Review the standards sections below before writing any code
 
 ## Resuming After Interruption
 1. Open `tasks.md` and find the first task not in `done`
 2. If a task is `in-progress`, read its Notes for context before continuing
 3. If a task is `blocked`, read the Notes and address the blocker first
+4. Review the standards sections below before continuing
 
 ## Key Documents
-- Requirement definition: `.dev/[NNN]-[req-name]/init.md`
-- Technical plan: `.dev/[NNN]-[req-name]/generated/plan.md`
-- Task list: `.dev/[NNN]-[req-name]/generated/tasks.md`
+- Requirement: `.dev/[NNN]-[req-name]/init.md`
+- Plan: `.dev/[NNN]-[req-name]/generated/plan.md`
+- Tasks: `.dev/[NNN]-[req-name]/generated/tasks.md`
+
+---
+
+## Constitution
+<!-- Copy the full # Constitution section from init.md here -->
+
+---
+
+## OOP & SOLID Principles (applicable rules)
+<!-- Copy the relevant rules from references/07-oop-principles.md that apply to this requirement -->
+
+---
+
+## Coding Standards (applicable rules)
+<!-- Copy the relevant sections from references/08-coding-standards.md for the languages used in this requirement -->
+
+---
+
+## Git Workflow
+
+Branch: `<type>/[NNN]-[req-name]`
+
+Commit format:
+```
+[NNN] T-XXX <type>: <imperative summary ≤ 72 chars>
+```
+Types: `feat` · `fix` · `refactor` · `test` · `docs` · `chore`
 ```
 
 ---
@@ -35,10 +64,8 @@ Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
 1.  Mark task as `in-progress` in tasks.md
 2.  Read plan.md and relevant generated docs to confirm the approach for this task
 3.  Read all affected existing source files (in sections if large)
-4.  Before writing any code, read the following standards documents:
-      - init.md § Constitution — language-specific rules for this requirement
-      - [07-oop-principles.md](07-oop-principles.md) — OOP & SOLID principles
-      - [08-coding-standards.md](08-coding-standards.md) — docstring format, type annotation, test naming
+4.  Read start-and-resume.md § Constitution, § OOP & SOLID Principles, and § Coding Standards
+      before writing any code — all rules are already copied there for this requirement
 5.  Implement the minimal change needed
 6.  Verify code against Constitution:
       [ ] All function/method parameters and return types annotated

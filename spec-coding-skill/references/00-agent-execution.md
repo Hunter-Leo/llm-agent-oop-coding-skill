@@ -41,7 +41,8 @@ At the start of execution and before each phase, display the current progress:
 ✅ Phase 02 — Prerequisite Tasks
 ▶  Phase 04 — Implementation Plan   ← now
    Phase 05 — Task Planning
-   Phase 06 — Execution
+   Phase 06 — Create start-and-resume.md
+   Phase 07 — Execution
 ──────────────────────────────
 ```
 

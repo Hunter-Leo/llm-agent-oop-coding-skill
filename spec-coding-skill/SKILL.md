@@ -20,16 +20,18 @@ All generated documents go under `.dev/[NNN]-[req-name]/` in the project root.
 ## Phase Overview
 
 ```
-Phase 01 — Initialization        (required)
+Phase 01 — Initialization              (required)
               ↓
-Phase 02 — Prerequisite Tasks    (optional, LLM judges)
-Phase 03 — Algorithm Design      (optional, LLM judges)
+Phase 02 — Prerequisite Tasks          (optional, LLM judges)
+Phase 03 — Algorithm Design            (optional, LLM judges)
               ↓
-Phase 04 — Implementation Plan   (required)
+Phase 04 — Implementation Plan         (required)
               ↓
-Phase 05 — Task Planning         (required)
+Phase 05 — Task Planning               (required)
               ↓
-Phase 06 — Execution             (required)
+Phase 06 — Create start-and-resume.md  (required)
+              ↓
+Phase 07 — Execution                   (required)
 ```
 
 Phases 02 and 03 are independent — both, one, or neither may be needed.
@@ -43,7 +45,8 @@ Phases 02 and 03 are independent — both, one, or neither may be needed.
 | 03 Algorithm Design | `algorithm-design.md` | [03-algorithm-design.md](references/03-algorithm-design.md) |
 | 04 Implementation Plan | `plan.md` | [04-implementation-plan.md](references/04-implementation-plan.md) |
 | 05 Task Planning | `tasks.md` | [05-task-planning.md](references/05-task-planning.md) |
-| 06 Execution | `start-and-resume.md` + code | [06-start-and-resume.md](references/06-start-and-resume.md) |
+| 06 Create start-and-resume.md | `start-and-resume.md` | [06-start-and-resume.md](references/06-start-and-resume.md) § Step 0 |
+| 07 Execution | code | [06-start-and-resume.md](references/06-start-and-resume.md) |
 
 ## Coding Reference
 
