@@ -1,15 +1,31 @@
 # Phase 02 — Prerequisite Tasks
 
-This phase is **optional**. Evaluate each trigger below and produce the corresponding document if the condition is met. Multiple documents may be needed.
+This phase is **optional**. Before deciding whether to skip it, complete the reasoning step below.
 
-## Trigger Conditions
+## Reasoning Step (required before skipping)
 
-| Condition | Document to produce |
+Read `init.md § Spec` and `§ Requirements` in full, then ask:
+
+> "If I started writing `plan.md` right now, what information gaps would prevent me from making confident decisions?"
+
+For each gap identified, produce a document that fills it. The common examples below are a starting point — not an exhaustive list. If the requirement has unique information needs, create an appropriately named document (e.g. `data-model.md`, `api-contract.md`, `ui-design.md`).
+
+Only skip this phase if there are genuinely no information gaps.
+
+---
+
+## Common Prerequisite Documents
+
+| Scenario | Document |
 |---|---|
 | Requirement modifies existing code | `inspect.md` |
 | Requirement introduces a new technology or third-party library | `research.md` |
 | Requirement involves performance issues or optimization | `profiling.md` |
 | Requirement is a bug fix | `diagnosis.md` |
+| Requirement involves UI, prototyping, or web design | `ui-design.md` |
+| Any other information gap | a descriptively named `.md` file |
+
+---
 
 ## inspect.md
 
@@ -46,7 +62,7 @@ This phase is **optional**. Evaluate each trigger below and produce the correspo
 
 ## diagnosis.md
 
-**When:** task is a bug fix.
+**When:** requirement is a bug fix.
 
 **Contents:**
 - Bug description and reproduction steps
@@ -54,3 +70,16 @@ This phase is **optional**. Evaluate each trigger below and produce the correspo
 - Root cause analysis
 - Proposed fix approach
 - Regression risk assessment
+
+## ui-design.md
+
+**When:** requirement involves UI design, prototyping, or web page creation.
+
+**Contents:**
+- User flows and interaction design
+- Wireframes or layout descriptions (ASCII diagrams or structured descriptions)
+- Component breakdown and hierarchy
+- Design tokens: colors, typography, spacing
+- Responsive behavior and breakpoints
+- Accessibility requirements (WCAG level, keyboard navigation, ARIA)
+- Reference designs or style guides if provided
