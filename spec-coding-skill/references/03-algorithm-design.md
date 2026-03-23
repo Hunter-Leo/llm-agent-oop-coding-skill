@@ -42,6 +42,41 @@ For each candidate approach:
 - Data structures required and why each was chosen
 - Key invariants that must be maintained
 
+### Diagrams
+
+For every non-trivial algorithm or data structure, include at least one ASCII diagram illustrating the structure or flow:
+
+```
+Example — linked list traversal:
+
+head → [A] → [B] → [C] → null
+        ↑
+     current
+```
+
+For state machines or multi-step flows, include a state/flow diagram:
+
+```
+[idle] --start--> [processing] --done--> [complete]
+                       |
+                    --error--> [failed]
+```
+
+### Use Cases & Examples
+
+Provide at least two concrete examples that walk through the algorithm with real input/output values:
+
+```
+Example 1 — normal case:
+  Input:  [3, 1, 4, 1, 5]
+  Steps:  ...
+  Output: [1, 1, 3, 4, 5]
+
+Example 2 — edge case (empty input):
+  Input:  []
+  Output: []
+```
+
 ### Pseudocode
 
 Write clear pseudocode before any implementation:

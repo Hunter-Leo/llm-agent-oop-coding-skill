@@ -25,9 +25,21 @@ Only skip this phase if there are genuinely no information gaps.
 | Requirement involves UI, prototyping, or web design | `ui-design.md` |
 | Any other information gap | a descriptively named `.md` file |
 
----
+## General Rule for Design Documents
 
-## inspect.md
+Any prerequisite document that involves design (UI, flow, algorithm, architecture) **must** include:
+
+1. **Diagrams** — ASCII diagrams illustrating structure, layout, or flow. Use these for:
+   - UI wireframes and component hierarchy
+   - Process/state flows and decision trees
+   - Data structures and relationships
+   - System or module interaction diagrams
+
+2. **Use cases & examples** — at least two concrete scenarios with real inputs, steps, and expected outputs. Cover both a normal case and an edge/error case.
+
+These are not optional — a design document without diagrams and examples is incomplete.
+
+---
 
 **When:** any modification to existing code.
 
