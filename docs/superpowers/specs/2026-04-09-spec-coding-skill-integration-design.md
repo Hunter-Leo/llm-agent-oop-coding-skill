@@ -182,6 +182,55 @@ Add a `## Step 0.5 — Execution Mode Recommendation` section:
 
 ---
 
+## Design-Phase Compliance (Phase 03 & 04)
+
+**Problem:** OOP/SOLID principles and Constitution are currently only inlined in `start-and-resume.md` (Phase 06). Agents writing `algorithm-design.md` and `plan.md` never see these constraints, so design violations are baked in before execution begins.
+
+**Fix:** Add compliance gates to `03-algorithm-design.md` and `04-implementation-plan.md`.
+
+### Phase 03 — algorithm-design.md
+
+**Location:** `spec-coding-skill/references/03-algorithm-design.md`, at the top of the file before any design work.
+
+Add a mandatory pre-step:
+
+```
+Before writing algorithm-design.md:
+- Read init.md § Constitution — all algorithm design must respect these constraints
+- Read references/07-oop-principles.md — algorithms must not violate OOP/SOLID principles
+```
+
+### Phase 04 — plan.md
+
+**Location:** `spec-coding-skill/references/04-implementation-plan.md`, after the plan is written.
+
+Add a `## Design Compliance Review` self-check that runs before the plan is considered complete:
+
+```
+After writing plan.md, review against these principles and fix violations inline:
+
+SOLID:
+- [ ] SRP — each class/module has one responsibility
+- [ ] OCP — new behavior added by extension, not by modifying existing classes
+- [ ] LSP — subclasses can substitute their parent without breaking callers
+- [ ] ISP — interfaces are fine-grained; no implementation is forced to implement unused methods
+- [ ] DIP — high-level modules depend on abstractions, not concrete implementations
+
+Constitution:
+- [ ] All design decisions comply with init.md § Constitution
+- [ ] No hardcoded secrets, environment-specific values, or magic numbers planned
+- [ ] No planned duplication of existing logic (DRY)
+```
+
+If any check fails, revise the relevant section of plan.md before proceeding to Phase 05.
+
+**Key decisions:**
+- Violations are fixed in the design phase, not discovered during execution
+- The checklist is inline (no subagent dispatch needed) — fast and low-overhead
+- Files changed: `03-algorithm-design.md`, `04-implementation-plan.md`
+
+---
+
 ## Out of Scope
 
 - Changing init.md, tasks.md, or start-and-resume.md document formats
