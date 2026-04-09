@@ -60,7 +60,7 @@ Explicitly list what this plan does **not** cover, to prevent scope creep.
 
 ## Design Compliance Review
 
-After writing `plan.md`, review it against the following principles and fix any violations inline before proceeding to Phase 05. Do not defer violations to the execution phase.
+After writing `plan.md`, review it against the following principles. If any check fails, revise the relevant section of `plan.md` to address the violation — do not just mark the checkbox. Do not defer violations to the execution phase.
 
 **SOLID Principles:**
 - [ ] **SRP** — each class/module has one responsibility; no class does two unrelated things
