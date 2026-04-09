@@ -52,7 +52,7 @@ Three friction points:
 
 ---
 
-## Phase 01 — Routing Node
+## Phase 01 — Routing Node A: Requirement Clarity Check
 
 **Location:** `spec-coding-skill/references/01-initialization.md`, before the existing Pre-flight Checks section.
 
@@ -60,27 +60,40 @@ Three friction points:
 
 Add a `## Step 0 — Requirement Clarity Check` section:
 
-1. Assess whether the requirement is clear enough to write init.md directly.
+1. **Scan available requirement-clarification skills in real time**
+   - Scan `~/.claude/skills/` and plugin cache directories
+   - Identify skills whose description mentions: brainstorming, requirements gathering, interview, spec, design exploration
+   - Build a candidate list with their names and one-line descriptions
 
-   Clear signals (any one is sufficient — proceed to Pre-flight Checks):
+2. **Assess requirement clarity** against these signals:
+
+   Clear (proceed directly to Pre-flight Checks — any one is sufficient):
    - User provided specific functional description, file paths, or technical approach
-   - User already completed brainstorming and provided a spec doc path
+   - User already completed a clarification step and provided a spec/output doc path
 
-   Vague signals (suggest brainstorming first):
+   Vague — recommend a clarification skill:
    - Requirement is a single sentence with no technical detail
-   - User explicitly says "I haven't figured it out yet"
+   - User explicitly says "I haven't figured it out yet" or "I have a vague idea"
 
-2. If vague: inform the user —
-   > "The requirement is still vague. I recommend clarifying it first with `superpowers:brainstorming`.
-   > After brainstorming, share the spec doc path and I'll reference it in init.md's `# Spec` section."
-   > Wait for user confirmation before continuing.
+3. **If vague**, match the best-fit skill from the scanned list and recommend it:
 
-3. If clear, or user chooses to skip: proceed directly to Pre-flight Checks (existing flow unchanged).
+   | Situation | Typical best-fit skill |
+   |---|---|
+   | Has direction, needs design exploration | `superpowers:brainstorming` (or equivalent) |
+   | Very vague, many hidden assumptions, risk of misalignment | `oh-my-claudecode:deep-interview` (or equivalent) |
+
+   Present the recommendation to the user:
+   > "The requirement is still vague. Based on available skills, I recommend `<skill-name>` because <one-line reason>.
+   > After completing it, share the output doc path and I'll reference it in init.md's `# Spec` section.
+   > Or reply **skip** to proceed directly."
+
+4. **If clear, or user chooses to skip**: proceed directly to Pre-flight Checks (existing flow unchanged).
 
 **Key decisions:**
-- This is a **suggestion**, not a hard gate — user can skip
-- The spec doc is **referenced** (path recorded in init.md), not merged — two documents remain independent
-- When brainstorming upgrades, only the skill name in this step needs updating
+- Skill names are discovered in real time — never hardcoded
+- This is a **suggestion**, not a hard gate — user can always skip
+- The output doc is **referenced** (path recorded in init.md), not merged — documents remain independent
+- When clarification skills upgrade or new ones are added, this step picks them up automatically
 
 ---
 
