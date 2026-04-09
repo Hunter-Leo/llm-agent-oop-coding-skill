@@ -60,10 +60,10 @@ Types: `feat` · `fix` · `refactor` · `test` · `docs` · `chore`
 
 Before starting the Execution Loop, recommend the best execution mode for this requirement:
 
-**Step 1 — Read OMC execution skills in real time:**
-- Scan `~/.claude/skills/` and OMC plugin cache directory
-- Find all execution-class skills — look for skills whose `description` or `Use_When` mentions: autonomous execution, parallel agents, task completion, workflow automation, or persistent loops
-- Read each skill's `Use_When` / `Do_Not_Use_When` descriptions
+**Step 1 — Check available execution skills from session context:**
+- Read the list of available skills provided by the system at session start (visible in the session context / system-reminder)
+- Find all execution-class skills — look for skills whose `description` mentions: autonomous execution, parallel agents, task completion, workflow automation, or persistent loops
+- For each candidate skill, invoke it via the Skill tool to read its `Use_When` / `Do_Not_Use_When` descriptions
 - If no execution-class skills are found, proceed directly to the Execution Loop below
 
 **Step 2 — Analyze `tasks.md`:**
@@ -74,7 +74,7 @@ Before starting the Execution Loop, recommend the best execution mode for this r
 
 **Step 4 — If a multi-agent mode is recommended (e.g. `/team`):**
 
-a. Read OMC agents directory in real time to get available role types (e.g. `~/.claude/plugins/cache/omc/.../agents/`)
+a. Read the list of available agent types from the session context (system-reminder)
 
 b. Map `tasks.md` task types to roles. Naming convention:
    ```

@@ -6,12 +6,11 @@ Create the requirement definition document before any planning or coding begins.
 
 Before starting Pre-flight Checks, assess whether the requirement is clear enough to write `init.md` directly.
 
-**Step 0a — Scan available clarification skills in real time:**
-- Scan `~/.claude/skills/` for installed skills
-- Scan `~/.claude/plugins/cache/` — list subdirectories and look for `skills/` or `agents/` subfolders within each plugin
-- Identify skills whose `description` field mentions: brainstorming, requirements gathering, interview, spec, or design exploration
+**Step 0a — Check available clarification skills from session context:**
+- Read the list of available skills provided by the system at session start (visible in the session context / system-reminder)
+- Identify skills whose `description` mentions: brainstorming, requirements gathering, interview, spec, or design exploration
 - Build a candidate list with their names and one-line descriptions
-- If no clarification skills are found, proceed directly to Pre-flight Checks and note in `init.md` that no external clarification tools were available
+- If no clarification skills are found, proceed directly to Pre-flight Checks
 
 **Step 0b — Assess requirement clarity:**
 
@@ -61,8 +60,8 @@ Before writing the `# Action Items` section of `init.md`, scan for available too
    - Read each skill's `description` field
    - Match against the current requirement type (UI, data analysis, security, testing, etc.)
 
-2. **Scan available OMC agent types in real time:**
-   - Read the OMC agents directory: list subdirectories under `~/.claude/plugins/cache/`, find the one containing an `agents/` folder, and read the `.md` files within it
+2. **Check available OMC agent types from session context:**
+   - Read the list of available agent types provided by the system at session start (visible in the session context / system-reminder)
    - Identify agents relevant to the requirement (e.g. `designer` for UI work, `scientist` for data analysis, `security-reviewer` for auth/security)
 
 3. **Add matched skills and agents as optional Prerequisite entries in `# Action Items`:**
