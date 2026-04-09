@@ -53,10 +53,10 @@ Before creating `init.md`, complete these two steps (each asked only once per re
 
 ## Step 2 — Skill & Agent Discovery
 
-Before writing the `# Action Items` section of `init.md`, scan for available tools that could help complete this requirement:
+Before writing the `# Action Items` section of `init.md`, check for available tools that could help complete this requirement:
 
-1. **Scan available skills in real time:**
-   - Scan `~/.claude/skills/` and plugin cache directories
+1. **Check available skills from session context:**
+   - Read the list of available skills provided by the system at session start (visible in the session context / system-reminder)
    - Read each skill's `description` field
    - Match against the current requirement type (UI, data analysis, security, testing, etc.)
 
@@ -73,7 +73,7 @@ Before writing the `# Action Items` section of `init.md`, scan for available too
 
 4. **Inform the user** which skills/agents were found and briefly explain why they may help.
 
-> Rules: Scan in real time — never hardcode skill or agent names. Only surface tools with clear relevance to the current requirement. All entries are optional.
+> Rules: Read from session context — never hardcode skill or agent names. Only surface tools with clear relevance to the current requirement. All entries are optional.
 
 ---
 
@@ -92,14 +92,13 @@ Determine `NNN` by listing `.dev/` and using the next available three-digit numb
 
 ### # Project Stage
 
-Declare the current stage of the project. This affects whether breaking changes are permitted during execution.
+Declare the current stage of the project.
 
 ```
 project_stage: pre-launch   # or: live
 ```
 
-- `pre-launch`: MVP has not yet shipped. Breaking changes to existing structure are permitted when adding new modules, in order to keep the overall architecture clean and unambiguous.
-- `live`: Product is in production. All changes must be backward-compatible; breaking changes require explicit user approval.
+See `06-start-and-resume.md § Breaking Changes Policy` for how this value affects execution.
 
 ### # Spec
 
