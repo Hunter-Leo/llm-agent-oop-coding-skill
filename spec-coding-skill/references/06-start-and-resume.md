@@ -56,6 +56,48 @@ Types: `feat` · `fix` · `refactor` · `test` · `docs` · `chore`
 
 ---
 
+## Step 0.5 — Execution Mode Recommendation
+
+Before starting the Execution Loop, recommend the best execution mode for this requirement:
+
+**Step 1 — Read OMC execution skills in real time:**
+- Scan `~/.claude/skills/` and OMC plugin cache directory
+- Find all Tier 4 execution-class skills (ralph, team, ultrawork, ultraqa, autopilot, etc.)
+- Read each skill's `Use_When` / `Do_Not_Use_When` descriptions
+
+**Step 2 — Analyze `tasks.md`:**
+- Total task count, type distribution (feature / test / UI / architecture / etc.)
+- Dependency structure (sequential chain vs. parallelizable)
+
+**Step 3 — Match against `Use_When` conditions** and recommend the best-fit execution mode to the user.
+
+**Step 4 — If a multi-agent mode is recommended (e.g. `/team`):**
+
+a. Read OMC agents directory in real time to get available role types (e.g. `~/.claude/plugins/cache/omc/.../agents/`)
+
+b. Map `tasks.md` task types to roles. Naming convention:
+   ```
+   <omc-role-type>-<index>
+   ```
+   Examples: `executor-1`, `executor-2`, `designer-1`, `test-engineer-1`
+   **Forbidden:** `worker-1`, `agent-2`, or any non-semantic names.
+
+c. Present the team configuration to the user:
+   > Based on `tasks.md` analysis (N tasks: X feature + Y test + Z UI), I recommend `/team`:
+   > - `executor-1`, `executor-2` — T-001 ~ T-004
+   > - `test-engineer-1` — T-005 ~ T-006
+   > - `designer-1` — T-007
+   >
+   > Each worker will read `start-and-resume.md` on startup for Constitution and coding standards.
+   >
+   > Confirm this configuration, or tell me what to adjust?
+
+d. After user confirmation, **agent directly invokes** the chosen execution mode, passing the team configuration and the path to this `start-and-resume.md` as worker context.
+
+> Rules: Agent role types are read from OMC in real time — never hardcoded. When OMC adds new execution modes, this step picks them up automatically on next run.
+
+---
+
 ## Execution Loop
 
 Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:

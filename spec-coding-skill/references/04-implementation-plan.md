@@ -57,3 +57,22 @@ Each step should be independently testable.
 ### Out of Scope
 
 Explicitly list what this plan does **not** cover, to prevent scope creep.
+
+## Design Compliance Review
+
+After writing `plan.md`, review it against the following principles and fix any violations inline before proceeding to Phase 05. Do not defer violations to the execution phase.
+
+**SOLID Principles:**
+- [ ] **SRP** — each class/module has one responsibility; no class does two unrelated things
+- [ ] **OCP** — new behavior is added by extension (new classes/functions), not by modifying existing ones
+- [ ] **LSP** — subclasses can substitute their parent without breaking callers
+- [ ] **ISP** — interfaces are fine-grained; no implementation is forced to implement unused methods
+- [ ] **DIP** — high-level modules depend on abstractions, not concrete implementations
+
+**Constitution:**
+- [ ] All design decisions comply with `init.md § Constitution`
+- [ ] No hardcoded secrets, environment-specific values, or magic numbers planned
+- [ ] No planned duplication of existing logic (DRY)
+- [ ] No planned `if/elif` chains that must be edited for every new case — replace with polymorphism
+
+If any check fails, revise the relevant section of `plan.md` before proceeding to Phase 05.

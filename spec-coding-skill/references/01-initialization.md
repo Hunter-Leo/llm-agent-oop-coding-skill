@@ -2,12 +2,77 @@
 
 Create the requirement definition document before any planning or coding begins.
 
+## Step 0 — Requirement Clarity Check
+
+Before starting Pre-flight Checks, assess whether the requirement is clear enough to write `init.md` directly.
+
+**Step 0a — Scan available clarification skills in real time:**
+- Scan `~/.claude/skills/` and plugin cache directories (e.g. `~/.claude/plugins/cache/`)
+- Identify skills whose `description` mentions: brainstorming, requirements gathering, interview, spec, or design exploration
+- Build a candidate list with their names and one-line descriptions
+
+**Step 0b — Assess requirement clarity:**
+
+Clear signals (any one is sufficient — proceed directly to Pre-flight Checks):
+- User provided specific functional description, file paths, or technical approach
+- User already completed a clarification step and provided a spec/output doc path
+
+Vague signals (recommend a clarification skill):
+- Requirement is a single sentence with no technical detail
+- User explicitly says "I haven't figured it out yet" or "I have a vague idea"
+
+**Step 0c — If vague**, match the best-fit skill from the scanned list and recommend it:
+
+| Situation | Typical best-fit skill |
+|---|---|
+| Has direction, needs design exploration | `superpowers:brainstorming` (or equivalent found in scan) |
+| Very vague, many hidden assumptions, risk of misalignment | `oh-my-claudecode:deep-interview` (or equivalent found in scan) |
+
+Inform the user:
+> "The requirement is still vague. Based on available skills, I recommend `<skill-name>` because `<one-line reason>`.
+> After completing it, share the output doc path and I'll reference it in `init.md`'s `# Spec` section.
+> Or reply **skip** to proceed directly."
+
+Wait for user confirmation before continuing.
+
+**Step 0d — If clear, or user chooses to skip:** proceed directly to Pre-flight Checks below.
+
+> Note: This is a suggestion, not a hard gate. The output doc is referenced (path recorded in `init.md`), not merged.
+
+---
+
 ## Pre-flight Checks
 
 Before creating `init.md`, complete these two steps (each asked only once per requirement):
 
 1. **Language** — detect the user's communication language and ask if needed (see [00-agent-execution.md](00-agent-execution.md) § Language)
 2. **Interactive mode** — ask the user whether to proceed interactively or automatically (see [00-agent-execution.md](00-agent-execution.md) § Interactive Mode)
+
+## Step 2 — Skill & Agent Discovery
+
+Before writing the `# Action Items` section of `init.md`, scan for available tools that could help complete this requirement:
+
+1. **Scan available skills in real time:**
+   - Scan `~/.claude/skills/` and plugin cache directories
+   - Read each skill's `description` field
+   - Match against the current requirement type (UI, data analysis, security, testing, etc.)
+
+2. **Scan available OMC agent types in real time:**
+   - Read the OMC agents directory (e.g. `~/.claude/plugins/cache/omc/.../agents/`)
+   - Identify agents relevant to the requirement (e.g. `designer` for UI work, `scientist` for data analysis, `security-reviewer` for auth/security)
+
+3. **Add matched skills and agents as optional Prerequisite entries in `# Action Items`:**
+   ```
+   **Optional tools discovered** (use if relevant):
+   - [ ] Use `<skill-name>` to produce `<specific output>` — <one-line reason>
+   - [ ] Delegate to `<omc-agent-type>` agent for `<specific subtask>` — <one-line reason>
+   ```
+
+4. **Inform the user** which skills/agents were found and briefly explain why they may help.
+
+> Rules: Scan in real time — never hardcode skill or agent names. Only surface tools with clear relevance to the current requirement. All entries are optional.
+
+---
 
 ## Output
 
