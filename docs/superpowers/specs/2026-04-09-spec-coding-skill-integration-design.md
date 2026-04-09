@@ -32,7 +32,9 @@ Three friction points:
 ```
 [superpowers:brainstorming]
          ↓
-  Phase 01 — Routing Node (new, ~10 lines in 01-initialization.md)
+  Phase 01 — Routing Node A: Requirement Clarity Check  (new, in 01-initialization.md)
+         ↓
+  Phase 01 — Routing Node B: Skill Discovery            (new, in 01-initialization.md)
          ↓
     init.md  (format unchanged)
          ↓
@@ -40,7 +42,7 @@ Three friction points:
          ↓
     tasks.md  (format unchanged)
          ↓
-  Phase 07 — Routing Node (new, ~15 lines in 06-start-and-resume.md)
+  Phase 07 — Routing Node C: Execution Mode Recommendation  (new, in 06-start-and-resume.md)
          ↓
 [OMC execution mode: /team / /ralph / /ultrawork / etc.]
 ```
@@ -79,6 +81,40 @@ Add a `## Step 0 — Requirement Clarity Check` section:
 - This is a **suggestion**, not a hard gate — user can skip
 - The spec doc is **referenced** (path recorded in init.md), not merged — two documents remain independent
 - When brainstorming upgrades, only the skill name in this step needs updating
+
+---
+
+## Phase 01 — Routing Node B: Skill & Agent Discovery
+
+**Location:** `spec-coding-skill/references/01-initialization.md`, when writing the `# Action Items` section.
+
+**Behavior:**
+
+Add a `## Step 2 — Skill & Agent Discovery` section that runs before writing Action Items:
+
+1. **Scan available skills in real time**
+   - Scan `~/.claude/skills/` and plugin cache directories
+   - Read each skill's `description` field
+   - Match against the current requirement type (UI, data analysis, security, etc.)
+
+2. **Scan available OMC agent types in real time**
+   - Read OMC agents directory (`~/.claude/plugins/cache/omc/.../agents/`)
+   - Identify agents relevant to the requirement (e.g., `designer` for UI work, `scientist` for data analysis)
+
+3. **Add matched skills and agents as optional Prerequisite entries in Action Items:**
+   ```
+   **Optional tools discovered** (use if relevant):
+   - [ ] Use `<skill-name>` to produce <specific output>  — <one-line reason>
+   - [ ] Delegate to `<omc-agent-type>` agent for <specific subtask>  — <one-line reason>
+   ```
+
+4. **Inform the user** which skills/agents were found and briefly explain why they may help.
+
+**Key decisions:**
+- Real-time scan — never hardcode skill or agent names
+- All entries are **optional** — user decides whether to use them
+- Only surface skills/agents with a clear relevance to the current requirement; no noise
+- When OMC or superpowers adds new agents/skills, this step picks them up automatically
 
 ---
 
