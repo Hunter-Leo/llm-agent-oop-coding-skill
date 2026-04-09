@@ -7,9 +7,11 @@ Create the requirement definition document before any planning or coding begins.
 Before starting Pre-flight Checks, assess whether the requirement is clear enough to write `init.md` directly.
 
 **Step 0a — Scan available clarification skills in real time:**
-- Scan `~/.claude/skills/` and plugin cache directories (e.g. `~/.claude/plugins/cache/`)
-- Identify skills whose `description` mentions: brainstorming, requirements gathering, interview, spec, or design exploration
+- Scan `~/.claude/skills/` for installed skills
+- Scan `~/.claude/plugins/cache/` — list subdirectories and look for `skills/` or `agents/` subfolders within each plugin
+- Identify skills whose `description` field mentions: brainstorming, requirements gathering, interview, spec, or design exploration
 - Build a candidate list with their names and one-line descriptions
+- If no clarification skills are found, proceed directly to Pre-flight Checks and note in `init.md` that no external clarification tools were available
 
 **Step 0b — Assess requirement clarity:**
 
@@ -27,6 +29,8 @@ Vague signals (recommend a clarification skill):
 |---|---|
 | Has direction, needs design exploration | `superpowers:brainstorming` (or equivalent found in scan) |
 | Very vague, many hidden assumptions, risk of misalignment | `oh-my-claudecode:deep-interview` (or equivalent found in scan) |
+
+> These are fallback suggestions if the scan finds no matching skills. Always prefer skills discovered in the real-time scan over these defaults.
 
 Inform the user:
 > "The requirement is still vague. Based on available skills, I recommend `<skill-name>` because `<one-line reason>`.
@@ -58,7 +62,7 @@ Before writing the `# Action Items` section of `init.md`, scan for available too
    - Match against the current requirement type (UI, data analysis, security, testing, etc.)
 
 2. **Scan available OMC agent types in real time:**
-   - Read the OMC agents directory (e.g. `~/.claude/plugins/cache/omc/.../agents/`)
+   - Read the OMC agents directory: list subdirectories under `~/.claude/plugins/cache/`, find the one containing an `agents/` folder, and read the `.md` files within it
    - Identify agents relevant to the requirement (e.g. `designer` for UI work, `scientist` for data analysis, `security-reviewer` for auth/security)
 
 3. **Add matched skills and agents as optional Prerequisite entries in `# Action Items`:**

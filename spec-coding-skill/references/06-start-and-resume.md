@@ -62,8 +62,9 @@ Before starting the Execution Loop, recommend the best execution mode for this r
 
 **Step 1 — Read OMC execution skills in real time:**
 - Scan `~/.claude/skills/` and OMC plugin cache directory
-- Find all Tier 4 execution-class skills (ralph, team, ultrawork, ultraqa, autopilot, etc.)
+- Find all execution-class skills — look for skills whose `description` or `Use_When` mentions: autonomous execution, parallel agents, task completion, workflow automation, or persistent loops
 - Read each skill's `Use_When` / `Do_Not_Use_When` descriptions
+- If no execution-class skills are found, proceed directly to the Execution Loop below
 
 **Step 2 — Analyze `tasks.md`:**
 - Total task count, type distribution (feature / test / UI / architecture / etc.)
@@ -92,7 +93,7 @@ c. Present the team configuration to the user:
    >
    > Confirm this configuration, or tell me what to adjust?
 
-d. After user confirmation, **agent directly invokes** the chosen execution mode, passing the team configuration and the path to this `start-and-resume.md` as worker context.
+d. After user confirmation, **agent directly invokes** the chosen execution mode using the Skill tool (e.g. `Skill(skill='oh-my-claudecode:team', args='3:executor "<task description>"')`), and instructs each worker to read `start-and-resume.md` at startup for Constitution and coding standards.
 
 > Rules: Agent role types are read from OMC in real time — never hardcoded. When OMC adds new execution modes, this step picks them up automatically on next run.
 

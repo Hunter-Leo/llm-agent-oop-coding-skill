@@ -71,6 +71,7 @@ After writing `plan.md`, review it against the following principles and fix any 
 
 **Constitution:**
 - [ ] All design decisions comply with `init.md § Constitution`
+- [ ] All design decisions are consistent with `algorithm-design.md` if Phase 03 was completed
 - [ ] No hardcoded secrets, environment-specific values, or magic numbers planned
 - [ ] No planned duplication of existing logic (DRY)
 - [ ] No planned `if/elif` chains that must be edited for every new case — replace with polymorphism
