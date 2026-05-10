@@ -1,24 +1,28 @@
 # spec-coding-skill
 
-A spec-driven skill for LLM agents to plan and implement large-scale coding tasks with structure, consistency, and quality.
+A spec-driven skill for LLM agents to plan and implement large-scale coding tasks with structure, consistency, and quality. Includes a project-level **Blueprint** for tracking all requirements, their phases, dependencies, and status at a glance.
 
 ## What It Does
 
 Guides an agent through six phases — from requirement definition to code execution — using a disciplined, document-first workflow. Each phase produces a concrete artifact that the next phase builds on.
 
 ```
-Phase 01 — Initialization              (required)
-              ↓
-Phase 02 — Prerequisite Tasks          (optional)
-Phase 03 — Algorithm Design            (optional)
-              ↓
-Phase 04 — Implementation Plan         (required)
-              ↓
-Phase 05 — Task Planning               (required)
-              ↓
+                 ┌──────────────────────────────┐
+                 │     .dev/blueprint.md         │  ← project-wide req overview
+                 └──────────────────────────────┘
+                              │
+Phase 01 — Initialization    │  (required)
+              ↓              │
+Phase 02 — Prerequisite Tasks     (optional)
+Phase 03 — Algorithm Design       (optional)
+              ↓              │
+Phase 04 — Implementation Plan    │  (required)
+              ↓              │
+Phase 05 — Task Planning          │  (required)
+              ↓              │
 Phase 06 — Create start-and-resume.md  (required)
-              ↓
-Phase 07 — Execution                   (required)
+              ↓              │
+Phase 07 — Execution          │  (required)
 ```
 
 ## Usage
@@ -40,13 +44,15 @@ The agent will:
 
 1. Ask about document language and whether to proceed interactively
 2. Create `.dev/[NNN]-[req-name]/init.md` with requirement definition
-3. Produce planning documents under `.dev/[NNN]-[req-name]/generated/`
-4. Execute tasks one by one, running tests after each
+3. Register the requirement in `.dev/blueprint.md` (project-level req roadmap)
+4. Produce planning documents under `.dev/[NNN]-[req-name]/generated/`
+5. Execute tasks one by one, running tests after each, updating the blueprint at each phase transition
 
 ### Project Structure
 
 ```
 .dev/
+├── blueprint.md                     # Project-wide req overview (status, deps, milestones)
 ├── TODO.md                          # Cross-requirement backlog
 └── 001-your-requirement/
     ├── init.md                      # Requirement definition
@@ -71,6 +77,7 @@ The agent will:
 | `references/06-start-and-resume.md` | Phase 06: execution loop, git workflow, resumption |
 | `references/07-oop-principles.md` | OOP & SOLID principles with examples |
 | `references/08-coding-standards.md` | Coding standards: universal + Python / TypeScript / Java |
+| `references/09-blueprint-management.md` | Blueprint layer: project-level req roadmap, status tracking |
 
 ## Installation
 
