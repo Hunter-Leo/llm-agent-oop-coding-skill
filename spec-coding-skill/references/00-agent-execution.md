@@ -4,6 +4,23 @@ These rules govern how the agent must behave throughout **all phases** of this s
 
 ---
 
+## Task Sizing
+
+At the start of every new requirement, assess its size before entering the phase flow. Ask:
+
+> "How many files will this change? Is the requirement well-defined or exploratory?"
+
+| Size | Criteria | Workflow |
+|------|----------|----------|
+| **XS** | 1 file, trivial change (typo, rename, default param) | Implement + test directly. No documents. |
+| **S** | 1–3 files, well-defined, no design ambiguity | Create a lightweight 1-page `init.md` (only Spec + Requirements), implement, test. Skip `plan.md`, `tasks.md`, `start-and-resume.md`. |
+| **M** | Multiple modules, moderate complexity | Full Phase 01–07 flow as documented. |
+| **L / XL** | Cross-requirement, multiple dependencies, high uncertainty | Full flow + Blueprint layer. Requires Phase 02 (research/inspect) before planning. |
+
+**XS and S tasks skip the standard phase flow.** For XS: read the file, make the change, verify, commit. For S: create a minimal `init.md`, implement, test, commit. Record the task in `.dev/TODO.md` if out of scope.
+
+This sizing replaces the one-size-fits-all approach. When in doubt between sizes, default to the **lighter** workflow — it is easier to add ceremony than to undo over-engineering.
+
 ## User Interaction
 
 ### Language

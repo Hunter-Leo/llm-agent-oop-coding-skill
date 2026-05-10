@@ -18,16 +18,19 @@ metadata:
 
 # Spec Coding Skill
 
-A spec-driven methodology for LLM agents to define, plan, and implement large-scale coding work with quality and consistency.
+A spec-driven methodology for LLM agents to define, plan, and implement coding work with quality and consistency. Includes automatic **task sizing** — trivial fixes skip document ceremony, while complex features get the full structured flow.
 
 ## When Activated
 
 1. **Read [00-agent-execution.md](references/00-agent-execution.md) first** — these are global rules that apply to every phase and take precedence over all other instructions
 2. **Check if `.dev/blueprint.md` exists** (project already has requirements):
    - **If yes**: run the [Session Bootstrap](references/06-start-and-resume.md#session-bootstrap-new-agent-session-on-existing-project) to present project status, then resume the active requirement
-   - **If no**: proceed with Phase 01 for the new requirement
-3. **Start Phase 01** — follow [01-initialization.md](references/01-initialization.md) to create the requirement definition document
-4. **Work through phases in order** — consult the reference file for each phase as you enter it
+   - **If no**: proceed with the new requirement
+3. **Run Task Sizing** — see [00-agent-execution.md § Task Sizing](references/00-agent-execution.md#task-sizing). Determines whether to:
+   - **XS/S**: implement directly with minimal or no documents
+   - **M/L/XL**: enter the standard Phase 01–07 flow
+4. **Start Phase 01** (if sized M+) — follow [01-initialization.md](references/01-initialization.md) to create the requirement definition document
+5. **Work through phases in order** — consult the reference file for each phase as you enter it
 
 All generated documents go under `.dev/[NNN]-[req-name]/` in the project root.
 
@@ -61,18 +64,26 @@ Blueprint management rules: [09-blueprint-management.md](references/09-blueprint
 ## Phase Overview
 
 ```
-Phase 01 — Initialization              (required)
+              ┌──────────────────────────┐
+              │    Task Sizing           │  ← mandatory first step
+              │  XS → direct implement   │     (see 00-agent-execution.md)
+              │  S  → minimal init.md    │
+              │  M+ → Phase 01-07 below  │
+              └──────────────────────────┘
+                          │ (M+ only)
+                          ▼
+Phase 01 — Initialization              (required for M+)
               ↓
 Phase 02 — Prerequisite Tasks          (optional, LLM judges)
 Phase 03 — Algorithm Design            (optional, LLM judges)
               ↓
-Phase 04 — Implementation Plan         (required)
+Phase 04 — Implementation Plan         (required for M+)
               ↓
-Phase 05 — Task Planning               (required)
+Phase 05 — Task Planning               (required for M+)
               ↓
-Phase 06 — Create start-and-resume.md  (required)
+Phase 06 — Create start-and-resume.md  (required for M+)
               ↓
-Phase 07 — Execution                   (required)
+Phase 07 — Execution                   (required for M+)
 ```
 
 Phases 02 and 03 are independent — both, one, or neither may be needed.

@@ -13,5 +13,10 @@
     "id": 3,
     "prompt": "I'm resuming work on this project. Half of the requirements are done, some are in progress. Give me a bird's-eye view of the entire project — progress summary, what's blocked, what's next, and the overall roadmap.",
     "expected": "Agent synthesizes across all .dev/ requirements to show project-wide status, remaining work, dependencies, and recommended next steps. Currently the skill only handles single-requirement context."
+  },
+  {
+    "id": 4,
+    "prompt": "Can you add a retry parameter to the send_email function in utils/email.py? It already exists, just need to add an optional retry_count: int = 0 parameter and if > 0 retry up to that many times on failure. Keep it simple.",
+    "expected": "Agent should recognize this as a small task (XS/S), skip heavy document ceremony, and go directly to reading the file, implementing, and testing. The agent should NOT create init.md, plan.md, tasks.md, or start-and-resume.md for a one-parameter change."
   }
 ]

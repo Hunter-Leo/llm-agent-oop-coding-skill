@@ -2,8 +2,10 @@
 
 Create the requirement definition document before any planning or coding begins.
 
-**Entry:** A need or requirement has been identified (user request, issue, or feature spec).
+**Entry:** A need or requirement has been identified, sized M or larger via [Task Sizing](00-agent-execution.md#task-sizing).
 **Exit:** `init.md` created at `.dev/[NNN]-[req-name]/init.md`, `.dev/blueprint.md` updated with the new requirement.
+
+> If the task was sized XS or S, this phase is skipped entirely. See [00-agent-execution.md § Task Sizing](00-agent-execution.md#task-sizing) for the direct execution flow.
 
 ## Step 0 — Requirement Clarity Check
 
