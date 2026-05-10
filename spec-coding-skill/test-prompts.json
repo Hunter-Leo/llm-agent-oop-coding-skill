@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "prompt": "I want to build a REST API for a task management app with user authentication, CRUD for tasks, and team collaboration features. Start the first requirement for user authentication.",
+    "expected": "Agent follows Phase 01-07 flow: creates init.md with clear spec, proceeds through plan.md, tasks.md, and execution. Output includes proper progress display and document structure under .dev/001-user-auth/."
+  },
+  {
+    "id": 2,
+    "prompt": "We have three requirements in flight: user auth (in execution), task CRUD (planned), and team collaboration (not started). Show me the overall project blueprint — what stage each requirement is in and the dependencies between them.",
+    "expected": "Agent should provide a top-level view showing all requirements, their current phases/stages, dependencies, and overall project status. This is where the blueprint gap should be visible."
+  },
+  {
+    "id": 3,
+    "prompt": "I'm resuming work on this project. Half of the requirements are done, some are in progress. Give me a bird's-eye view of the entire project — progress summary, what's blocked, what's next, and the overall roadmap.",
+    "expected": "Agent synthesizes across all .dev/ requirements to show project-wide status, remaining work, dependencies, and recommended next steps. Currently the skill only handles single-requirement context."
+  }
+]
