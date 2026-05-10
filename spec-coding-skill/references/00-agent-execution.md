@@ -155,3 +155,29 @@ Any additional context or suggested approach.
 **Type values:** `bug` · `feature` · `improvement` · `tech-debt`
 **Priority values:** `high` · `medium` · `low`
 **Status values:** `pending` · `planned` (a new `init.md` has been created) · `ignored`
+
+---
+
+## Handling Project Overview Queries
+
+When the user asks for a project-level overview — progress summary, status check, bird's-eye view, "where are we", or "what's next":
+
+1. **Read `.dev/blueprint.md`** — this is the single source of truth for project-wide status
+2. **For each requirement in `▶ in-progress` status**, also read its `tasks.md` for task-level detail
+3. **For each requirement in `⏸ blocked`**, read the `tasks.md` Notes and `init.md` to explain the blocker
+4. **Present** a structured summary:
+
+   ```
+   ## Project Status
+   
+   Total: N requirements | ✅ Done: X | ▶ Active: Y | ⏳ Idle: Z
+   
+   | Req | Phase | Status | Priority | Dependencies | Next Action |
+   |---|---|---|---|---|---|
+   | 001 user-auth | 07 Execution | ▶ in-progress | P0 | - | T-003: implement login |
+   | 002 task-crud | 04 Plan | ⏳ pending | P1 | 001 | ready to start Phase 05 |
+   ```
+
+5. If the user then asks about a specific requirement, follow the normal per-requirement flow from the relevant phase document.
+
+Do not answer a project overview query by describing only one requirement — always read the blueprint first.

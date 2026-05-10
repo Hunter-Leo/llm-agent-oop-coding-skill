@@ -17,11 +17,12 @@ Create `.dev/[NNN]-[req-name]/generated/start-and-resume.md`:
 5. Review the standards sections below before writing any code
 
 ## Resuming After Interruption
-1. Read `.dev/blueprint.md` — see all requirements, their phases, and overall project status
-2. Open `tasks.md` for the active requirement and find the first task not in `done`
-3. If a task is `in-progress`, read its Notes for context before continuing
-4. If a task is `blocked`, read the Notes and address the blocker first
-5. Review the standards sections below before continuing
+1. Read `00-agent-execution.md § Handling Project Overview Queries` — use this format to present the full project status when asked
+2. Read `.dev/blueprint.md` — see all requirements, their phases, and overall project status
+3. Open `tasks.md` for the active requirement and find the first task not in `done`
+4. If a task is `in-progress`, read its Notes for context before continuing
+5. If a task is `blocked`, read the Notes and address the blocker first
+6. Review the standards sections below before continuing
 
 ## Key Documents
 - Requirement: `.dev/[NNN]-[req-name]/init.md`
