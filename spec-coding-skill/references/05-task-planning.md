@@ -61,3 +61,7 @@ What was actually done. Note any deviation from plan.md.
 ## Out-of-Scope Items
 
 If you discover a bug or new requirement while working on a task, do **not** add it to `tasks.md`. Log it to `.dev/TODO.md` instead — see [00-agent-execution.md](00-agent-execution.md) for the format and rules.
+
+## After Completing Phase 05
+
+Update `.dev/blueprint.md`: advance this requirement's Phase to `05 Tasks` and Status to `✅ done` for this phase.

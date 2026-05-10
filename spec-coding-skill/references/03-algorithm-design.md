@@ -103,3 +103,7 @@ function solve(input):
 - Complete this document and review it before writing any implementation code
 - If the pseudocode reveals a flaw, revise the design here first
 - Reference this document in `plan.md`
+
+## After Completing Phase 03
+
+If Phase 03 was executed, update `.dev/blueprint.md`: advance this requirement's Phase to `03 Algorithm` and Status to `✅ done` for this phase.

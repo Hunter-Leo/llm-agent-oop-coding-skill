@@ -151,7 +151,18 @@ Coding standards for this specific requirement. First read the following documen
 
 Keep only the languages and rules that apply to this requirement.
 
-## After Creating init.md
+## Step 3 — Update Blueprint
+
+After creating `init.md` and its Action Items, register this requirement in the project blueprint.
+
+1. **Read** `.dev/blueprint.md` if it exists
+2. **Create** `.dev/blueprint.md` if this is the first requirement — use the template from [09-blueprint-management.md](09-blueprint-management.md)
+3. **Add a row** for this new requirement with:
+   - Phase: `01 Init`
+   - Status: `⏳ pending`
+   - Priority: inferred from the requirement urgency (P0/P1/P2)
+   - Dependencies: inferred from the requirement context
+4. **Update** the Progress Summary section to reflect the new total
 
 If `.dev/TODO.md` does not exist, create it now with the following skeleton:
 
@@ -173,5 +184,7 @@ Then inform the user:
 
 > ✅ `init.md` created at `.dev/[NNN]-[req-name]/init.md`
 >
-> Review the document and either edit it directly or tell me what to change.
+> ✅ Blueprint updated at `.dev/blueprint.md`
+>
+> Review the documents and either edit them directly or tell me what to change.
 > Reply **yes** or **continue** to begin executing the Action Items.

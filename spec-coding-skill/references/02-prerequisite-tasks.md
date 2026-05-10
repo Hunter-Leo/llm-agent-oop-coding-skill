@@ -95,3 +95,7 @@ These are not optional — a design document without diagrams and examples is in
 - Responsive behavior and breakpoints
 - Accessibility requirements (WCAG level, keyboard navigation, ARIA)
 - Reference designs or style guides if provided
+
+## After Completing Phase 02
+
+If Phase 02 was executed, update `.dev/blueprint.md`: advance this requirement's Phase to `02 Prerequisite` and Status to `✅ done` for this phase.

@@ -17,6 +17,33 @@ A spec-driven methodology for LLM agents to define, plan, and implement large-sc
 
 All generated documents go under `.dev/[NNN]-[req-name]/` in the project root.
 
+## Blueprint Layer (above all phases)
+
+The Blueprint is a project-level document that tracks every requirement, its current phase, status, and dependencies. It provides the bird's-eye view missing from per-requirement documents.
+
+```
+                 ┌──────────────────────────────┐
+                 │     .dev/blueprint.md         │  ← created at project start
+                 │  (all requirements + status)  │     updated at each phase transition
+                 └──────────────────────────────┘
+                              │
+                              ▼
+Phase 01 — Initialization    │  (registers new req in blueprint)
+              ↓              │
+Phase 02 — Prerequisite Tasks     (optional)
+Phase 03 — Algorithm Design       (optional)
+              ↓              │
+Phase 04 — Implementation Plan    │  (advances req phase in blueprint)
+              ↓              │
+Phase 05 — Task Planning          │
+              ↓              │
+Phase 06 — Create start-and-resume.md
+              ↓              │
+Phase 07 — Execution         │  (updates req status in blueprint)
+```
+
+Blueprint management rules: [09-blueprint-management.md](references/09-blueprint-management.md)
+
 ## Phase Overview
 
 ```
@@ -40,6 +67,7 @@ Phases 02 and 03 are independent — both, one, or neither may be needed.
 
 | Phase | Output | Reference |
 |---|---|---|
+| Blueprint layer | `.dev/blueprint.md` | [09-blueprint-management.md](references/09-blueprint-management.md) |
 | 01 Initialization | `init.md` | [01-initialization.md](references/01-initialization.md) |
 | 02 Prerequisite Tasks | `inspect.md` / `research.md` / `profiling.md` / `diagnosis.md` | [02-prerequisite-tasks.md](references/02-prerequisite-tasks.md) |
 | 03 Algorithm Design | `algorithm-design.md` | [03-algorithm-design.md](references/03-algorithm-design.md) |
@@ -63,3 +91,4 @@ Phases 02 and 03 are independent — both, one, or neither may be needed.
 - Minimize changes when the project is `live`; breaking changes are allowed for `pre-launch` + new modules
 - Never hardcode secrets; use environment variables
 - All identifiers, comments, and docs must be in English
+- **Maintain the blueprint** — update `.dev/blueprint.md` at every phase transition for any requirement

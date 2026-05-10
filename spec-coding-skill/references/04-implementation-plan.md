@@ -77,3 +77,7 @@ After writing `plan.md`, review it against the following principles. If any chec
 - [ ] No planned `if/elif` chains that must be edited for every new case — replace with polymorphism
 
 If any check fails, revise the relevant section of `plan.md` before proceeding to Phase 05.
+
+## After Completing Phase 04
+
+Update `.dev/blueprint.md`: advance this requirement's Phase to `04 Plan` and Status to `✅ done` for this phase. See [09-blueprint-management.md](09-blueprint-management.md) for the full update rules.

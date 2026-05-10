@@ -10,16 +10,18 @@ Create `.dev/[NNN]-[req-name]/generated/start-and-resume.md`:
 # Start and Resume Guide — [NNN]-[req-name]
 
 ## Quick Start
-1. Read `init.md` — requirement scope
-2. Read `plan.md` — technical approach
-3. Read `tasks.md` — find the next `not-started` task
-4. Review the standards sections below before writing any code
+1. Read `.dev/blueprint.md` — project-wide status across all requirements
+2. Read `init.md` — this requirement's scope
+3. Read `plan.md` — technical approach
+4. Read `tasks.md` — find the next `not-started` task
+5. Review the standards sections below before writing any code
 
 ## Resuming After Interruption
-1. Open `tasks.md` and find the first task not in `done`
-2. If a task is `in-progress`, read its Notes for context before continuing
-3. If a task is `blocked`, read the Notes and address the blocker first
-4. Review the standards sections below before continuing
+1. Read `.dev/blueprint.md` — see all requirements, their phases, and overall project status
+2. Open `tasks.md` for the active requirement and find the first task not in `done`
+3. If a task is `in-progress`, read its Notes for context before continuing
+4. If a task is `blocked`, read the Notes and address the blocker first
+5. Review the standards sections below before continuing
 
 ## Key Documents
 - Requirement: `.dev/[NNN]-[req-name]/init.md`
@@ -97,6 +99,10 @@ d. After user confirmation, **agent directly invokes** the chosen execution mode
 
 > Rules: Agent role types are read from OMC in real time — never hardcoded. When OMC adds new execution modes, this step picks them up automatically on next run.
 
+## After Completing Phase 06
+
+`start-and-resume.md` now exists and the execution mode is set. Before entering the execution loop, update `.dev/blueprint.md`: advance this requirement's Phase to `06 Start-and-resume` and Status to `▶ in-progress` (execution is about to begin).
+
 ---
 
 ## Execution Loop
@@ -167,11 +173,12 @@ All 12 tests pass.
 
 When all tasks in `tasks.md` reach `done`:
 
-1. Notify the user:
+1. **Update `.dev/blueprint.md`** — set this requirement's Phase to `07 Done` and Status to `✅ done`. Read [09-blueprint-management.md](09-blueprint-management.md) for the full blueprint update rules.
+2. Notify the user:
    > ✅ All tasks complete for requirement [NNN]-[req-name].
    > Summary: X tasks completed, Y deviations from plan recorded in tasks.md.
-2. Check `.dev/TODO.md` — if any items have `Source` matching this requirement, update their status to `pending` (confirm they are still relevant)
-3. Suggest creating a pull request for branch `<type>/[NNN]-[req-name]`
+3. Check `.dev/TODO.md` — if any items have `Source` matching this requirement, update their status to `pending` (confirm they are still relevant)
+4. Suggest creating a pull request for branch `<type>/[NNN]-[req-name]`
 
 ---
 
