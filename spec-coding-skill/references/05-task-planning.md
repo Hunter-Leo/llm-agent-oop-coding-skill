@@ -18,16 +18,39 @@ Before writing `tasks.md`:
 ### Status Table
 
 ```markdown
-| ID    | Task Name              | Status      | Notes |
-|-------|------------------------|-------------|-------|
-| T-001 | Implement X            | not-started |       |
-| T-002 | Unit tests for X       | not-started |       |
-| T-003 | Implement Y            | not-started |       |
+| ID    | Type | Task Name                     | Status      | Priority | Deps     | Notes |
+|-------|------|-------------------------------|-------------|----------|----------|-------|
+| T-001 | feat | Implement user repository     | done        | P0       | -        |       |
+| T-002 | test | Unit tests for user repo      | not-started | P0       | T-001    |       |
+| T-003 | feat | Implement login endpoint      | in-progress | P0       | T-001    |       |
 ```
 
 **Status values:** `not-started` · `in-progress` · `done` · `blocked`
 
-**ID format:** `T-001`, `T-002`, `T-003`, …
+**ID format:** `T-001`, `T-002`, `T-003`, … (sequentially numbered, no gaps)
+
+**Type values:**
+
+| Type | When to Use |
+|------|-------------|
+| `feat` | New feature, API endpoint, module, or component |
+| `test` | Unit tests, integration tests, E2E tests |
+| `refactor` | Code restructuring without behavior change |
+| `fix` | Bug fix in existing code |
+| `docs` | Documentation, comments, docstrings |
+| `config` | Build config, CI/CD, tooling, dependencies |
+| `db` | Database migration, schema change, seed data |
+| `ui` | UI component, styling, layout |
+
+**Priority values:** `P0` blocker · `P1` core · `P2` nice-to-have
+
+**Task naming convention:** `<imperative verb> <noun>` — e.g. "Implement user repository", not "User repository implementation"
+
+### Dependency Rules
+
+- Add dependencies in the `Deps` column using `T-XXX` IDs
+- A task with unmet dependencies must stay `not-started` until all deps reach `done`
+- Circular dependencies are not allowed — if you find one, split the tasks or redesign
 
 ### Task Detail Block
 
