@@ -6,7 +6,30 @@ These rules govern how the agent must behave throughout **all phases** of this s
 
 ## Task Sizing
 
-At the start of every new requirement, assess its size before entering the phase flow. Ask:
+At the start of every new requirement, first check whether the requirement is clear enough to size at all. Then assess size.
+
+### Clarity Gate (applies to all task sizes)
+
+Before sizing, check:
+
+**Clear signals** (proceed to sizing):
+- User provided specific functional description, file paths, or technical approach
+- Requirement is concrete enough to estimate files affected
+
+**Vague signals** (pause and ask instead of proceeding):
+- Requirement is a single sentence with no technical detail: *"I want something like Twitter but better"*
+- User says "I haven't figured it out yet" or has a "vague idea"
+- You cannot estimate how many files the change requires
+
+If vague, tell the user:
+
+> "This requirement sounds vague. I'd recommend clarifying it before I start working. Could you share more detail about what you're looking for? Or if you'd like, I can suggest a structured exploration approach."
+
+Then wait for a clearer description before proceeding to sizing.
+
+### Sizing
+
+Once the requirement is clear enough, ask:
 
 > "How many files will this change? Is the requirement well-defined or exploratory?"
 
