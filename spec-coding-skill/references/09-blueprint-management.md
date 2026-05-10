@@ -28,6 +28,24 @@ The blueprint exists at `.dev/blueprint.md`, sitting alongside `TODO.md` at the 
 
 Last updated: 2026-05-10
 
+## Status Distribution
+
+```mermaid
+pie title Requirement Status
+    "Done" : 1
+    "In Progress" : 1
+    "Pending" : 2
+```
+
+## Progress Bar
+
+```
+001 user-auth     [████████░░░░░░░░░░░░] 40%
+002 task-crud     [██░░░░░░░░░░░░░░░░░░] 10%
+
+Overall:          [██████████░░░░░░░░░░] 25%
+```
+
 ## Roadmap
 
 | ID | Name | Phase | Status | Dependencies | Priority | Notes |
@@ -56,6 +74,24 @@ Total: 2 requirements
 graph LR
     001-->002
 ```
+
+## Milestones
+
+| Milestone | Target | Status | Requirements |
+|---|---|---|---|
+| v1.0 MVP | 2026-06-15 | ▶ on track | 001, 002 |
+
+**Status labels:** `▶ on track` · `⚠ at risk` · `⏸ delayed` · `✅ achieved`
+
+## Effort Overview
+
+| Req | Name | Estimate | Actual | Remaining |
+|-----|------|----------|--------|-----------|
+| 001 | user-auth | L | M | ~2d |
+| 002 | task-crud | XL | - | ~5d |
+| **Total** | | | | **~7d** |
+
+**Estimate labels:** `XS` ≤1d · `S` ≤3d · `M` ≤1w · `L` ≤2w · `XL` >2w
 
 ## Quick Reference
 
