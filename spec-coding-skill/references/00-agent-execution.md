@@ -82,6 +82,17 @@ At the start of execution and before each phase, display the current progress:
 
 ---
 
+## Design Principle Compliance
+
+All design and code produced across every phase must follow:
+
+- **OOP principles** — encapsulation, abstraction, inheritance, polymorphism (see [07-oop-principles.md](07-oop-principles.md))
+- **SOLID principles** — SRP, OCP, LSP, ISP, DIP (see [07-oop-principles.md](07-oop-principles.md))
+
+These apply from Phase 01 onward. The Constitution section in `init.md` (Phase 01) is the first enforcement point — do not defer OOP/SOLID thinking to Phase 04.
+
+---
+
 ## Self-Check After Each Task
 
 Before marking a task `done`, verify:

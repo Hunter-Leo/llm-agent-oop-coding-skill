@@ -1,7 +1,7 @@
 # Phase 02 — Prerequisite Tasks
 
-**Entry:** `init.md` exists for this requirement, and analysis/investigation is needed before planning.
-**Exit:** Required prerequisite documents created (`inspect.md`, `research.md`, `profiling.md`, `diagnosis.md`, or `ui-design.md` as needed).
+**Entry:** `init.md` exists for this requirement with Constitution defined (including OOP & SOLID rules from Phase 01), and analysis/investigation is needed before planning.
+**Exit:** Required prerequisite documents created (`inspect.md`, `research.md`, `profiling.md`, `diagnosis.md`, or `ui-design.md` as needed). All OOP & SOLID considerations relevant to this phase are captured (see OOP paragraph below).
 
 This phase is **optional**. Before deciding whether to skip it, complete the reasoning step below.
 
@@ -52,6 +52,11 @@ These are not optional — a design document without diagrams and examples is in
 - Call graph of affected components
 - Reusable functions and patterns already present
 - Risks and areas requiring care during modification
+
+**OOP considerations during inspection:**
+- Evaluate whether existing code follows SRP (classes doing one thing) and OCP (open for extension)
+- Note any `if/elif` chains that violate OCP — these signal future refactoring needs
+- Assess composition vs. inheritance patterns in the existing codebase
 
 ## research.md
 

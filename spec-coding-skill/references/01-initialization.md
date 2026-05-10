@@ -147,12 +147,12 @@ All generated documents go under `.dev/[NNN]-[req-name]/generated/`.
 
 ### # Constitution
 
-Coding standards for this specific requirement. First read the following documents, then copy and trim the relevant sections:
+Mandatory coding standards for this requirement. Read the following documents and include applicable rules in this section of `init.md`:
 
-- [07-oop-principles.md](07-oop-principles.md) — OOP & SOLID principles
+- [07-oop-principles.md](07-oop-principles.md) — OOP & SOLID principles (**all code must comply; this section must include the relevant rules**)
 - [08-coding-standards.md](08-coding-standards.md) — language-specific standards
 
-Keep only the languages and rules that apply to this requirement.
+Keep only the languages and rules that apply to this requirement. Document any project-specific extensions (e.g., team conventions not covered by the reference documents).
 
 ## Step 3 — Update Blueprint
 
