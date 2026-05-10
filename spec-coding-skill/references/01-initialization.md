@@ -2,6 +2,9 @@
 
 Create the requirement definition document before any planning or coding begins.
 
+**Entry:** A need or requirement has been identified (user request, issue, or feature spec).
+**Exit:** `init.md` created at `.dev/[NNN]-[req-name]/init.md`, `.dev/blueprint.md` updated with the new requirement.
+
 ## Step 0 — Requirement Clarity Check
 
 Before starting Pre-flight Checks, assess whether the requirement is clear enough to write `init.md` directly.

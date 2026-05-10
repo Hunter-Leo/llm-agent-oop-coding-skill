@@ -2,6 +2,9 @@
 
 Produce `tasks.md` after `plan.md` is complete. This document drives all execution in Phase 06.
 
+**Entry:** `plan.md` exists at `.dev/[NNN]-[req-name]/generated/plan.md`.
+**Exit:** `tasks.md` created at `.dev/[NNN]-[req-name]/generated/tasks.md` with all tasks defined.
+
 Before writing `tasks.md`:
 1. Read `plan.md` in full — tasks must map directly to the implementation path defined there
 2. Read `init.md § Constitution` — ensure each implementation task has a corresponding test task as required by the constitution

@@ -1,5 +1,10 @@
 # Phase 06 — Create start-and-resume.md / Phase 07 — Execution
 
+**Entry (Phase 06):** `tasks.md` exists at `.dev/[NNN]-[req-name]/generated/tasks.md`.
+**Exit (Phase 06):** `start-and-resume.md` created, execution mode confirmed.
+**Entry (Phase 07):** `start-and-resume.md` exists (mandatory gate).
+**Exit (Phase 07):** All tasks in `tasks.md` reach `done`, `.dev/blueprint.md` updated.
+
 ## Step 0 — Phase 06: Create start-and-resume.md (mandatory gate)
 
 **Do not begin the execution loop until this file exists.**

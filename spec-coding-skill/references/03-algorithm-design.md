@@ -1,5 +1,8 @@
 # Phase 03 — Algorithm Design
 
+**Entry:** `init.md` exists, and the requirement involves non-trivial algorithms (search, optimization, data transformation, graph processing, etc.).
+**Exit:** `algorithm-design.md` created with pseudocode and complexity analysis.
+
 This phase is **optional**. Produce `algorithm-design.md` when the requirement involves implementing a non-trivial algorithm.
 
 ## Trigger Conditions

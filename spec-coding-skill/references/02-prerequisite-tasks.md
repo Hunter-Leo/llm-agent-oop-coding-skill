@@ -1,5 +1,8 @@
 # Phase 02 — Prerequisite Tasks
 
+**Entry:** `init.md` exists for this requirement, and analysis/investigation is needed before planning.
+**Exit:** Required prerequisite documents created (`inspect.md`, `research.md`, `profiling.md`, `diagnosis.md`, or `ui-design.md` as needed).
+
 This phase is **optional**. Before deciding whether to skip it, complete the reasoning step below.
 
 ## Reasoning Step (required before skipping)
