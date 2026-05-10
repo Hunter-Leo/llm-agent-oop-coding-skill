@@ -1,6 +1,6 @@
 ---
 name: spec-coding-skill
-description: Guides LLM agents through large-scale coding tasks using a spec-driven, phase-by-phase methodology covering requirement definition, planning, algorithm design, and implementation with OOP principles and language-specific coding standards. Use when starting a new software project, implementing a complex feature, refactoring existing code, or when you need a disciplined step-by-step approach to any non-trivial coding task. Keywords: spec-driven development, coding methodology, software engineering workflow, requirements-to-code pipeline, project blueprint.
+description: "Guides LLM agents through large-scale coding tasks using a spec-driven, phase-by-phase methodology covering requirement definition, planning, algorithm design, and implementation with OOP principles and language-specific coding standards. Use when starting a new software project, implementing a complex feature, refactoring existing code, or when you need a disciplined step-by-step approach to any non-trivial coding task. Keywords: spec-driven development, coding methodology, software engineering workflow, requirements-to-code pipeline, project blueprint."
 triggers:
   - spec-driven
   - coding task
