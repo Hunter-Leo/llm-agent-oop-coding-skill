@@ -17,6 +17,11 @@
   {
     "id": 4,
     "prompt": "Can you add a retry parameter to the send_email function in utils/email.py? It already exists, just need to add an optional retry_count: int = 0 parameter and if > 0 retry up to that many times on failure. Keep it simple.",
-    "expected": "Agent should recognize this as a small task (XS/S), skip heavy document ceremony, and go directly to reading the file, implementing, and testing. The agent should NOT create init.md, plan.md, tasks.md, or start-and-resume.md for a one-parameter change."
+    "expected": "Agent should recognize this as XS, skip all documents, and directly implement + test."
+  },
+  {
+    "id": 5,
+    "prompt": "I need a new utility function to validate email addresses in src/utils/validators.py. Just a simple is_valid_email(email: str) -> bool that checks for @ and a domain part. No external deps.",
+    "expected": "Agent should recognize this as S (1 file, well-defined), create a minimal 1-page init.md with only Spec and Requirements, implement, test, and commit. Should NOT create plan.md, tasks.md, or start-and-resume.md."
   }
 ]

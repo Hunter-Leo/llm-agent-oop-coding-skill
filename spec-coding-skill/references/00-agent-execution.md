@@ -21,6 +21,19 @@ At the start of every new requirement, assess its size before entering the phase
 
 This sizing replaces the one-size-fits-all approach. When in doubt between sizes, default to the **lighter** workflow — it is easier to add ceremony than to undo over-engineering.
 
+### Communicating the Sizing Decision
+
+After sizing, **tell the user** what you decided and why:
+
+- **XS**: `"This looks like a small change (XS). I'll go ahead and implement it directly."`
+- **S**: `"This is well-defined and affects few files (S). I'll create a quick init.md and implement."`
+- **M**: `"This involves multiple modules (M). I'll proceed with the full Phase 01–07 flow."`
+- **L/XL**: `"This has cross-cutting concerns (L). I'll start with research before planning."`
+
+After announcing the size, ask briefly: `"Sound good?"` and proceed unless the user objects. This gives the user a chance to correct the sizing without requiring a formal confirmation step.
+
+> For XS and S tasks, do not ask "which language" or "interactive mode" — those questions only apply to the full phase flow. Just size, announce, and proceed.
+
 ## User Interaction
 
 ### Language
