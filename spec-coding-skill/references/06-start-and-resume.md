@@ -33,25 +33,36 @@ Create `.dev/[NNN]-[req-name]/generated/start-and-resume.md`:
 
 When entering an existing project that already has `.dev/` content, bootstrap the session before any work:
 
-1. **Read `.dev/blueprint.md`** — project-wide status
-2. **Present** the full status to the user proactively (don't wait to be asked):
+1. **Check `.dev/blueprint.md`** — if missing, scan `.dev/` directories to reconstruct it from existing `init.md` files, then inform the user
+
+2. **Read** the blueprint and for each ▶ active or ⏸ blocked requirement, read `tasks.md` for current task detail
+
+3. **Present** the full status to the user proactively (don't wait to be asked):
 
    ```
-   ## Project Status (from blueprint)
+   ## Project Status
    
-   Total: N requirements | ✅ Done: X | ▶ Active: Y | ⏳ Idle: Z
+   Blueprint: 3 requirements | ✅ Done: 1 | ▶ Active: 1 | ⏳ Idle: 1
+   Backlog:   .dev/TODO.md has 2 unresolved items
    
    | Req | Phase | Status | Priority | Next Action |
    |-----|-------|--------|----------|-------------|
-   | 001 user-auth | 07 Execution | ▶ in-progress | P0 | T-003 |
+   | 001 user-auth | 07 Execution | ▶ in-progress | P0 | T-003: implement login |
    | 002 task-crud | 04 Plan | ⏳ pending | P1 | wait for 001 |
+   | 003 collab    | 07 Done     | ✅ done    | P2 | shipped |
    
-   **Active requirement**: 001-user-auth (T-003: implement login — in-progress)
-   **Next**: continue T-003 or review latest tasks.md
+   **Recommended**: continue with 001-user-auth (T-003 is in-progress)
+   **Active requirement**: 001-user-auth
+   **Next task**: T-003 — implement login
    ```
 
-3. **Ask** the user which requirement to focus on, or proceed with the active one
-4. **Open** `tasks.md` for the chosen requirement and find the next task
+   Edge cases:
+   - **All done**: "🎉 All requirements complete! Check `.dev/TODO.md` for backlog items."
+   - **All blocked**: "⚠ All active requirements are blocked. See blocker notes below."
+   - **Blueprint missing**: "No blueprint found. Scanned `.dev/` and found N requirements. Reconstructing blueprint..."
+
+4. **Ask** the user which requirement to focus on, or proceed with the active one
+5. **Open** `tasks.md` for the chosen requirement and find the next unstarted task
 
 > This applies whenever `.dev/blueprint.md` exists, regardless of whether the user explicitly asked for an overview. Do not skip to task execution without first showing the blueprint.
 
