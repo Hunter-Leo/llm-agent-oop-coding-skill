@@ -23,8 +23,11 @@ A spec-driven methodology for LLM agents to define, plan, and implement large-sc
 ## When Activated
 
 1. **Read [00-agent-execution.md](references/00-agent-execution.md) first** — these are global rules that apply to every phase and take precedence over all other instructions
-2. **Start Phase 01** — follow [01-initialization.md](references/01-initialization.md) to create the requirement definition document
-3. **Work through phases in order** — consult the reference file for each phase as you enter it
+2. **Check if `.dev/blueprint.md` exists** (project already has requirements):
+   - **If yes**: run the [Session Bootstrap](references/06-start-and-resume.md#session-bootstrap-new-agent-session-on-existing-project) to present project status, then resume the active requirement
+   - **If no**: proceed with Phase 01 for the new requirement
+3. **Start Phase 01** — follow [01-initialization.md](references/01-initialization.md) to create the requirement definition document
+4. **Work through phases in order** — consult the reference file for each phase as you enter it
 
 All generated documents go under `.dev/[NNN]-[req-name]/` in the project root.
 

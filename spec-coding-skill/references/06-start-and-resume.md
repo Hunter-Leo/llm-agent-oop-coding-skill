@@ -24,6 +24,32 @@ Create `.dev/[NNN]-[req-name]/generated/start-and-resume.md`:
 5. If a task is `blocked`, read the Notes and address the blocker first
 6. Review the standards sections below before continuing
 
+## Session Bootstrap (new agent session on existing project)
+
+When entering an existing project that already has `.dev/` content, bootstrap the session before any work:
+
+1. **Read `.dev/blueprint.md`** — project-wide status
+2. **Present** the full status to the user proactively (don't wait to be asked):
+
+   ```
+   ## Project Status (from blueprint)
+   
+   Total: N requirements | ✅ Done: X | ▶ Active: Y | ⏳ Idle: Z
+   
+   | Req | Phase | Status | Priority | Next Action |
+   |-----|-------|--------|----------|-------------|
+   | 001 user-auth | 07 Execution | ▶ in-progress | P0 | T-003 |
+   | 002 task-crud | 04 Plan | ⏳ pending | P1 | wait for 001 |
+   
+   **Active requirement**: 001-user-auth (T-003: implement login — in-progress)
+   **Next**: continue T-003 or review latest tasks.md
+   ```
+
+3. **Ask** the user which requirement to focus on, or proceed with the active one
+4. **Open** `tasks.md` for the chosen requirement and find the next task
+
+> This applies whenever `.dev/blueprint.md` exists, regardless of whether the user explicitly asked for an overview. Do not skip to task execution without first showing the blueprint.
+
 ## Key Documents
 - Requirement: `.dev/[NNN]-[req-name]/init.md`
 - Plan: `.dev/[NNN]-[req-name]/generated/plan.md`
