@@ -23,5 +23,10 @@
     "id": 5,
     "prompt": "I need a new utility function to validate email addresses in src/utils/validators.py. Just a simple is_valid_email(email: str) -> bool that checks for @ and a domain part. No external deps.",
     "expected": "Agent should recognize this as S (1 file, well-defined), create a minimal 1-page init.md with only Spec and Requirements, implement, test, and commit. Should NOT create plan.md, tasks.md, or start-and-resume.md."
+  },
+  {
+    "id": 6,
+    "prompt": "I want something like an internal dashboard for my team. You know, to show some metrics and stuff.",
+    "expected": "Agent should recognize the requirement as vague, NOT proceed to sizing or implementation, and ask the user for clarification: what metrics, who is the audience, what tech stack."
   }
 ]
