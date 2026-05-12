@@ -59,7 +59,16 @@ Once the requirement is clear enough, ask:
 - Add unit tests for retry success, exhaustion, and no-retry paths
 ```
 
-**XS and S tasks skip the standard phase flow** (no plan.md, tasks.md, start-and-resume.md). For XS: read the file, make the change, verify, commit. For S: create a lightweight `init.md`, implement, test, commit.
+**XS and S tasks skip the standard phase flow** (no plan.md, tasks.md, start-and-resume.md), but they still follow the [Git Workflow](06-start-and-resume.md#git-workflow). The full rules are in `06-start-and-resume.md` — the essentials for XS/S:
+
+- Create a branch first (never commit to main): `<type>/<short-description>` (e.g. `fix/email-retry-param`)
+- Commit format (Google style): `<type>: <capitalized imperative summary, ≤ 72 chars>`
+- Body explains why and what, not how. Wrap at 72 chars. In English.
+- Pre-commit: tests pass, no lint errors, no secrets, docstrings complete
+- After merge: ask user before deleting the branch
+
+For XS: read the file, make the change, verify, commit.
+For S: create a lightweight `init.md`, implement, test, commit.
 
 **However, XS and S code must still comply with all standards.** Task size only affects document ceremony — code quality is not negotiable:
 
