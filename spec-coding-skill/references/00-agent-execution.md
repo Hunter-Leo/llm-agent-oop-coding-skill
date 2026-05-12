@@ -35,10 +35,29 @@ Once the requirement is clear enough, ask:
 
 | Size | Criteria | Workflow |
 |------|----------|----------|
-| **XS** | 1 file, trivial change (typo, rename, default param) | Implement + test directly. No documents. |
-| **S** | 1–3 files, well-defined, no design ambiguity | Create a lightweight 1-page `init.md` (only Spec + Requirements), implement, test. Skip `plan.md`, `tasks.md`, `start-and-resume.md`. |
+| **XS** | 1 file, trivial change (typo, rename, default param) | Brief `init.md` (inline plan only), user review, implement, test. |
+| **S** | 1–3 files, well-defined, no design ambiguity | Lightweight `init.md` (Spec + Requirements + Plan), user review, implement, test. |
 | **M** | Multiple modules, moderate complexity | Full Phase 01–07 flow as documented. |
 | **L / XL** | Cross-requirement, multiple dependencies, high uncertainty | Full flow + Blueprint layer. Requires Phase 02 (research/inspect) before planning. |
+
+**Every size must produce a reviewable plan before implementation starts.** The plan lives in `init.md` — its depth scales with task size, but the principle is the same: the person who raised the requirement gets to review and approve the approach before any code is written.
+
+| Size | Plan location | Plan content | Review trigger |
+|------|-------------|-------------|----------------|
+| XS | Inline in `init.md` | 1-3 bullet points: what changes, which files, any risks | "Here's the plan — sound good?" |
+| S | Inline in `init.md` | §Plan section: files to add/modify, approach, test strategy | "init.md ready for review — OK to proceed?" |
+| M | Separate `plan.md` | Full plan: project structure, tech decisions, implementation path | Phase 04 Design Compliance Review |
+| L/XL | Separate `plan.md` + prereq docs | Full plan + research/inspect findings | Phase 02 + Phase 04 review |
+
+**Example — XS init.md inline plan:**
+```markdown
+# Plan — send_email retry
+
+## Changes
+- Add `retry_count: int = 0` param to `send_email()` in `utils/email.py`
+- Wrap SMTP call in retry loop, retry only on SMTPException
+- Add unit tests for retry success, exhaustion, and no-retry paths
+```
 
 **XS and S tasks skip the standard phase flow.** For XS: read the file, make the change, verify, commit. For S: create a minimal `init.md`, implement, test, commit. Record the task in `.dev/TODO.md` if out of scope.
 
@@ -46,12 +65,14 @@ This sizing replaces the one-size-fits-all approach. When in doubt between sizes
 
 ### Communicating the Sizing Decision
 
-After sizing, **tell the user** what you decided and why:
+After sizing, **tell the user** your size decision and what to expect:
 
-- **XS**: `"This looks like a small change (XS). I'll go ahead and implement it directly."`
-- **S**: `"This is well-defined and affects few files (S). I'll create a quick init.md and implement."`
-- **M**: `"This involves multiple modules (M). I'll proceed with the full Phase 01–07 flow."`
-- **L/XL**: `"This has cross-cutting concerns (L). I'll start with research before planning."`
+- **XS**: `"This is XS — I'll draft a quick plan in init.md for your review, then implement."`
+- **S**: `"This is S — I'll put together init.md with spec and plan for you to review, then implement."`
+- **M**: `"This involves multiple modules (M). I'll proceed with the full Phase 01–07 flow and you'll review at each phase."`
+- **L/XL**: `"This has cross-cutting concerns (L). I'll start with research and share findings before planning."`
+
+> For XS and S, do not ask "which language" or "interactive mode" — those questions only apply to the full phase flow. Do write the plan in init.md and wait for confirmation before implementing.
 
 After announcing the size, ask briefly: `"Sound good?"` and proceed unless the user objects. This gives the user a chance to correct the sizing without requiring a formal confirmation step.
 
