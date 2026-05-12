@@ -74,7 +74,8 @@ The agent will:
 | `references/03-algorithm-design.md` | Phase 03: algorithm design for complex logic |
 | `references/04-implementation-plan.md` | Phase 04: creating `plan.md` |
 | `references/05-task-planning.md` | Phase 05: creating `tasks.md` |
-| `references/06-start-and-resume.md` | Phase 06: execution loop, git workflow, resumption |
+| `references/06-start-and-resume.md` | Phase 06: execution loop and resumption |
+| `references/10-git-workflow.md` | Git workflow: branch, commit, PR/merge, tagging |
 | `references/07-oop-principles.md` | OOP & SOLID principles with examples |
 | `references/08-coding-standards.md` | Coding standards: universal + Python / TypeScript / Java |
 | `references/09-blueprint-management.md` | Blueprint layer: project-level req roadmap, status tracking |

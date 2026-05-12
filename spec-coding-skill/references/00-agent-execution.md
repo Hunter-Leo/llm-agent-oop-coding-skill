@@ -59,7 +59,7 @@ Once the requirement is clear enough, ask:
 - Add unit tests for retry success, exhaustion, and no-retry paths
 ```
 
-**XS and S tasks skip the standard phase flow** (no plan.md, tasks.md, start-and-resume.md), but they still follow the [Git Workflow](06-start-and-resume.md#git-workflow). The full rules are in `06-start-and-resume.md` — the essentials for XS/S:
+**XS and S tasks skip the standard phase flow** (no plan.md, tasks.md, start-and-resume.md), but they still follow the [Git Workflow](10-git-workflow.md). The full rules are in `10-git-workflow.md` — the essentials for XS/S:
 
 - Create a branch first (never commit to main): `<type>/<short-description>` (e.g. `fix/email-retry-param`)
 - Commit format (Google style): `<type>: <capitalized imperative summary, ≤ 72 chars>`

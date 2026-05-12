@@ -26,9 +26,11 @@ spec-coding-skill/
     ├── 03-algorithm-design.md      # Phase 03: algorithm design
     ├── 04-implementation-plan.md   # Phase 04: create plan.md
     ├── 05-task-planning.md         # Phase 05: create tasks.md
-    ├── 06-start-and-resume.md      # Phase 06+07: execution loop and git workflow
+    ├── 06-start-and-resume.md      # Phase 06+07: execution loop and resumption
     ├── 07-oop-principles.md        # OOP & SOLID principles with examples
-    └── 08-coding-standards.md      # Coding standards: universal + Python/TS/Java
+    ├── 08-coding-standards.md      # Coding standards: universal + Python/TS/Java
+    ├── 09-blueprint-management.md  # Blueprint layer: project-level req roadmap
+    └── 10-git-workflow.md          # Git: branch, commit, PR/merge, tagging
 ```
 
 ### Phase Flow
@@ -67,7 +69,7 @@ When the skill is used on a project, all generated documents go under `.dev/[NNN
 ## Key Design Decisions
 
 - `00-agent-execution.md` takes precedence over all other reference files — always read it first
-- `06-start-and-resume.md` is self-contained: it inlines the Constitution, OOP principles, and coding standards so agents resuming mid-task don't need to re-read multiple files
+- `06-start-and-resume.md` is self-contained: it inlines the Constitution, OOP principles, and coding standards so agents resuming mid-task don't need to re-read multiple files. Git workflow is extracted to `10-git-workflow.md` for shared access from XS/S and M+ flows.
 - Phases 02 and 03 are independent of each other — both, one, or neither may apply
 - `start-and-resume.md` must exist before any task execution begins (mandatory gate)
 

@@ -107,6 +107,7 @@ Phases 02 and 03 are independent — both, one, or neither may be needed.
 |---|---|
 | OOP & SOLID Principles | [07-oop-principles.md](references/07-oop-principles.md) |
 | Coding Standards (all languages) | [08-coding-standards.md](references/08-coding-standards.md) |
+| Git Workflow | [10-git-workflow.md](references/10-git-workflow.md) |
 
 ## Core Rules
 
