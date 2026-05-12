@@ -59,7 +59,18 @@ Once the requirement is clear enough, ask:
 - Add unit tests for retry success, exhaustion, and no-retry paths
 ```
 
-**XS and S tasks skip the standard phase flow.** For XS: read the file, make the change, verify, commit. For S: create a minimal `init.md`, implement, test, commit. Record the task in `.dev/TODO.md` if out of scope.
+**XS and S tasks skip the standard phase flow** (no plan.md, tasks.md, start-and-resume.md). For XS: read the file, make the change, verify, commit. For S: create a lightweight `init.md`, implement, test, commit.
+
+**However, XS and S code must still comply with all standards.** Task size only affects document ceremony — code quality is not negotiable:
+
+- **OOP & SOLID principles** apply to every line of code, regardless of task size ([07-oop-principles.md](07-oop-principles.md))
+- **Coding standards** (type annotations, docstrings, naming, error handling) apply to all changes ([08-coding-standards.md](08-coding-standards.md))
+- **Self-check checklist** from [00-agent-execution.md](00-agent-execution.md#self-check-after-each-task) applies: tests, no regressions, no hardcoded secrets, no lint errors
+- **Comments and docstrings** are required for new public functions, regardless of task size
+
+> An XS task still needs a docstring on the modified function and tests for the new behavior. Sizing is about how many documents you write before coding, not about how thoroughly you code.
+
+Record the task in `.dev/TODO.md` if out of scope.
 
 This sizing replaces the one-size-fits-all approach. When in doubt between sizes, default to the **lighter** workflow — it is easier to add ceremony than to undo over-engineering.
 
