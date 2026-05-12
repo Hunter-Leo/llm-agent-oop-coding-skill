@@ -27,6 +27,12 @@
 - Avoid deeply nested conditionals — use early returns or guard clauses
 - Keep functions short; if a function needs a comment to explain each section, split it
 
+### Project Structure
+
+- **No circular dependencies between modules.** If module A imports from B and B imports from A (directly or transitively), the project structure has a problem.
+- **Fix circular dependencies by extracting shared code**, not by adding workarounds. The shared type, utility, or interface that causes the cycle belongs in its own file or module. If a language provides escape hatches for circular imports (Python `TYPE_CHECKING`, TypeScript `import type`), treat those as a last resort after restructuring has been considered — see Python § Import Practices for the decision flow.
+- A flat module with clean dependency direction is better than a deeply nested one with cycles.
+
 ### Error Handling
 
 - Handle errors explicitly — never silently swallow exceptions
@@ -117,6 +123,40 @@ uv add <package>       # add dependency
 uv run <script>        # run script
 uv sync                # sync dependencies
 ```
+
+### Import Practices
+
+**Avoid unnecessary lazy imports.** Import at the top of the file unless there is a concrete circular-import or startup-performance reason to defer:
+
+```python
+# Bad: lazy import hides the dependency
+def send_email() -> None:
+    from smtplib import SMTP  # no good reason for lazy import
+
+# Good: top-level import
+from smtplib import SMTP
+
+def send_email() -> None:
+    ...
+```
+
+**Use `if TYPE_CHECKING` for circular imports, not lazy imports.** If two modules depend on each other at type-check time only, guard the import:
+
+```python
+from __future__ import annotations  # all annotations are strings
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from models.user import User  # only needed for type hints
+```
+
+**If `if TYPE_CHECKING` is needed, consider restructuring.** A need for `if TYPE_CHECKING` is often a smell that the project has a circular dependency at the module or package level. Before adding the guard, ask:
+
+- Can the shared type be extracted to a dedicated `types.py` or `protocols.py`?
+- Can the dependency direction be inverted (which module depends on which)?
+- Does a new file need to be extracted?
+
+If the answer to all three is "no", then `if TYPE_CHECKING` is the right tool. If any is "yes", refactor first — it will produce cleaner code and fewer surprises.
 
 ---
 
