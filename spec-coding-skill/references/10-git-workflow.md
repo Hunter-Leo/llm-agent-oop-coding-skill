@@ -105,6 +105,34 @@ None. (or list any)
 - [ ] No regressions introduced
 ```
 
+**Local merge command:**
+```bash
+git checkout main && git merge --no-ff <type>/[NNN]-[req-name] -m "$(cat <<'EOF'
+<type>(<scope>): <imperative summary>
+
+## Summary
+
+<1-3 bullet points>
+
+## Changes
+
+| Commit | Summary |
+|--------|---------|
+| abc1234 | T-001 feat: add UserRepository |
+| def5678 | T-002 test: add unit tests |
+
+## Breaking Changes
+
+None. (or list any)
+
+## Test Plan
+
+- [ ] All existing tests pass
+- [ ] No regressions introduced
+EOF
+)"
+```
+
 **Pre-merge checklist:**
 - [ ] Branch is up to date with target (rebase if needed: `git rebase main`)
 - [ ] All tests pass

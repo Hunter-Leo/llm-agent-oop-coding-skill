@@ -221,7 +221,7 @@ When all tasks in `tasks.md` reach `done`:
    > ✅ All tasks complete for requirement [NNN]-[req-name].
    > Summary: X tasks completed, Y deviations from plan recorded in tasks.md.
 3. Check `.dev/TODO.md` — if any items have `Source` matching this requirement, update their status to `pending` (confirm they are still relevant)
-4. Create a pull request or local merge using the format in [§ Pull Request / Local Merge](#pull-request--local-merge). For PRs: `gh pr create --title "<type>(<scope>): <summary>" --body "$(cat <<'EOF'\n...\nEOF\n)"`. For local merge: `git checkout main && git merge --no-ff <type>/[NNN]-[req-name]` with the same message format.
+4. Create a pull request or local merge using the format in [§ Pull Request / Local Merge](#pull-request--local-merge). For PRs: `gh pr create --title "<type>(<scope>): <summary>" --body "$(cat <<'EOF'\n...\nEOF\n)"`. For local merge: `git checkout main && git merge --no-ff <type>/[NNN]-[req-name] -m "$(cat <<'EOF'\n<type>(<scope>): <imperative summary>\n\n## Summary\n...\nEOF\n)"`
 
 ---
 
