@@ -90,13 +90,15 @@ When entering an existing project that already has `.dev/` content, bootstrap th
 
 ## Git Workflow
 
+See [10-git-workflow.md](10-git-workflow.md) for the full rules — this section only summarizes what you need during execution.
+
 Branch: `<type>/[NNN]-[req-name]`
 
 Commit format:
 ```
 [NNN] T-XXX <type>: <imperative summary ≤ 72 chars>
 ```
-Types: `feat` · `fix` · `refactor` · `test` · `docs` · `chore`
+Types: `feat` · `fix` · `refactor` · `test` · `docs` · `style` · `perf` · `ci` · `build` · `chore`
 ```
 
 ---

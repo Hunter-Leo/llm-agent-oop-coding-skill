@@ -33,7 +33,20 @@ git checkout -b <type>/[NNN]-[req-name]
 #      git checkout -b refactor/003-extract-base-processor
 ```
 
-**Type values:** `feat` · `fix` · `refactor` · `test` · `docs` · `chore`
+**Type values:**
+
+| Type | When to Use |
+|------|-------------|
+| `feat` | New feature, module, or capability |
+| `fix` | Bug fix or regression repair |
+| `refactor` | Code restructuring without behavior change |
+| `test` | Adding or updating tests |
+| `docs` | Documentation, comments, or docstrings |
+| `style` | Code formatting, whitespace, semicolons — no logic change |
+| `perf` | Performance optimization |
+| `ci` | CI/CD pipeline or config changes |
+| `build` | Build system, dependencies, or tooling |
+| `chore` | Maintenance, cleanup, or non-functional housekeeping |
 
 ---
 
