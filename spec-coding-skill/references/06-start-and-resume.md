@@ -74,17 +74,16 @@ When entering an existing project that already has `.dev/` content, bootstrap th
 ---
 
 ## Constitution
-<!-- Copy the full # Constitution section from init.md here -->
 
----
+See `init.md § Constitution` for this requirement's design rules, and [07-oop-principles.md](07-oop-principles.md) / [08-coding-standards.md](08-coding-standards.md) for the full standards.
 
-## OOP & SOLID Principles (applicable rules)
-<!-- Copy the relevant rules from references/07-oop-principles.md that apply to this requirement -->
-
----
-
-## Coding Standards (applicable rules)
-<!-- Copy the relevant sections from references/08-coding-standards.md for the languages used in this requirement -->
+Key principles that apply to every task:
+- **OOP & SOLID** — encapsulation, SRP, OCP (no if/elif chains), DIP (depend on abstractions)
+- **Type annotations** — all function/method parameters and return types
+- **Docstrings** — every public class, function, and file
+- **Testing** — normal cases + edge cases + error cases
+- **No hardcoded secrets** — use environment variables
+- **Import rules** — no lazy imports; restructure to avoid circular deps before using `TYPE_CHECKING`
 
 ---
 
@@ -155,33 +154,71 @@ d. After user confirmation, **agent directly invokes** the chosen execution mode
 Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
 
 ```
+0.  Ensure the correct feature branch exists and is checked out:
+      git branch --show-current
+      If not on the feature branch:
+      git checkout -b <type>/[NNN]-[req-name]
+
 1.  Mark task as `in-progress` in tasks.md
+
 2.  Read plan.md and relevant generated docs to confirm the approach for this task
+
 3.  Read all affected existing source files (in sections if large)
-4.  Read start-and-resume.md § Constitution, § OOP & SOLID Principles, and § Coding Standards
-      before writing any code — all rules are already copied there for this requirement
+
+4.  Read standards before writing any code:
+      a. init.md § Constitution — design rules for this requirement
+      b. § OOP & SOLID Principles above — key OOP/SOLID rules
+      c. § Coding Standards above — key coding rules
+      d. 10-git-workflow.md § Branch — confirm branch naming and type
+
 5.  Implement the minimal change needed
-6.  Verify code against Constitution:
+
+6.  Verify code against standards:
+      [ ] Design follows SOLID principles defined in Constitution
       [ ] All function/method parameters and return types annotated
       [ ] Every new file has a module-level docstring
       [ ] Every new class has a class-level docstring
       [ ] Every new public function has a full docstring (Args / Returns / Raises)
       [ ] No hardcoded secrets or environment-specific values
       [ ] No linting errors introduced
+      [ ] Import rules followed — no lazy imports, no circular deps
+
 7.  Run existing tests — must pass (no regressions)
-8.  Read [08-coding-standards.md](08-coding-standards.md) § Testing to confirm test file naming and coverage requirements, then write unit tests:
+
+8.  Read 08-coding-standards.md § Testing to confirm test file naming and coverage
+    requirements, then write unit tests:
       [ ] Normal cases covered
       [ ] Edge cases covered
       [ ] Error / exception cases covered
+
 9.  Run new tests — all must pass before continuing
+
 10. Update tasks.md:
       a. Set status to `done`
       b. Write implementation summary in Notes (include any deviation from plan.md)
-11. Commit following [Git Workflow](#git-workflow):
+
+11. Pre-commit check:
+      [ ] All tests pass (existing + new)
+      [ ] No linting errors introduced
+      [ ] No hardcoded secrets or environment-specific values
+      [ ] Docstrings complete on all new public items
+      [ ] Unnecessary files (.pyc, .DS_Store, logs) are not staged
+      [ ] On the correct feature branch (not main)
+      [ ] Commit message follows Google style: ≤72 chars, imperative, English
+
+12. Commit following the [Git Workflow](10-git-workflow.md):
+      git add <specific files>
       git commit -m "[NNN] T-XXX <type>: <imperative summary ≤ 72 chars>"
+
+13. If interactive mode: show a task summary and ask before proceeding:
+      "✅ T-XXX complete. Summary: <what was done>. Continue to the next task?
+      (reply 'continue' or tell me what to adjust)"
 ```
 
-**Mandatory flow: check docs → implement → verify → test → update tasks.md → commit**
+**Mandatory flow: check branch → review docs → implement → verify → test → update tasks.md → pre-commit check → commit → (interactive pause)**
+
+> After task 12 (commit), the loop repeats from step 0 for the next task.
+> If the branch was already created in a previous task's step 0, step 0 will confirm it exists and do nothing.
 
 ---
 

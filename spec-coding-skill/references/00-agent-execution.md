@@ -70,6 +70,12 @@ Once the requirement is clear enough, ask:
 For XS: read the file, make the change, verify, commit.
 For S: create a lightweight `init.md`, implement, test, commit.
 
+**For both XS and S: ensure the feature branch is created before writing any code:**
+```bash
+git checkout -b <type>/<short-description>
+```
+Never commit to main.
+
 **However, XS and S code must still comply with all standards.** Task size only affects document ceremony — code quality is not negotiable:
 
 - **OOP & SOLID principles** apply to every line of code, regardless of task size ([07-oop-principles.md](07-oop-principles.md))
@@ -115,12 +121,14 @@ At the start of Phase 01, detect the language the user is communicating in:
 
 At the start of Phase 01, ask the user once:
 
-> Would you like to proceed interactively? In interactive mode, I'll pause after each phase and ask for your review before continuing.
+> Would you like to proceed interactively? In interactive mode, I'll pause after each phase and after each task during execution for your review.
 > Reply **yes** for interactive mode, or **no** to run all phases automatically.
 
-**Interactive mode behavior:** after completing each phase or document, show a summary and ask:
-
-> ✅ [Phase/document name] complete. Review the output and reply **continue** to proceed, or tell me what to adjust.
+**Interactive mode behavior:**
+- Phases 01–06: pause after completing each phase or document, show a summary and ask:
+  > ✅ [Phase/document name] complete. Review the output and reply **continue** to proceed, or tell me what to adjust.
+- Phase 07 (Execution loop): pause after each task reaches `done`, show a summary and ask:
+  > ✅ T-XXX complete. Summary: <what was done>. Continue to the next task? (reply 'continue' or tell me what to adjust)
 
 **Automatic mode behavior:** proceed through all phases without pausing, unless a blocker or ambiguity requires user input.
 
