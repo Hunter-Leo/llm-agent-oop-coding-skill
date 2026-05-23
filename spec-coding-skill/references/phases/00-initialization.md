@@ -5,51 +5,33 @@ Create the requirement definition document before any planning or coding begins.
 **Entry:** A need or requirement has been identified, sized M or larger via [Task Sizing](../constitution/00-agent-execution.md#task-sizing).
 **Exit:** `init.md` created at `.dev/[NNN]-[req-name]/init.md`, `.dev/blueprint.md` updated with the new requirement.
 
-> **Round check**: Before starting Phase 01, check if `.dev/[NNN]-[req-name]/issues.md` exists.
-> - If **no** issues.md: this is Round 1 — proceed normally (create init.md from scratch).
-> - If **yes** (issues.md exists with open issues): this is Phase 01* (Round N+1 re-entry). Read [01-round-mechanism.md](../execution/01-round-mechanism.md) § Phase 01* first, then read issues.md to understand what must change in init.md. Update init.md incrementally based on open issues.
+**Round check:** Before starting, check if `.dev/[NNN]-[req-name]/issues.md` exists. If **yes** (open issues): this is Round N+1 re-entry — read [01-round-mechanism.md](../execution/01-round-mechanism.md) § Phase 01* first, then update init.md based on open issues.
 
-> If the task was sized XS or S, this phase is skipped entirely. See [00-agent-execution.md § Task Sizing](../constitution/00-agent-execution.md#task-sizing) for the direct execution flow.
+**XS/S sizing:** complete Pre-flight Checks below, then produce lightweight init.md with inline plan (no separate plan.md/tasks.md). See [Task Sizing](../constitution/00-agent-execution.md#task-sizing) for the direct execution flow.
 
 ## Step 0 — Requirement Clarity Check
 
-Before starting Pre-flight Checks, assess whether the requirement is clear enough to write `init.md` directly.
+Before Pre-flight Checks, assess requirement clarity:
 
-**Step 0a — Check available clarification skills from session context:**
-- Read the list of available skills provided by the system at session start (visible in the session context / system-reminder)
-- Identify skills whose `description` mentions: brainstorming, requirements gathering, interview, spec, or design exploration
-- Build a candidate list with their names and one-line descriptions
-- If no clarification skills are found, proceed directly to Pre-flight Checks
+| Signal | Condition | Action |
+|--------|-----------|--------|
+| Clear | Specific description, file paths, or spec doc provided | Proceed to Pre-flight Checks |
+| Vague | Single sentence, no detail, "vague idea" | Recommend clarification skill. Wait for user response. |
 
-**Step 0b — Assess requirement clarity:**
-
-Clear signals (any one is sufficient — proceed directly to Pre-flight Checks):
-- User provided specific functional description, file paths, or technical approach
-- User already completed a clarification step and provided a spec/output doc path
-
-Vague signals (recommend a clarification skill):
-- Requirement is a single sentence with no technical detail
-- User explicitly says "I haven't figured it out yet" or "I have a vague idea"
-
-**Step 0c — If vague**, match the best-fit skill from the scanned list and recommend it:
+**If vague:** scan available skills for brainstorming/requirements/interview. Recommend best match (see table below). Present user with: "The requirement is still vague. Based on available skills, I recommend `<skill>` because `<reason>`. After completing it, share the output doc path and I'll reference it in `init.md`. Or reply **skip** to proceed directly."
 
 | Situation | Typical best-fit skill |
-|---|---|
+|-----------|----------------------|
 | Has direction, needs design exploration | `superpowers:brainstorming` (or equivalent found in scan) |
-| Very vague, many hidden assumptions, risk of misalignment | `oh-my-claudecode:deep-interview` (or equivalent found in scan) |
+| Very vague, many hidden assumptions | `oh-my-claudecode:deep-interview` (or equivalent found in scan) |
 
-> These are fallback suggestions if the scan finds no matching skills. Always prefer skills discovered in the real-time scan over these defaults.
+Fallback to table above if no matching skills found in scan. Always prefer discovered skills over defaults.
 
-Inform the user:
-> "The requirement is still vague. Based on available skills, I recommend `<skill-name>` because `<one-line reason>`.
-> After completing it, share the output doc path and I'll reference it in `init.md`'s `# Spec` section.
-> Or reply **skip** to proceed directly."
+Wait for user confirmation before continuing. If user provides a spec doc path, record it in `init.md` § Spec.
 
-Wait for user confirmation before continuing.
+**If clear, or user skips:** proceed to Pre-flight Checks below.
 
-**Step 0d — If clear, or user chooses to skip:** proceed directly to Pre-flight Checks below.
-
-> Note: This is a suggestion, not a hard gate. The output doc is referenced (path recorded in `init.md`), not merged.
+**Note:** This is a suggestion, not a hard gate. The output doc is referenced (path recorded in `init.md`), not merged.
 
 ---
 
@@ -113,7 +95,7 @@ Before writing the `# Action Items` section of `init.md`, check for available to
 
 4. **Inform the user** which skills/agents were found and briefly explain why they may help.
 
-> Rules: Read from session context — never hardcode skill or agent names. Only surface tools with clear relevance to the current requirement. All entries are optional.
+**Rules:** Read from session context — never hardcode skill or agent names. Only surface tools with clear relevance to the current requirement. All entries are optional.
 
 ---
 
@@ -172,7 +154,7 @@ Ordered list of documents to produce. Use this template:
 - [ ] `generated/diagnosis.md` — bug diagnosis
 - [ ] `generated/algorithm-design.md` — algorithm design
 
-> Complete all checked prerequisite documents before proceeding to the required documents below.
+Complete all checked prerequisite documents before proceeding to the required documents below.
 
 **Round artifacts** (maintained across rounds):
 - [ ] `issues.md`                     — Round-to-round issue log (created in Phase 07, read on re-entry)
@@ -225,9 +207,9 @@ Do not act on these during an active task — log and continue.
 
 Then inform the user:
 
-> ✅ `init.md` created at `.dev/[NNN]-[req-name]/init.md`
->
-> ✅ Blueprint updated at `.dev/blueprint.md`
->
-> Review the documents and either edit them directly or tell me what to change.
-> Reply **yes** or **continue** to begin executing the Action Items.
+✅ `init.md` created at `.dev/[NNN]-[req-name]/init.md`
+
+✅ Blueprint updated at `.dev/blueprint.md`
+
+Review the documents and either edit them directly or tell me what to change.
+Reply **yes** or **continue** to begin executing the Action Items.

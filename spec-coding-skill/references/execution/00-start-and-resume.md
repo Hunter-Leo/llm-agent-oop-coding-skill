@@ -1,19 +1,17 @@
 # Phase 06 — Create start-and-resume.md / Phase 07 — Execution
-
 **Entry (Phase 06):** `tasks.md` exists at `.dev/[NNN]-[req-name]/generated/tasks.md`.
 **Exit (Phase 06):** `start-and-resume.md` created, execution mode confirmed.
 **Entry (Phase 07):** `start-and-resume.md` exists (mandatory gate).
 **Exit (Phase 07):** All tasks in `tasks.md` reach `done`, `.dev/blueprint.md` updated.
 
 ## Step 0 — Phase 06: Create start-and-resume.md (mandatory gate)
-
 **Do not begin the execution loop until this file exists.**
 
 Create `.dev/[NNN]-[req-name]/generated/start-and-resume.md`:
 
 ```markdown
-# Start and Resume Guide — [NNN]-[req-name]
 
+# Start and Resume Guide — [NNN]-[req-name]
 **Current Round:** 1
 
 ## Quick Start
@@ -33,7 +31,6 @@ Create `.dev/[NNN]-[req-name]/generated/start-and-resume.md`:
 7. Review the standards sections below before continuing
 
 ## Session Bootstrap (new agent session on existing project)
-
 When entering an existing project that already has `.dev/` content, bootstrap the session before any work:
 
 1. **Check `.dev/blueprint.md`** — if missing, scan `.dev/` directories to reconstruct it from existing `init.md` files, then inform the user
@@ -79,12 +76,11 @@ When entering an existing project that already has `.dev/` content, bootstrap th
 ---
 
 ## Round History
-
 Tracked in this document's own `## Round History` section (see template below). Each round adds an entry here when it completes. See [01-round-mechanism.md](01-round-mechanism.md) for the full round-based execution model, state machine definitions, and agent decision matrix.
 
 ```markdown
-## Round History
 
+## Round History
 **Current Round:** [N]
 
 ### Round [N] (complete)
@@ -99,7 +95,6 @@ Tracked in this document's own `## Round History` section (see template below). 
 ---
 
 ## Constitution
-
 See `init.md § Constitution` for this requirement's design rules, and [../constitution/01-oop-principles.md](../constitution/01-oop-principles.md) / [../constitution/02-coding-standards.md](../constitution/02-coding-standards.md) for the full standards.
 
 Key principles that apply to every task:
@@ -113,7 +108,6 @@ Key principles that apply to every task:
 ---
 
 ## Git Workflow
-
 See [../constitution/03-git-workflow.md](../constitution/03-git-workflow.md) for the full rules — this section only summarizes what you need during execution.
 
 Branch: `<type>/[NNN]-[req-name]`
@@ -128,7 +122,6 @@ Types: `feat` · `fix` · `refactor` · `test` · `docs` · `style` · `perf` ·
 ---
 
 ## Step 0.5 — Execution Mode Recommendation
-
 Before starting the Execution Loop, recommend the best execution mode for this requirement:
 
 **Step 1 — Check available execution skills from session context:**
@@ -169,13 +162,11 @@ d. After user confirmation, **agent directly invokes** the chosen execution mode
 > Rules: Agent role types are read from OMC in real time — never hardcoded. When OMC adds new execution modes, this step picks them up automatically on next run.
 
 ## After Completing Phase 06
-
 `start-and-resume.md` now exists and the execution mode is set. Before entering the execution loop, update `.dev/blueprint.md`: advance this requirement's Phase to `06 Start-and-resume` and Status to `▶ in-progress` (execution is about to begin).
 
 ---
 
 ## Execution Loop
-
 Repeat for each task in the current round's `tasks.md` (at `generated/rounds/round-[NNN]/tasks.md`) — **never skip a step, never batch tasks**:
 
 **Pre-loop:** Determine the current round number from `§ Round History` above, then:
@@ -272,13 +263,11 @@ Repeat for each task in the current round's `tasks.md` (at `generated/rounds/rou
 ---
 
 ## Deviation Protocol
-
 **This section is the authority for handling execution deviations.** The state machine and decision matrix in [01-round-mechanism.md](01-round-mechanism.md) tell you *which* state to transition to; this section tells you *how* to handle the deviation itself.
 
 When a deviation is discovered during execution (plan doesn't match reality, new bug found, scope creep), follow the protocol below instead of silently modifying course. Deviations are logged to `issues.md` and resolved either within the current round or deferred to Round N+1.
 
 ### Severity Levels
-
 | Severity | When | Action |
 |----------|------|--------|
 | **Low** | Implementation detail differs (variable naming, helper extraction, minor refactor) | Adjust directly. Note deviation in commit message. No round impact. |
@@ -286,7 +275,6 @@ When a deviation is discovered during execution (plan doesn't match reality, new
 | **High** | `plan.md` module design infeasible, interface contract must change, core dependency incompatible | **STOP** current task at clean checkpoint. Log to `issues.md` (open). Set task to `blocked` if it cannot continue. Present options to user. |
 
 ### High Severity Protocol (complete)
-
 1. **STOP** — do not continue writing code until decision is made
 2. **Record** — write to both `issues.md` and `generated/rounds/round-[NNN]/issues.md` with type, severity, description, evidence, suggested fix
 3. **Generate options** — use the template below for the deviation's type. Always include your recommendation.
@@ -342,7 +330,6 @@ When a deviation is discovered during execution (plan doesn't match reality, new
 6. **Execute** — implement the decision, update `tasks.md` / `plan.md` if needed
 
 ### Mid-Round New Tasks
-
 If a small new task is needed within the current round (user confirms, or low severity):
 
 1. **Stop** current task at a clean checkpoint
@@ -352,14 +339,12 @@ If a small new task is needed within the current round (user confirms, or low se
 Do not execute an unplanned task without first recording it in `tasks.md`.
 
 ### Issues vs TODO.md
-
 - `issues.md` — execution problems within the current requirement that affect plan/task fidelity
 - `.dev/TODO.md` — cross-requirement out-of-scope discoveries (bugs, features, improvements)
 
 ---
 
 ## tasks.md Update Rules
-
 Every update to `tasks.md` must include **two things**:
 
 1. **Status change** — update the status column (`not-started` → `in-progress` → `done` / `blocked`)
@@ -376,7 +361,6 @@ All 12 tests pass.
 ---
 
 ## Requirement Complete — Round End
-
 When all tasks in `tasks.md` reach `done` (or all runnable tasks are `blocked`):
 
 1. **Finalize round issues** — update `generated/rounds/round-NNN/issues.md`: set status of all entries to their final state (resolved / open / wontfix). Open entries remain in `issues.md` for cross-round tracking.
@@ -420,7 +404,6 @@ When all tasks in `tasks.md` reach `done` (or all runnable tasks are `blocked`):
 ---
 
 ## Breaking Changes Policy
-
 Read `project_stage` from `init.md` before modifying existing code:
 
 - **`pre-launch` + adding a new module**: breaking changes to existing structure are **allowed**. Prioritize a clean, unambiguous project and code structure over compatibility with the current state.
@@ -429,7 +412,6 @@ Read `project_stage` from `init.md` before modifying existing code:
 ---
 
 ## Reading Before Writing
-
 Before modifying any existing file:
 
 - Read the file (in sections if large — never load the entire file at once)
@@ -440,7 +422,6 @@ Before modifying any existing file:
 ---
 
 ## Handling Blockers
-
 When a task cannot proceed:
 
 1. Record in `tasks.md` Notes: what was attempted, what failed, what is needed
@@ -450,24 +431,20 @@ When a task cannot proceed:
 ---
 
 ## Git Workflow
-
 See [../constitution/03-git-workflow.md](../constitution/03-git-workflow.md) — all git rules live there (branch naming, commit format, pre-commit checks, PR/local merge, release tagging). This section contains only the execution-loop-specific reminders.
 
 ### In the Execution Loop
-
 Step 11 of the execution loop commits following the format defined in [../constitution/03-git-workflow.md § Commit Messages](../constitution/03-git-workflow.md#commit-messages):
 ```
 git commit -m "[NNN] T-XXX <type>: <imperative summary ≤ 72 chars>"
 ```
 
 ### At Requirement Complete
-
 Step 4 of [§ Requirement Complete](#requirement-complete) creates a PR or local merge using the format in [../constitution/03-git-workflow.md § Pull Request / Local Merge](../constitution/03-git-workflow.md#pull-request--local-merge).
 
 ---
 
 ## File Reading and Writing Discipline
-
 - Read files in sections if large — never load an entire large file at once
 - Write one file at a time; do not exceed ~200 lines in a single write
 - Do not rewrite an entire file when only a small change is needed — use targeted edits

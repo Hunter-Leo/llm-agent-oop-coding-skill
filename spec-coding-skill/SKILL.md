@@ -39,57 +39,16 @@ A spec-driven methodology for LLM agents to define, plan, and implement coding w
 2. **Check if `.dev/blueprint.md` exists** (project already has requirements):
    - **If yes**: run the [Session Bootstrap](references/execution/00-start-and-resume.md#session-bootstrap-new-agent-session-on-existing-project) to present project status, then resume the active requirement
    - **If no**: proceed with the new requirement
-3. **Run Task Sizing** — see [00-agent-execution.md § Task Sizing](references/constitution/00-agent-execution.md#task-sizing). Determines whether to:
-   - **XS/S**: implement directly with minimal or no documents
-   - **M/L/XL**: enter the standard Phase 01–07 flow
-4. **Start Phase 01** (if sized M+) — follow [01-initialization.md](references/phases/00-initialization.md) to create the requirement definition document
+3. **Run Task Sizing** — see [00-agent-execution.md § Task Sizing](references/constitution/00-agent-execution.md#task-sizing). Determines workflow depth:
+   - **XS/S**: lightweight Phase 01 (Pre-flight Checks → inline plan in `init.md`)
+   - **M/L/XL**: full Phase 01–07 flow
+4. **Enter Phase 01** — follow [00-initialization.md](references/phases/00-initialization.md) to create the requirement definition document. XS/S: complete Pre-flight Checks then lightweight init.md. M+: full init.md with Spec, Requirements, Action Items, Constitution.
 5. **Work through phases in order** — consult the reference file for each phase as you enter it
 6. **After Phase 07 (Execution)**, perform a **Round Review**: check `issues.md`. If open issues remain, re-enter Phase 01 for Round N+1 (incremental update based on accumulated issues). If no issues, mark done.
 
 Execution is **round-based**: problems found during a round are captured in `issues.md` and resolved in the next round, not silently fixed mid-flight. See [01-round-mechanism.md](references/execution/01-round-mechanism.md) for the state machine and decision matrix.
 
 All generated documents go under `.dev/[NNN]-[req-name]/` in the project root.
-
-## Blueprint Layer (above all phases)
-
-The Blueprint is a project-level document that tracks every requirement, its current phase, status, and dependencies. It provides the bird's-eye view missing from per-requirement documents.
-
-```
-                 ┌──────────────────────────────┐
-                 │     .dev/blueprint.md         │  ← created at project start
-                 │  (all requirements + status)  │     updated at each phase transition
-                 └──────────────────────────────┘
-                              │
-                              ▼
-Phase 01 — Initialization    │  (registers new req in blueprint)
-              ↓              │
-Phase 02 — Prerequisite Tasks     (optional)
-Phase 03 — Algorithm Design       (optional)
-              ↓              │
-Phase 04 — Implementation Plan    │  (advances req phase in blueprint)
-              ↓              │
-Phase 05 — Task Planning          │
-              ↓              │
-Phase 06 — Create start-and-resume.md
-              ↓              │
-Phase 07 — Execution         │  (updates req status in blueprint)
-              │              │
-              ▼              │
-     Round Review            │  (check issues.md)
-         │                   │
-    ┌────┴────────┐          │
-    │             │          │
-  open          no open     │
-  issues        issues      │
-    │             │          │
-    ▼             ▼          │
- Phase 01*     ✅ Done      │
- (Round N+1)   (terminal)   │
-    │                       │
-    └──→ back to Phase 01 ──┘
-```
-
-Blueprint management rules: [09-blueprint-management.md](references/phases/05-blueprint-management.md)
 
 ## Phase Overview
 
@@ -131,7 +90,7 @@ Phase 07 — Execution                   (required for M+)
          (next round)
 ```
 
-Phases 02 and 03 are independent — both, one, or neither may be needed.
+Phases 02 and 03 are **independent** (parallel, not sequential) — both, one, or neither may be needed.
 
 ## Phase Reference
 
@@ -146,6 +105,8 @@ Phases 02 and 03 are independent — both, one, or neither may be needed.
 | 06 Create start-and-resume.md | `start-and-resume.md` | [00-start-and-resume.md](references/execution/00-start-and-resume.md) § Step 0 |
 | 07 Execution | code | [00-start-and-resume.md](references/execution/00-start-and-resume.md) |
 | Round Review | `issues.md` + Round History + N+1 loop | [01-round-mechanism.md](references/execution/01-round-mechanism.md) |
+
+> **Blueprint**: `.dev/blueprint.md` tracks all requirements, phases, and dependencies. Updated at every phase transition. See [05-blueprint-management.md](references/phases/05-blueprint-management.md).
 
 ## Coding Reference
 
@@ -180,15 +141,11 @@ The Method Selection table is produced as a planning artifact at every applicabl
 
 ## Core Rules
 
-- Never skip a required phase
-- Read existing code before modifying anything
-- Write and pass unit tests before moving to the next task
-- Minimize changes when the project is `live`; breaking changes are allowed for `pre-launch` + new modules
-- Never hardcode secrets; use environment variables
-- All identifiers, comments, and docs must be in English
-- **Maintain the blueprint** — update `.dev/blueprint.md` at every phase transition for any requirement
-- **Start with references/README.md** — check the reader's guide to find the right reference file for the current task
-- **Run Method Selection at every phase entry** — before beginning any phase work, evaluate all methods tagged for that phase against their trigger conditions. Apply if triggers match; record a specific factual justification if they do not. The Method Selection step in each phase reference specifies exactly which methods to check.
-- **Round-based execution** — after Phase 07, check `issues.md`. If open issues remain, offer user to start Round N+1. Do not silently start new rounds.
-- **Phase 07 entry** — re-read `execution/00-start-and-resume.md` and `execution/01-round-mechanism.md` before entering the execution loop
-- **Follow the Deviation Protocol** — when implementation contradicts the plan, do not silently modify course. Stop, log to `issues.md`, present options to the user, and act on their decision. See `execution/00-start-and-resume.md § Deviation Protocol`.
+Rules unique to this skill. See `00-agent-execution.md` for: `§ File Reading Discipline` (read before edit), `§ Self-Check` (tests/quality), `§ Phase Transition Re-read Discipline` (always re-read phase doc before starting), `§ Round-based Execution Model` (issues.md gating), `§ Design Principle Compliance` (OOP/SOLID).
+
+- Minimize changes when project `live`; breaking changes OK for `pre-launch` + new modules
+- All identifiers, comments, docs in English
+- **Maintain the blueprint** — update `.dev/blueprint.md` at every phase transition
+- **Start with references/README.md** — reader's guide before diving into phase docs
+- **Run Method Selection at every phase entry** — evaluate tagged methods against trigger conditions. Apply if triggers match; justify if they don't.
+- **Follow the Deviation Protocol** — stop, log to `issues.md`, present options. See `execution/00-start-and-resume.md § Deviation Protocol`.

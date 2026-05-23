@@ -13,5 +13,10 @@
     "id": 3,
     "prompt": "I'm working on an existing project. Where are we? What's the current status and what should I work on next?",
     "expected": "Reads .dev/blueprint.md, shows project overview table with all requirements, their phases and status. Recommends next action. Follows the Handling Project Overview Queries flow."
+  },
+  {
+    "id": 4,
+    "prompt": "I need to rename a variable in config.py, it's a one-line change. Can you just do it quickly?",
+    "expected": "Sizes as XS. Runs Pre-flight Checks (language + interactive mode). Produces brief init.md with inline plan. Then implements. Does NOT skip language/interactive mode despite XS sizing."
   }
 ]

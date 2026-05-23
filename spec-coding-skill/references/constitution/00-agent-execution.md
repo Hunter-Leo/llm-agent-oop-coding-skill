@@ -40,6 +40,8 @@ Once the requirement is clear enough, ask:
 | **M** | Multiple modules, moderate complexity | Full Phase 01–07 flow as documented. |
 | **L / XL** | Cross-requirement, multiple dependencies, high uncertainty | Full flow + Blueprint layer. Requires Phase 02 (research/inspect) before planning. |
 
+**Bug fix sizing:** Non-trivial bugs (intermittent, root cause unknown, cross-module) default to **M** — root cause ambiguity satisfies the "moderate complexity" criterion and ensures Structured Debugging is reachable via Phase 02. Trivial one-line fixes with immediately visible root causes may still size as XS/S.
+
 **Every size must produce a reviewable plan before implementation starts.** The plan lives in `init.md` — its depth scales with task size, but the principle is the same: the person who raised the requirement gets to review and approve the approach before any code is written.
 
 | Size | Plan location | Plan content | Review trigger |
@@ -98,11 +100,7 @@ After sizing, **tell the user** your size decision and what to expect:
 - **M**: `"This involves multiple modules (M). I'll proceed with the full Phase 01–07 flow and you'll review at each phase."`
 - **L/XL**: `"This has cross-cutting concerns (L). I'll start with research and share findings before planning."`
 
-> For XS and S, do not ask "which language" or "interactive mode" — those questions only apply to the full phase flow. Do write the plan in init.md and wait for confirmation before implementing.
-
 After announcing the size, ask briefly: `"Sound good?"` and proceed unless the user objects. This gives the user a chance to correct the sizing without requiring a formal confirmation step.
-
-> For XS and S tasks, do not ask "which language" or "interactive mode" — those questions only apply to the full phase flow. Just size, announce, and proceed.
 
 ## User Interaction
 
@@ -152,16 +150,6 @@ At the start of execution and before each phase, display the current progress:
 - `▶` = in progress
 - (blank) = not started
 - Omit optional phases that were skipped
-
----
-
-## Thinking & Reasoning
-
-- Think step by step before acting — do not jump to implementation without completing the required planning phases
-- Process one task at a time; never batch multiple tasks in a single action
-- When a requirement is ambiguous or has multiple valid interpretations, **stop and ask the user** before proceeding — do not assume
-- When a technology choice is unclear, **stop and ask the user** — do not pick arbitrarily
-- If a decision was made in a previous phase (e.g., in `plan.md`), follow it; do not re-decide silently
 
 ---
 
