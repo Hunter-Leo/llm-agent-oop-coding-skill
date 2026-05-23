@@ -1,8 +1,15 @@
+---
+name: round-mechanism
+description: "Round-based execution model with dual-layer state machine (requirement lifecycle + round execution), agent decision matrix, Phase 01* re-entry flow, issues.md format, and illegal state rules. Reference for the iterative round-driven development cycle. Use when entering Phase 07, resuming after a round completes, or when handling execution deviations."
+---
+
 # Round Mechanism — Round-Based Execution Model
 
 This file defines the round-based execution model for spec-driven development. It transforms the one-shot Phase 01–07 flow into an iterative cycle where execution findings feed back into planning.
 
 Read this when entering Phase 07 or when resuming after a Round completes.
+
+> **Authority boundary**: This file defines the **state machine** (states, transitions, decision matrix). The **Deviation Protocol** (how to handle deviations during execution) is defined in `00-start-and-resume.md § Deviation Protocol` — that file is the authority for execution-time decisions.
 
 ## 1. Why Rounds
 
@@ -34,11 +41,17 @@ Each round is a full pass through the spec-driven workflow. The output of Round 
 │
 └── 001-user-auth/
     ├── init.md                            # Requirement definition (stable; scope changes only)
-    ├── issues.md                          # ★ NEW: Round-to-round issue log (the bridge)
+    ├── issues.md                          # Round-to-round issue log (the bridge)
     └── generated/
-        ├── plan.md                        # Current plan (updated each round)
-        ├── tasks.md                       # Current tasks (updated each round)
-        └── start-and-resume.md            # Execution guide (Round History updated each round)
+        ├── start-and-resume.md            # ★ Shared across rounds: execution rules + Round History
+        └── rounds/
+            ├── round-001/
+            │   ├── plan.md                # Round 1 plan
+            │   └── tasks.md               # Round 1 tasks
+            └── round-002/                 # Current round
+                ├── plan.md
+                ├── tasks.md
+                └── issues.md              # Issues discovered in this round
 ```
 
 ## 3. State Machine Architecture
@@ -231,53 +244,76 @@ At every step, consult this table:
 
 ## 6. Phase 01* — Round N+1 Re-entry Flow
 
-When Round N completes and open issues remain, the requirement re-enters Phase 01 (called Phase 01*):
+When Round N completes and open issues remain, the requirement re-enters Phase 01 (called Phase 01*). Each round gets its own `plan.md` and `tasks.md` under a round-specific subdirectory.
 
 ```
 Phase 01* entry
      |
      1. Read issues.md -> list all open issues
-     2. Read current init.md, plan.md, tasks.md
-     3. For each open issue:
-        - plan-deviation: update plan.md
-        - discovered-bug: add to tasks.md
-        - scope-creep: add to init.md, plan.md, tasks.md
-     4. Update blueprint: Round += 1
-     5. Update start-and-resume.md Round History
-     6. Proceed through Phase 02-05 (incremental only)
+     2. Read start-and-resume.md -> confirm current round number
+     3. Create generated/rounds/round-(N+1)/
+     4. Read previous round's plan.md and tasks.md for context
+     5. For each open issue:
+        - plan-deviation: update plan in new round's plan.md
+        - discovered-bug: add task to new round's tasks.md
+        - scope-creep: update init.md + new round's plan.md + tasks.md
+     6. Update blueprint: Round += 1
+     7. Update start-and-resume.md Round History:
+        - Mark Round N as complete
+        - Add Round N+1 entry with "Current Round: N+1"
+     8. Proceed through Phase 02-05 (incremental only)
 ```
 
-**Key rule**: Phase 01* does NOT rewrite documents from scratch. It only modifies what the open issues require. If no open issue touches `init.md`'s scope, `init.md` is not modified.
+**Key rules:**
+- Phase 01* does NOT rewrite documents from scratch. It creates new round-specific files and only modifies what the open issues require.
+- Previous round's plan.md and tasks.md are never modified — they stay as historical records under `rounds/round-N/`.
+- If no open issue touches `init.md`'s scope, `init.md` is not modified.
 
 ### Round Numbering
 
-- Round 1: first pass through Phase 01-07
-- Round N+1: enters Phase 01* (incremental update)
-- Round counter stored in `blueprint.md` Round column
+- Round 1: first pass through Phase 01-07. plan.md and tasks.md go in `generated/rounds/round-001/`.
+- Round N+1: enters Phase 01*. Creates `generated/rounds/round-(N+1)/` with new plan.md and tasks.md.
+- Round counter stored in `blueprint.md` Round column and `start-and-resume.md` Round History.
 
 ---
 
-## 7. issues.md Format
+## 7. issues.md — Dual-Layer Issue Tracking
 
-`issues.md` lives at `.dev/[NNN]-[req-name]/issues.md`. It accumulates issues across rounds.
+Issues have two layers:
 
-### Template
+| Layer | File | Role | Content |
+|-------|------|------|---------|
+| Active | `.dev/[NNN]-[req-name]/issues.md` | Cross-round issue tracker | All **open** issues from any round |
+| Snapshot | `.dev/[NNN]-[req-name]/generated/rounds/round-NNN/issues.md` | Per-round log | Issues discovered **in this round** (including resolved) |
+
+### Writing to issues (during execution)
+
+When a deviation is detected, write to **both** layers:
+
+```
+1. Append to .dev/[NNN]-[req-name]/issues.md (status: open)
+2. Append to generated/rounds/round-NNN/issues.md (status: open)
+```
+
+### At Round Complete
+
+Mark all entries in `rounds/round-NNN/issues.md` with their final status. Entries in `issues.md` that are still open persist to the next round.
+
+### Active Template (`issues.md`)
 
 ```markdown
 # Issues — [NNN]-[req-name]
 
-Accumulates issues found during execution. After each round, open issues
-drive the next round's planning.
+Cross-round issue tracker. Open issues drive the next round's planning.
 
-## Round [NNN]
-
-| ID | Type | Severity | Summary | Status | Resolved In |
-|-----|------|----------|---------|--------|-------------|
-| ISS-001 | plan-deviation | high | ... | open | - |
-| ISS-002 | discovered-bug | medium | ... | open | - |
+| ID | Round | Type | Severity | Summary | Status |
+|-----|-------|------|----------|---------|--------|
+| ISS-001 | 1 | plan-deviation | high | ... | open |
+| ISS-002 | 2 | discovered-bug | medium | ... | resolved |
 
 ### ISS-001 — [short title]
 
+- **Round:** NNN
 - **Type:** [plan-deviation / discovered-bug / scope-creep / technical-contradiction / performance-issue]
 - **Severity:** [high / medium / low]
 - **Found in:** T-XXX
@@ -287,6 +323,22 @@ drive the next round's planning.
 - **Affected files:** [file paths if known]
 - **Status:** [open / in-progress / resolved / wontfix]
 ```
+
+### Round Snapshot Template (`rounds/round-NNN/issues.md`)
+
+```markdown
+# Issues — Round NNN
+
+Issues discovered during Round NNN execution.
+
+| ID | Type | Severity | Summary | Status |
+|-----|------|----------|---------|--------|
+| ISS-001 | plan-deviation | high | ... | resolved |
+
+### ISS-001 — [short title]
+```
+
+The round snapshot is simpler (no cross-round fields). It records what happened in this specific round.
 
 ### Issue Types
 
@@ -315,6 +367,32 @@ drive the next round's planning.
 | medium | Bug in unrelated code, need small new class/tool not in plan, optional improvement discovered | Log issue, continue current task |
 | high | plan.md module design infeasible, interface contract must change, core dependency incompatible | STOP task, trigger Deviation Protocol |
 
+### Issue Conflict Resolution
+
+When two issues suggest contradictory fixes (e.g. ISS-001 says "merge modules A and B", ISS-002 says "split A further"), resolve by these rules:
+
+**Rule 1 — Severity overrides.** Higher severity issue takes priority. High > medium > low.
+
+**Rule 2 — Blocker first.** If one issue's resolution blocks another (ISS-001 must be resolved before ISS-002 can proceed), the blocker resolves first regardless of severity.
+
+**Rule 3 — User decides contradictions.** If Rules 1-2 don't resolve the conflict (same severity, no dependency), present both issues with their contradictions to the user:
+
+```
+⚠ Conflicting issues in issues.md
+
+ISS-001 (high): Merge modules A and B
+ISS-002 (high): Split module A into sub-modules
+Conflict: Both affect module A's structure differently.
+
+Recommendation: [your recommendation]
+Please decide:
+1. Follow ISS-001 (merge)
+2. Follow ISS-002 (split)
+3. Different approach
+```
+
+**Rule 4 — Resolved issues are closed.** Once an issue's fix is committed, set its status to `resolved` and note the resolving round. If a resolution reopens an existing resolved issue, the new entry supersedes the old one.
+
 ---
 
 ## 8. Round Summary Format
@@ -324,15 +402,18 @@ After Round N's tasks are all done (or all blocked), write a Round Summary in `s
 ```markdown
 ## Round History
 
-### Round [N] (current)
+**Current Round:** [N]
+
+### Round [N] (complete)
 - **Status:** [completed / blocked]
+- **Location:** `generated/rounds/round-NNN/`
 - **Tasks:** X planned, Y completed, Z deferred
 - **New issues:** ISS-NNN, ISS-MMM
 - **Open issues:** W remaining
 - **Summary:** One or two sentences about what this round achieved.
 ```
 
-Append a new entry at the top for the current round. Previous rounds stay below as history.
+Always include a `**Current Round:**` line at the top of Round History. When a round completes and a new round starts, update this line. Previous rounds stay below as history.
 
 ---
 
@@ -352,9 +433,9 @@ Append a new entry at the top for the current round. Previous rounds stay below 
 
 Before declaring Round N complete:
 
-- [ ] All tasks in `tasks.md` are `done` or `blocked`
+- [ ] All tasks in `generated/rounds/round-NNN/tasks.md` are `done` or `blocked`
 - [ ] `issues.md` updated with any new issues found (even low/medium that were handled inline)
-- [ ] Round Summary written in `start-and-resume.md § Round History`
+- [ ] Round Summary written in `start-and-resume.md § Round History` with `**Current Round:**` line
 - [ ] `blueprint.md` updated (Round column, status, notes on open issues)
 - [ ] All `[DEBUG-*]` instrumentation removed (if any)
 - [ ] User informed: "Round N complete. X/Y tasks done. Z open issues."

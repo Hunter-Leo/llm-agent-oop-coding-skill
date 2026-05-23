@@ -3,18 +3,18 @@
 Produce `plan.md` after all prerequisite and algorithm design documents are complete.
 
 **Entry:** `init.md` exists, optional prerequisite docs (Phase 02/03) are complete if needed.
-**Exit:** `plan.md` created at `.dev/[NNN]-[req-name]/generated/plan.md`, Design Compliance Review passed.
+**Exit:** `plan.md` created at `.dev/[NNN]-[req-name]/generated/rounds/round-NNN/plan.md`, Design Compliance Review passed.
 
-> **Incremental update (Round N+1):** If `plan.md` already exists (not first round), do not rewrite from scratch. Read `issues.md`, identify which plan elements need updating based on open issues, and modify only those sections. Preserve unaffected sections.
+> **Incremental update (Round N+1):** Create a new `plan.md` under `rounds/round-(N+1)/`. Read `issues.md` and the previous round's `plan.md` for context, then write an updated plan that addresses open issues. Do not overwrite the previous round's plan.md — each round keeps its own.
 
 Before writing `plan.md`:
 1. Read all completed prerequisite documents (`inspect.md`, `research.md`, `algorithm-design.md` — whichever exist)
 2. Read `init.md § Constitution` — the plan must respect the coding constraints defined there
-3. Read [07-oop-principles.md](07-oop-principles.md) — all class and module design must follow OOP & SOLID principles
+3. Read [../constitution/01-oop-principles.md](../constitution/01-oop-principles.md) — all class and module design must follow OOP & SOLID principles
 
 ## Output
 
-`.dev/[NNN]-[req-name]/generated/plan.md`
+`.dev/[NNN]-[req-name]/generated/rounds/round-NNN/plan.md`
 
 ## plan.md Structure
 
@@ -53,7 +53,7 @@ Each step should be independently testable.
 ### Key Technical Points
 
 - Non-obvious design decisions and their reasoning
-- Class and module design must follow OOP & SOLID principles — see [07-oop-principles.md](07-oop-principles.md)
+- Class and module design must follow OOP & SOLID principles — see [../constitution/01-oop-principles.md](../constitution/01-oop-principles.md)
 - Integration points between modules
 - Error handling strategy
 - Data flow between components
@@ -85,4 +85,4 @@ If any check fails, revise the relevant section of `plan.md` before proceeding t
 
 ## After Completing Phase 04
 
-Update `.dev/blueprint.md`: advance this requirement's Phase to `04 Plan` and Status to `✅ done` for this phase. See [09-blueprint-management.md](09-blueprint-management.md) for the full update rules.
+Update `.dev/blueprint.md`: advance this requirement's Phase to `04 Plan` and Status to `✅ done` for this phase. See [05-blueprint-management.md](05-blueprint-management.md) for the full update rules.

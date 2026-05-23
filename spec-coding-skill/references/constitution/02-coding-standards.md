@@ -188,7 +188,7 @@ Use `npm`, `yarn`, or `pnpm` (be consistent within the project).
 - Use Bean Validation annotations (`@NotNull`, `@Size`, etc.) on all input models
 - Define clear interfaces and abstract classes as extension points
 - Use enums instead of string or int constants
-- Follow SOLID principles (see [07-oop-principles.md](07-oop-principles.md))
+- Follow SOLID principles (see [01-oop-principles.md](01-oop-principles.md))
 
 ### Documentation
 

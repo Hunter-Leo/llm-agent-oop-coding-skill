@@ -14,20 +14,23 @@ Create `.dev/[NNN]-[req-name]/generated/start-and-resume.md`:
 ```markdown
 # Start and Resume Guide — [NNN]-[req-name]
 
+**Current Round:** 1
+
 ## Quick Start
 1. Read `.dev/blueprint.md` — project-wide status across all requirements
 2. Read `init.md` — this requirement's scope
-3. Read `plan.md` — technical approach
-4. Read `tasks.md` — find the next `not-started` task
+3. Read `rounds/round-[NNN]/plan.md` — technical approach (NNN = current round from above)
+4. Read `rounds/round-[NNN]/tasks.md` — find the next `not-started` task
 5. Review the standards sections below before writing any code
 
 ## Resuming After Interruption
 1. Read `00-agent-execution.md § Handling Project Overview Queries` — use this format to present the full project status when asked
 2. Read `.dev/blueprint.md` — see all requirements, their phases, and overall project status
-3. Open `tasks.md` for the active requirement and find the first task not in `done`
-4. If a task is `in-progress`, read its Notes for context before continuing
-5. If a task is `blocked`, read the Notes and address the blocker first
-6. Review the standards sections below before continuing
+3. Check `issues.md` for open issues from previous rounds
+4. Open `rounds/round-[NNN]/tasks.md` for the active requirement and find the first task not in `done`
+5. If a task is `in-progress`, read its Notes for context before continuing
+6. If a task is `blocked`, read the Notes and address the blocker first
+7. Review the standards sections below before continuing
 
 ## Session Bootstrap (new agent session on existing project)
 
@@ -62,26 +65,31 @@ When entering an existing project that already has `.dev/` content, bootstrap th
    - **Blueprint missing**: "No blueprint found. Scanned `.dev/` and found N requirements. Reconstructing blueprint..."
 
 4. **Ask** the user which requirement to focus on, or proceed with the active one
-5. **Open** `tasks.md` for the chosen requirement and find the next unstarted task
+5. **Open** `issues.md` for open issues (if round > 1)
+6. **Open** `generated/rounds/round-[NNN]/tasks.md` for the chosen requirement and find the next unstarted task
 
 > This applies whenever `.dev/blueprint.md` exists, regardless of whether the user explicitly asked for an overview. Do not skip to task execution without first showing the blueprint.
 
 ## Key Documents
 - Requirement: `.dev/[NNN]-[req-name]/init.md`
-- Plan: `.dev/[NNN]-[req-name]/generated/plan.md`
-- Tasks: `.dev/[NNN]-[req-name]/generated/tasks.md`
+- Issues (cross-round): `.dev/[NNN]-[req-name]/issues.md`
+- Current plan: `.dev/[NNN]-[req-name]/generated/rounds/round-[NNN]/plan.md`
+- Current tasks: `.dev/[NNN]-[req-name]/generated/rounds/round-[NNN]/tasks.md`
 
 ---
 
 ## Round History
 
-Tracked in this document's own `## Round History` section (see template below). Each round adds an entry here when it completes. See [06-round-mechanism.md](06-round-mechanism.md) for the full round-based execution model, state machine definitions, and agent decision matrix.
+Tracked in this document's own `## Round History` section (see template below). Each round adds an entry here when it completes. See [01-round-mechanism.md](01-round-mechanism.md) for the full round-based execution model, state machine definitions, and agent decision matrix.
 
 ```markdown
 ## Round History
 
+**Current Round:** [N]
+
 ### Round [N] (current)
 - **Status:** [completed / blocked]
+- **Location:** `generated/rounds/round-NNN/`
 - **Tasks:** X planned, Y completed, Z deferred to issues.md
 - **New issues:** ISS-NNN, ISS-MMM
 - **Summary:** What this round achieved and what remains.
@@ -91,7 +99,7 @@ Tracked in this document's own `## Round History` section (see template below). 
 
 ## Constitution
 
-See `init.md § Constitution` for this requirement's design rules, and [07-oop-principles.md](07-oop-principles.md) / [08-coding-standards.md](08-coding-standards.md) for the full standards.
+See `init.md § Constitution` for this requirement's design rules, and [../constitution/01-oop-principles.md](../constitution/01-oop-principles.md) / [../constitution/02-coding-standards.md](../constitution/02-coding-standards.md) for the full standards.
 
 Key principles that apply to every task:
 - **OOP & SOLID** — encapsulation, SRP, OCP (no if/elif chains), DIP (depend on abstractions)
@@ -105,7 +113,7 @@ Key principles that apply to every task:
 
 ## Git Workflow
 
-See [10-git-workflow.md](10-git-workflow.md) for the full rules — this section only summarizes what you need during execution.
+See [../constitution/03-git-workflow.md](../constitution/03-git-workflow.md) for the full rules — this section only summarizes what you need during execution.
 
 Branch: `<type>/[NNN]-[req-name]`
 
@@ -167,9 +175,13 @@ d. After user confirmation, **agent directly invokes** the chosen execution mode
 
 ## Execution Loop
 
-Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
+Repeat for each task in the current round's `tasks.md` (at `generated/rounds/round-[NNN]/tasks.md`) — **never skip a step, never batch tasks**:
 
-**Pre-loop: Re-read this document.** Read [06-round-mechanism.md](06-round-mechanism.md) for the state machine, decision matrix, and issues.md format before starting execution for the first time. When resuming a round, re-read this document's § Deviation Protocol and § Round History.
+**Pre-loop:** Determine the current round number from `§ Round History` above, then:
+- Read [01-round-mechanism.md](01-round-mechanism.md) for the state machine, decision matrix, and issues.md format
+- Read `generated/rounds/round-[NNN]/tasks.md` for the current round's task list
+- Read `issues.md` for any open issues from previous rounds
+- When resuming a round, re-read this document's § Deviation Protocol and § Round History.
 
 ```
 0.  Ensure the correct feature branch exists and is checked out:
@@ -177,9 +189,9 @@ Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
       If not on the feature branch:
       git checkout -b <type>/[NNN]-[req-name]
 
-1.  Mark task as `in-progress` in tasks.md
+1.  Mark task as `in-progress` in `generated/rounds/round-[NNN]/tasks.md`
 
-2.  Read plan.md and relevant generated docs to confirm the approach for this task
+2.  Read the current round's `plan.md` and relevant generated docs to confirm the approach for this task
 
 3.  Read all affected existing source files (in sections if large)
 
@@ -187,7 +199,7 @@ Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
       a. init.md § Constitution — design rules for this requirement
       b. § OOP & SOLID Principles above — key OOP/SOLID rules
       c. § Coding Standards above — key coding rules
-      d. 10-git-workflow.md § Branch — confirm branch naming and type
+      d. ../constitution/03-git-workflow.md § Branch — confirm branch naming and type
 
 5.  Implement the minimal change needed
 
@@ -211,7 +223,7 @@ Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
 
 8.  Run existing tests — must pass (no regressions)
 
-9.  Read 08-coding-standards.md § Testing to confirm test file naming and coverage
+9.  Read ../constitution/02-coding-standards.md § Testing to confirm test file naming and coverage
     requirements, then write unit tests:
       [ ] Normal cases covered
       [ ] Edge cases covered
@@ -232,7 +244,7 @@ Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
       [ ] On the correct feature branch (not main)
       [ ] Commit message follows Google style: ≤72 chars, imperative, English
 
-13. Commit following the [Git Workflow](10-git-workflow.md):
+13. Commit following the [Git Workflow](../constitution/03-git-workflow.md):
       git add <specific files>
       git commit -m "[NNN] T-XXX <type>: <imperative summary ≤ 72 chars>"
 
@@ -250,9 +262,9 @@ Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
 
 ## Deviation Protocol
 
-When a deviation is discovered during execution (plan doesn't match reality, new bug found, scope creep), follow the protocol below instead of silently modifying course. Deviations are logged to `issues.md` and resolved either within the current round or deferred to Round N+1.
+**This section is the authority for handling execution deviations.** The state machine and decision matrix in [01-round-mechanism.md](01-round-mechanism.md) tell you *which* state to transition to; this section tells you *how* to handle the deviation itself.
 
-See [06-round-mechanism.md](06-round-mechanism.md) for the full state machine, decision matrix, and issues.md format.
+When a deviation is discovered during execution (plan doesn't match reality, new bug found, scope creep), follow the protocol below instead of silently modifying course. Deviations are logged to `issues.md` and resolved either within the current round or deferred to Round N+1.
 
 ### Severity Levels
 
@@ -265,9 +277,56 @@ See [06-round-mechanism.md](06-round-mechanism.md) for the full state machine, d
 ### High Severity Protocol (complete)
 
 1. **STOP** — do not continue writing code until decision is made
-2. **Record** — write to `issues.md` with type, severity, description, evidence, suggested fix
-3. **Generate options** — 2-3 paths (e.g. fix now, defer to next round, rollback approach)
-4. **Present to user** — show the finding, options, and your recommendation
+2. **Record** — write to both `issues.md` and `generated/rounds/round-[NNN]/issues.md` with type, severity, description, evidence, suggested fix
+3. **Generate options** — use the template below for the deviation's type. Always include your recommendation.
+
+   **Template: plan-deviation** (plan.md design infeasible):
+   ```
+   Option A: Update plan.md with revised design, fix within current round
+       → Use when: deviation scope is contained, fix doesn't ripple across modules
+       → Cost: restart current task, update plan.md, adjust tasks.md
+   Option B: Log issue, defer to Round N+1 (recommended)
+       → Use when: deviation requires significant design or cross-module changes
+       → Cost: current task stays blocked; rest of round continues
+   Option C: Rollback to last checkpoint, restart task with different approach
+       → Use when: current approach is fundamentally wrong and no clear path forward
+       → Cost: lost work on current task, but clean slate for replanning
+   ```
+
+   **Template: discovered-bug** (bug in unrelated code):
+   ```
+   Option A: Log to TODO.md, continue current task (recommended)
+       → Use when: bug doesn't affect current task or requirement scope
+       → Cost: none to current round; bug tracked cross-requirement
+   Option B: Fix in current round — add fix task to tasks.md
+       → Use when: bug blocks current task or is trivially small
+       → Cost: extends current round by 1-2 tasks
+   ```
+
+   **Template: scope-creep** (work discovered that wasn't planned):
+   ```
+   Option A: Add to current round's tasks.md (recommended)
+       → Use when: work is small (< 1 task) and user has confirmed priority
+       → Cost: extends current round slightly
+   Option B: Log to issues.md, plan for Round N+1
+       → Use when: work is significant or user hasn't confirmed priority
+       → Cost: deferred, no impact on current round
+   ```
+
+4. **Present to user** — show the finding, options, and your recommendation. Format:
+   ```
+   ⚠ [deviation-type] — [one-line summary]
+
+   **Found in:** T-XXX — [task name]
+   **Description:** [what was discovered]
+
+   **Options:**
+   1. Option A: [title] (recommended) — [one-line rationale]
+   2. Option B: [title] — [one-line rationale]
+   3. Option C: [title] — [one-line rationale]
+
+   Please choose, or suggest another approach.
+   ```
 5. **Wait for decision** — user picks one; if no response after 5 min, execute recommended option as default
 6. **Execute** — implement the decision, update `tasks.md` / `plan.md` if needed
 
@@ -309,9 +368,11 @@ All 12 tests pass.
 
 When all tasks in `tasks.md` reach `done` (or all runnable tasks are `blocked`):
 
-1. **Check `issues.md`** — read all open issues and summarize for the user
+1. **Finalize round issues** — update `generated/rounds/round-NNN/issues.md`: set status of all entries to their final state (resolved / open / wontfix). Open entries remain in `issues.md` for cross-round tracking.
 
-2. **Write Round Summary** — update `start-and-resume.md § Round History`:
+2. **Check `issues.md`** — read all open issues and summarize for the user
+
+3. **Write Round Summary** — update `start-and-resume.md § Round History`:
    ```
    ### Round [N] (complete)
    - **Status:** ✅ done (or ⏸ blocked)
@@ -320,14 +381,14 @@ When all tasks in `tasks.md` reach `done` (or all runnable tasks are `blocked`):
    - **Summary:** What this round achieved.
    ```
 
-3. **Update `.dev/blueprint.md`** — set Round, Phase, Status. Read [09-blueprint-management.md](09-blueprint-management.md).
+4. **Update `.dev/blueprint.md`** — set Round, Phase, Status. Read [../phases/05-blueprint-management.md](../phases/05-blueprint-management.md).
 
-4. **If no open issues remain:** declare requirement complete, create PR/merge (step 5), and notify:
+5. **If no open issues remain:** declare requirement complete, create PR/merge (step 7), and notify:
    > ✅ All tasks complete for requirement [NNN]-[req-name].
    > Summary: X tasks completed, Y deviations from plan recorded in tasks.md.
    > No open issues. Development complete.
 
-5. **If open issues remain,** notify the user with:
+6. **If open issues remain,** notify the user with:
    > ✅ Round N complete for requirement [NNN]-[req-name].
    > X/Y tasks done. Open issues: ISS-NNN, ISS-MMM.
    >
@@ -335,7 +396,7 @@ When all tasks in `tasks.md` reach `done` (or all runnable tasks are `blocked`):
    > and resolve the open issues in a new execution round.
    > Or reply **no** to finish for now.
 
-   If user confirms Round N+1, proceed to Phase 01* (see [06-round-mechanism.md](06-round-mechanism.md) § Phase 01* — Round N+1 Re-entry Flow).
+   If user confirms Round N+1, proceed to Phase 01* (see [01-round-mechanism.md](01-round-mechanism.md) § Phase 01* — Round N+1 Re-entry Flow).
 
 6. **Create a pull request or local merge** using the format in [§ Pull Request / Local Merge](#pull-request--local-merge). For PRs: `gh pr create --title "<type>(<scope>): <summary>" --body "$(cat <<'EOF'\n...\nEOF\n)"`. For local merge: `git checkout main && git merge --no-ff <type>/[NNN]-[req-name] -m "$(cat <<'EOF'\n<type>(<scope>): <imperative summary>\n\n## Summary\n...\nEOF\n)"`
 
@@ -373,18 +434,18 @@ When a task cannot proceed:
 
 ## Git Workflow
 
-See [10-git-workflow.md](10-git-workflow.md) — all git rules live there (branch naming, commit format, pre-commit checks, PR/local merge, release tagging). This section contains only the execution-loop-specific reminders.
+See [../constitution/03-git-workflow.md](../constitution/03-git-workflow.md) — all git rules live there (branch naming, commit format, pre-commit checks, PR/local merge, release tagging). This section contains only the execution-loop-specific reminders.
 
 ### In the Execution Loop
 
-Step 11 of the execution loop commits following the format defined in [10-git-workflow.md § Commit Messages](10-git-workflow.md#commit-messages):
+Step 11 of the execution loop commits following the format defined in [../constitution/03-git-workflow.md § Commit Messages](../constitution/03-git-workflow.md#commit-messages):
 ```
 git commit -m "[NNN] T-XXX <type>: <imperative summary ≤ 72 chars>"
 ```
 
 ### At Requirement Complete
 
-Step 4 of [§ Requirement Complete](#requirement-complete) creates a PR or local merge using the format in [10-git-workflow.md § Pull Request / Local Merge](10-git-workflow.md#pull-request--local-merge).
+Step 4 of [§ Requirement Complete](#requirement-complete) creates a PR or local merge using the format in [../constitution/03-git-workflow.md § Pull Request / Local Merge](../constitution/03-git-workflow.md#pull-request--local-merge).
 
 ---
 

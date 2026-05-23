@@ -2,14 +2,14 @@
 
 Create the requirement definition document before any planning or coding begins.
 
-**Entry:** A need or requirement has been identified, sized M or larger via [Task Sizing](00-agent-execution.md#task-sizing).
+**Entry:** A need or requirement has been identified, sized M or larger via [Task Sizing](../constitution/00-agent-execution.md#task-sizing).
 **Exit:** `init.md` created at `.dev/[NNN]-[req-name]/init.md`, `.dev/blueprint.md` updated with the new requirement.
 
 > **Round check**: Before starting Phase 01, check if `.dev/[NNN]-[req-name]/issues.md` exists.
 > - If **no** issues.md: this is Round 1 — proceed normally (create init.md from scratch).
-> - If **yes** (issues.md exists with open issues): this is Phase 01* (Round N+1 re-entry). Read [06-round-mechanism.md](06-round-mechanism.md) § Phase 01* first, then read issues.md to understand what must change in init.md. Update init.md incrementally based on open issues.
+> - If **yes** (issues.md exists with open issues): this is Phase 01* (Round N+1 re-entry). Read [01-round-mechanism.md](../execution/01-round-mechanism.md) § Phase 01* first, then read issues.md to understand what must change in init.md. Update init.md incrementally based on open issues.
 
-> If the task was sized XS or S, this phase is skipped entirely. See [00-agent-execution.md § Task Sizing](00-agent-execution.md#task-sizing) for the direct execution flow.
+> If the task was sized XS or S, this phase is skipped entirely. See [00-agent-execution.md § Task Sizing](../constitution/00-agent-execution.md#task-sizing) for the direct execution flow.
 
 ## Step 0 — Requirement Clarity Check
 
@@ -57,8 +57,8 @@ Wait for user confirmation before continuing.
 
 Before creating `init.md`, complete these two steps (each asked only once per requirement):
 
-1. **Language** — detect the user's communication language and ask if needed (see [00-agent-execution.md](00-agent-execution.md) § Language)
-2. **Interactive mode** — ask the user whether to proceed interactively or automatically (see [00-agent-execution.md](00-agent-execution.md) § Interactive Mode)
+1. **Language** — detect the user's communication language and ask if needed (see [00-agent-execution.md](../constitution/00-agent-execution.md) § Language)
+2. **Interactive mode** — ask the user whether to proceed interactively or automatically (see [00-agent-execution.md](../constitution/00-agent-execution.md) § Interactive Mode)
 
 ## Step 2 — Skill & Agent Discovery
 
@@ -107,7 +107,7 @@ Declare the current stage of the project.
 project_stage: pre-launch   # or: live
 ```
 
-See `06-start-and-resume.md § Breaking Changes Policy` for how this value affects execution.
+See `../execution/00-start-and-resume.md § Breaking Changes Policy` for how this value affects execution.
 
 ### # Spec
 
@@ -143,20 +143,23 @@ Ordered list of documents to produce. Use this template:
 
 > Complete all checked prerequisite documents before proceeding to the required documents below.
 
+**Round artifacts** (maintained across rounds):
+- [ ] `issues.md`                     — Round-to-round issue log (created in Phase 07, read on re-entry)
+
 **Required documents** (always, in order):
-- [ ] `generated/plan.md`              — Phase 04
-- [ ] `generated/tasks.md`             — Phase 05
-- [ ] `generated/start-and-resume.md`  — Phase 06 (must exist before any task execution)
+- [ ] `generated/rounds/round-001/plan.md`     — Phase 04 (Round 1). Subsequent rounds: `round-NNN/plan.md`
+- [ ] `generated/rounds/round-001/tasks.md`    — Phase 05. Each round gets its own tasks.md
+- [ ] `generated/start-and-resume.md`          — Phase 06 (must exist before any task execution)
 ```
 
-All generated documents go under `.dev/[NNN]-[req-name]/generated/`.
+All generated documents go under `.dev/[NNN]-[req-name]/generated/`. Requirement-level files (`init.md`, `issues.md`) live under `.dev/[NNN]-[req-name]/`. Round-specific docs (plan, tasks, issues) live under `generated/rounds/round-NNN/`.
 
 ### # Constitution
 
 Mandatory coding standards for this requirement. Read the following documents and include applicable rules in this section of `init.md`:
 
-- [07-oop-principles.md](07-oop-principles.md) — OOP & SOLID principles (**all code must comply; this section must include the relevant rules**)
-- [08-coding-standards.md](08-coding-standards.md) — language-specific standards
+- [../constitution/01-oop-principles.md](../constitution/01-oop-principles.md) — OOP & SOLID principles (**all code must comply; this section must include the relevant rules**)
+- [../constitution/02-coding-standards.md](../constitution/02-coding-standards.md) — language-specific standards
 
 Keep only the languages and rules that apply to this requirement. Document any project-specific extensions (e.g., team conventions not covered by the reference documents).
 
@@ -165,7 +168,7 @@ Keep only the languages and rules that apply to this requirement. Document any p
 After creating `init.md` and its Action Items, register this requirement in the project blueprint.
 
 1. **Read** `.dev/blueprint.md` if it exists
-2. **Create** `.dev/blueprint.md` if this is the first requirement — use the template from [09-blueprint-management.md](09-blueprint-management.md)
+2. **Create** `.dev/blueprint.md` if this is the first requirement — use the template from [05-blueprint-management.md](05-blueprint-management.md)
 3. **Add a row** for this new requirement with:
    - Phase: `01 Init`
    - Status: `⏳ pending`
