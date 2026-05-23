@@ -60,7 +60,38 @@ Before creating `init.md`, complete these two steps (each asked only once per re
 1. **Language** — detect the user's communication language and ask if needed (see [00-agent-execution.md](../constitution/00-agent-execution.md) § Language)
 2. **Interactive mode** — ask the user whether to proceed interactively or automatically (see [00-agent-execution.md](../constitution/00-agent-execution.md) § Interactive Mode)
 
-## Step 2 — Skill & Agent Discovery
+---
+
+## Method Selection
+
+Before writing `init.md`, evaluate which methods apply to this phase.
+
+**Methods tagged for Phase 01:**
+- [Term Grilling + ADR](../methods/00-term-grilling-and-adr.md) — Term alignment and ADR creation
+
+**Evaluate:**
+
+1. Read the method's `## When to Use` / `## Do Not Use` sections
+2. Check for trigger signals in the current spec:
+   - Fuzzy/ambiguous terminology (signal words: "robust", "scalable", "efficient", undefined concepts)
+   - Hard-to-reverse technical decisions (tech stack, data model, interface contracts)
+3. Populate the table:
+
+```
+| Method | Phase | Triggers Present? | Apply? | Skip Justification |
+|--------|-------|-------------------|--------|--------------------|
+| Term Grilling + ADR | 01 | Yes/No | Yes/No | (if No: specific reason) |
+```
+
+4. **If Yes**: execute the method after drafting `init.md` (see Term Grilling + ADR doc). Create `.dev/CONTEXT.md` glossary and ADRs as needed.
+5. **If No**: record a specific factual justification. Generic "not needed" is invalid.
+   Valid examples: "All terminology is concrete and well-defined", "No hard-to-reverse decisions in this requirement"
+
+After Method Selection, proceed to the step below.
+
+---
+
+## Step 1 — Skill & Agent Discovery
 
 Before writing the `# Action Items` section of `init.md`, check for available tools that could help complete this requirement:
 

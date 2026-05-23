@@ -87,12 +87,13 @@ Tracked in this document's own `## Round History` section (see template below). 
 
 **Current Round:** [N]
 
-### Round [N] (current)
+### Round [N] (complete)
 - **Status:** [completed / blocked]
 - **Location:** `generated/rounds/round-NNN/`
-- **Tasks:** X planned, Y completed, Z deferred to issues.md
+- **Tasks:** X planned, Y completed, Z deferred
 - **New issues:** ISS-NNN, ISS-MMM
-- **Summary:** What this round achieved and what remains.
+- **Open issues:** W remaining
+- **Summary:** One or two sentences about what this round achieved.
 ```
 
 ---
@@ -201,6 +202,14 @@ Repeat for each task in the current round's `tasks.md` (at `generated/rounds/rou
       c. § Coding Standards above — key coding rules
       d. ../constitution/03-git-workflow.md § Branch — confirm branch naming and type
 
+4a. **Method Selection — Vertical Slice TDD:** Evaluate whether [Vertical Slice TDD](../methods/01-vertical-slice-tdd.md) applies to this task:
+
+    **Triggers Present?** Does this task have a clear, stable public interface?
+    - **Yes**: Apply TDD. Replace steps 5-10 below with RED → GREEN → REFACTOR micro-cycles per behavior. See the method doc for integration details.
+    - **No**: Record justification (e.g. "Required interface is undefined", "Migration task with no new behavior") and proceed with the standard sequence.
+
+    This evaluation repeats for **each task** — some tasks in the same requirement may use TDD while others do not.
+
 5.  Implement the minimal change needed
 
 6.  **During implementation: if you discover a problem that deviates from plan.md or tasks.md:**
@@ -225,6 +234,8 @@ Repeat for each task in the current round's `tasks.md` (at `generated/rounds/rou
 
 9.  Read ../constitution/02-coding-standards.md § Testing to confirm test file naming and coverage
     requirements, then write unit tests:
+
+    > If using [Vertical Slice TDD](../methods/01-vertical-slice-tdd.md), the test-writing step is folded into the RED phase of each RED-GREEN-REFACTOR cycle. Verify that the micro-cycle has produced sufficient coverage instead.
       [ ] Normal cases covered
       [ ] Edge cases covered
       [ ] Error / exception cases covered
@@ -383,12 +394,18 @@ When all tasks in `tasks.md` reach `done` (or all runnable tasks are `blocked`):
 
 4. **Update `.dev/blueprint.md`** — set Round, Phase, Status. Read [../phases/05-blueprint-management.md](../phases/05-blueprint-management.md).
 
-5. **If no open issues remain:** declare requirement complete, create PR/merge (step 7), and notify:
+5. **Method Selection — Dual-Axis Review:** Before declaring Round Complete, evaluate whether this method applies.
+
+    **Triggers Present?** Is this a significant round with substantial new code (not XS/S)?
+    - **Yes**: Apply [Dual-Axis Review](../methods/02-dual-axis-review.md). Spawn two parallel reviews (standards axis + spec axis). If both pass, proceed. If either flags issues, follow the reconciliation process in the method doc.
+    - **No**: Record justification. The standard self-check checklist (step 12) suffices for trivial rounds.
+
+6. **If no open issues remain:** declare requirement complete, create PR/merge (step 8), and notify:
    > ✅ All tasks complete for requirement [NNN]-[req-name].
    > Summary: X tasks completed, Y deviations from plan recorded in tasks.md.
    > No open issues. Development complete.
 
-6. **If open issues remain,** notify the user with:
+7. **If open issues remain,** notify the user with:
    > ✅ Round N complete for requirement [NNN]-[req-name].
    > X/Y tasks done. Open issues: ISS-NNN, ISS-MMM.
    >
@@ -398,7 +415,7 @@ When all tasks in `tasks.md` reach `done` (or all runnable tasks are `blocked`):
 
    If user confirms Round N+1, proceed to Phase 01* (see [01-round-mechanism.md](01-round-mechanism.md) § Phase 01* — Round N+1 Re-entry Flow).
 
-6. **Create a pull request or local merge** using the format in [§ Pull Request / Local Merge](#pull-request--local-merge). For PRs: `gh pr create --title "<type>(<scope>): <summary>" --body "$(cat <<'EOF'\n...\nEOF\n)"`. For local merge: `git checkout main && git merge --no-ff <type>/[NNN]-[req-name] -m "$(cat <<'EOF'\n<type>(<scope>): <imperative summary>\n\n## Summary\n...\nEOF\n)"`
+8. **Create a pull request or local merge** using the format in [§ Pull Request / Local Merge](#pull-request--local-merge). For PRs: `gh pr create --title "<type>(<scope>): <summary>" --body "$(cat <<'EOF'\n...\nEOF\n)"`. For local merge: `git checkout main && git merge --no-ff <type>/[NNN]-[req-name] -m "$(cat <<'EOF'\n<type>(<scope>): <imperative summary>\n\n## Summary\n...\nEOF\n)"`
 
 ---
 

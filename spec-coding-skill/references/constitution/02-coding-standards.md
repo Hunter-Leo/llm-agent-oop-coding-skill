@@ -66,9 +66,72 @@
 | Go | `*_test.go` |
 | Rust | `#[cfg(test)] mod tests` in same file |
 
----
+### Testing Philosophy
 
-## Python
+Tests should verify behavior through **public interfaces**, not implementation details. A good test survives internal refactors — if you rename a private function and tests break, those tests were testing implementation, not behavior.
+
+**Principle — "The interface is the test surface":**
+
+Prefer testing through the same seam callers use. This produces tests that:
+- Describe WHAT the system does, not HOW
+- Remain stable across refactors
+- Give confidence the feature actually works end-to-end
+
+```python
+# GOOD — verifies behavior through public interface
+def test_checkout_confirms_with_valid_cart():
+    cart = create_cart([product])
+    result = checkout(cart, valid_payment)
+    assert result.status == "confirmed"
+
+# BAD — verifies implementation details
+def test_checkout_calls_payment_service():
+    mock_payment = Mock(PaymentService)
+    checkout(cart, mock_payment)
+    assert mock_payment.process.called  # tests HOW not WHAT
+```
+
+**This is a default, not a dogma.** Deviate from "interface-first" testing when:
+
+| Scenario | Why to deviate | Alternative |
+|----------|---------------|-------------|
+| Data pipeline / ETL | Full end-to-end too slow | Test each transform in isolation |
+| ML / data science | Interface (predict()) too thin | Test internal pre-processing + model logic separately |
+| Complex algorithm | Top-level test makes debugging hard | Layer tests: unit test internals + integration test interface |
+| Performance-sensitive | Correctness != performance | Separate benchmark harness for perf, standard tests for correctness |
+| Glue code / script | Interface barely exists | Test individual functions |
+| IaC / K8s operator | Interface is declarative config, real execution deploys resources | Module-level unit tests + dry-run integration |
+| Third-party integration | External API not available in test env | Test your adapter logic with a fake, not the real endpoint |
+
+**Mock discipline:**
+
+Only mock at **system boundaries** — external APIs, databases (prefer test DB), time/randomness, file system. Never mock your own classes, modules, or internal collaborators.
+
+```python
+# OK — mock at system boundary
+def test_send_email_retries_on_timeout():
+    smtp_client = Mock(SMTPClient)
+    smtp_client.send.side_effect = [TimeoutError, ResponseOk()]
+    result = send_notification(smtp_client, "test@example.com", "Hello")
+    assert result.delivered
+
+# BAD — mock internal collaborator
+def test_order_service_creates_order():
+    repo = Mock(OrderRepository)     # your own module, don't mock
+    service = OrderService(repo)
+    order = service.create(...)
+    assert repo.save.called          # tests call sequence, not behavior
+```
+
+**Test anti-patterns to avoid:**
+
+| Pattern | Why it's wrong | Fix |
+|---------|---------------|-----|
+| Test private methods | Tests snap to internal structure, break on refactor | Test through public interface |
+| Assert on call count/order | Knows HOW, not WHAT | Assert on result value or state |
+| Bypass interface to verify (e.g., direct DB query) | Tests the test's understanding of internals | Verify through the public return value |
+| One test asserts many things | When first assertion fails, rest are hidden | One logical assertion per test |
+| Test name describes implementation ("calls X method") | Names become wrong after refactor | Name describes behavior ("returns confirmed status") |
 
 ### Type System
 
@@ -116,13 +179,28 @@ class Tag(BaseModel):
 
 ### Dependency Management
 
-Use `uv` for all dependency operations:
+**uv is the preferred toolchain** for all Python dependency and script operations. It replaces pip, venv, pip-tools, and poetry in a single binary.
 
+If `uv` is not installed, recommend global installation:
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+**Project mode** (requirements have a `pyproject.toml`):
 ```bash
 uv add <package>       # add dependency
-uv run <script>        # run script
-uv sync                # sync dependencies
+uv sync                # sync all dependencies
+uv run <script>        # run script in project venv
+uv lock                # update lockfile
 ```
+
+**Script mode** (one-shot with temporary dependencies — no project needed):
+```bash
+uv run --with pandas,numpy,requests script.py
+```
+This downloads dependencies into a temporary cache, runs the script, and discards nothing. Useful for ad-hoc data analysis, debugging scripts, or quick prototypes.
+
+If a project already has a `requirements.txt` / `Pipfile` / `poetry.lock`, `uv` can import from them (`uv add -r requirements.txt`). Migrate fully to `uv` when practical.
 
 ### Import Practices
 
@@ -177,7 +255,37 @@ If the answer to all three is "no", then `if TYPE_CHECKING` is the right tool. I
 
 ### Dependency Management
 
-Use `npm`, `yarn`, or `pnpm` (be consistent within the project).
+**fnm + pnpm** is the recommended modern toolchain.
+
+**Node version management** — use `fnm` (Fast Node Manager, Rust-based, faster than nvm):
+
+```bash
+eval "$(fnm env)"         # activate (add to .zshrc / .bashrc)
+fnm install                # install from .node-version / .nvmrc
+fnm use                    # switch to project's version
+```
+
+Projects should pin their Node version with a `.node-version` file:
+```
+20.12.0
+```
+
+`fnm` auto-reads `.node-version` and `.nvmrc` when `fnm use` is run.
+
+**Package management** — prefer `pnpm` over npm/yarn:
+
+```bash
+pnpm add <package>         # add dependency
+pnpm add -D <package>      # add dev dependency
+pnpm dev / pnpm build      # run scripts (reads pnpm build)
+```
+
+Reasons for pnpm preference:
+- **Disk efficient** — hard links a single copy per machine, not per project
+- **Strict dependency resolution** — prevents phantom dependencies (importing packages not in `package.json`)
+- **Faster** — parallel installation, efficient caching
+
+If a project already has a `package-lock.json` (npm) or `yarn.lock`, keep using the existing tool for consistency — switching mid-project creates unnecessary churn. For new projects, use `pnpm init`.
 
 ---
 

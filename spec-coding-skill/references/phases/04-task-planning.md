@@ -13,7 +13,7 @@ Before writing `tasks.md`:
 
 ## Output
 
-`.dev/[NNN]-[req-name]/generated/tasks.md`
+`.dev/[NNN]-[req-name]/generated/rounds/round-NNN/tasks.md`
 
 ## tasks.md Structure
 

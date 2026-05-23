@@ -17,6 +17,40 @@ Only skip this phase if there are genuinely no information gaps.
 
 ---
 
+## Method Selection
+
+If Phase 02 is needed (information gaps exist), evaluate which methods apply before creating prerequisite documents.
+
+**Methods tagged for Phase 02:**
+- [Architecture Deepening](../methods/03-architecture-deepening.md) — Shallow module detection and refactoring
+- [Structured Debugging](../methods/04-structured-debugging.md) — Six-phase bug diagnosis
+- [Term Grilling + ADR](../methods/00-term-grilling-and-adr.md) — ADRs for decisions in prerequisite docs
+
+**Evaluate:**
+
+1. For each method, read its `## When to Use` / `## Do Not Use` sections
+2. Check trigger conditions against the current requirement and codebase
+3. Populate the table:
+
+```
+| Method | Phase | Triggers Present? | Apply? | Skip Justification |
+|--------|-------|-------------------|--------|--------------------|
+| Architecture Deepening | 02 | Yes/No | Yes/No | (if No: specific reason) |
+| Structured Debugging | 02 | Yes/No | Yes/No | (if No: specific reason) |
+| Term Grilling + ADR | 02 | Yes/No | Yes/No | (if No: specific reason) |
+```
+
+4. **If Yes**: integrate the method into the relevant prerequisite document:
+   - **Architecture Deepening**: add findings to `inspect.md`
+   - **Structured Debugging**: replaces the basic diagnosis template with the six-phase process
+   - **Term Grilling + ADR**: create ADRs for hard-to-reverse decisions found in prerequisite docs
+5. **If No**: record a specific justification. Generic "not needed" is invalid.
+   Valid examples: "Greenfield project — no existing code to inspect" (Architecture Deepening), "Bug root cause immediately visible from the symptom" (Structured Debugging)
+
+After Method Selection, proceed to the common documents below.
+
+---
+
 ## Common Prerequisite Documents
 
 | Scenario | Document |
@@ -43,6 +77,8 @@ Any prerequisite document that involves design (UI, flow, algorithm, architectur
 These are not optional — a design document without diagrams and examples is incomplete.
 
 ---
+
+## inspect.md
 
 **When:** any modification to existing code.
 

@@ -27,8 +27,22 @@ Read when entering the corresponding phase. Located in `phases/`:
 - [04-task-planning.md](phases/04-task-planning.md) — Phase 05 task planning
 - [05-blueprint-management.md](phases/05-blueprint-management.md) — Blueprint management
 
+## Methods — Trigger-Driven Selection
+
+Evaluated at phase entry, not advisory. Each method's trigger conditions determine whether it applies. Located in `methods/`:
+
+- [00-term-grilling-and-adr.md](methods/00-term-grilling-and-adr.md) — Terminology alignment + ADR (Phase 01/02/04)
+- [01-vertical-slice-tdd.md](methods/01-vertical-slice-tdd.md) — RED-GREEN-REFACTOR per behavior (Phase 07)
+- [02-dual-axis-review.md](methods/02-dual-axis-review.md) — Standards + Spec parallel review (Round Complete)
+- [03-architecture-deepening.md](methods/03-architecture-deepening.md) — Shallow module detection (Phase 02)
+- [04-structured-debugging.md](methods/04-structured-debugging.md) — Six-phase bug diagnosis (Phase 02)
+
+These methods are **trigger-driven**: at the entry of each applicable phase, the agent must evaluate trigger conditions and apply the method if they match, or justify skipping if they do not. See [SKILL.md § Method Selection](../SKILL.md#method-selection--trigger-driven) for the full rules.
+
 ## Naming Convention
 
-- **Prefix 00-09** = constitution (`constitution/`)
-- **Prefix 10-19** = round execution (`execution/`)
-- **Prefix 20-29** = phase workflow (`phases/`)
+All prefixes are unique within their directory:
+- **00-09** = constitution (`constitution/`)
+- **00-09** = extended methods (`methods/`) — same range, separate directory, no conflict
+- **00-01** = round execution (`execution/`) — numbered for reading order
+- **00-05** = phase workflow (`phases/`) — numbered for reading order

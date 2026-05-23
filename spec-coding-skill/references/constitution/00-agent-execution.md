@@ -224,15 +224,19 @@ Before marking a task `done`, verify:
 
 ## Phase Transition Re-read Discipline
 
-Before entering any phase, re-read that phase's reference file:
+Before entering any phase, re-read that phase's reference file. After re-reading, run the **Method Selection** step documented in that phase's reference to evaluate which extended methods apply.
 
 | Phase | Reference to Re-read |
 |-------|---------------------|
-| Phase 01 (first round) | `01-initialization.md` |
-| Phase 01* (round N+1 re-entry) | `01-initialization.md` + `01-round-mechanism.md` § Phase 01* |
-| Phase 04 | `04-implementation-plan.md` |
-| Phase 05 | `05-task-planning.md` |
+| Phase 01 (first round) | `00-initialization.md` |
+| Phase 01* (round N+1 re-entry) | `00-initialization.md` + `01-round-mechanism.md` § Phase 01* |
+| Phase 02 | `01-prerequisite-tasks.md` |
+| Phase 03 | `02-algorithm-design.md` |
+| Phase 04 | `03-implementation-plan.md` |
+| Phase 05 | `04-task-planning.md` |
+| Phase 06 | `00-start-and-resume.md` § Step 0 |
 | Phase 07 | **Must** re-read `00-start-and-resume.md` + `01-round-mechanism.md` |
+| Round Complete | `01-round-mechanism.md` § 10 Round Complete Checklist |
 
 This ensures the agent always has the current execution rules in context before acting.
 
@@ -312,7 +316,7 @@ When the user asks for a project-level overview — progress summary, status che
    **Recommended focus**: 001-user-auth (highest priority, actively in progress)
    ```
 
-5. If the user then asks about a specific requirement, follow the normal per-requirement flow from the relevant phase document.
+6. If the user then asks about a specific requirement, follow the normal per-requirement flow from the relevant phase document.
 
 Do not answer a project overview query by describing only one requirement — always read the blueprint first. If the blueprint is missing, scan `.dev/` directories for `init.md` files and reconstruct it.
 
