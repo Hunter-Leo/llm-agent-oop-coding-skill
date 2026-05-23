@@ -21,21 +21,27 @@ spec-coding-skill/
 ├── SKILL.md                        # Entry point — phase overview and core rules
 └── references/
     ├── README.md                   # Reader's guide by category
-    ├── constitution/               # Must-read rules (prefix 00-09)
+    ├── constitution/               # Must-read rules
     │   ├── 00-agent-execution.md   # Global agent behavior rules (highest precedence)
     │   ├── 01-oop-principles.md    # OOP & SOLID principles
     │   ├── 02-coding-standards.md  # Coding standards: universal + Python/TS/Java
     │   └── 03-git-workflow.md      # Git: branch, commit, PR/merge, tagging
-    ├── execution/                  # Round entry docs (prefix 10-19)
+    ├── execution/                  # Round entry docs
     │   ├── 00-start-and-resume.md  # Execution loop + Deviation Protocol + Round History
     │   └── 01-round-mechanism.md   # State machine + decision matrix + issues.md format
-    └── phases/                     # Phase workflow (prefix 20-29)
-        ├── 00-initialization.md    # Phase 01: create init.md
-        ├── 01-prerequisite-tasks.md# Phase 02: inspect / research / profiling / diagnosis
-        ├── 02-algorithm-design.md  # Phase 03: algorithm design
-        ├── 03-implementation-plan.md # Phase 04: create plan.md
-        ├── 04-task-planning.md     # Phase 05: create tasks.md
-        └── 05-blueprint-management.md # Blueprint layer: project-level req roadmap
+    ├── phases/                     # Phase workflow
+    │   ├── 00-initialization.md    # Phase 01: create init.md
+    │   ├── 01-prerequisite-tasks.md# Phase 02: inspect / research / profiling / diagnosis
+    │   ├── 02-algorithm-design.md  # Phase 03: algorithm design
+    │   ├── 03-implementation-plan.md # Phase 04: create plan.md with Method Selection
+    │   ├── 04-task-planning.md     # Phase 05: create tasks.md
+    │   └── 05-blueprint-management.md # Blueprint layer: project-level req roadmap
+    └── methods/                    # Trigger-driven extended methods
+        ├── 00-term-grilling-and-adr.md  # Term alignment + ADR
+        ├── 01-vertical-slice-tdd.md     # RED-GREEN-REFACTOR per behavior
+        ├── 02-dual-axis-review.md       # Standards + Spec parallel review
+        ├── 03-architecture-deepening.md # Shallow module detection
+        └── 04-structured-debugging.md   # Six-phase bug diagnosis
 ```
 
 ### Phase Flow (Round-Based)
@@ -97,6 +103,7 @@ Phase 07 — Execution                   (required)
 - The round model uses **per-round documents**: each round has its own `plan.md`, `tasks.md`, and `issues.md` under `generated/rounds/round-NNN/`. `start-and-resume.md` stays shared at the `generated/` level.
 - Phases 02 and 03 are independent of each other — both, one, or neither may apply
 - `start-and-resume.md` must exist before any task execution begins (mandatory gate)
+- `methods/` contains trigger-driven extended methodologies — evaluated at phase entry via Method Selection, not optional suggestions
 
 ## When Modifying This Skill
 

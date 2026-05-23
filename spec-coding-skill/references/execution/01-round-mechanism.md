@@ -440,3 +440,5 @@ Before declaring Round N complete:
 - [ ] All `[DEBUG-*]` instrumentation removed (if any)
 - [ ] User informed: "Round N complete. X/Y tasks done. Z open issues."
 - [ ] User asked: "Start Round N+1?" or "Done for now?"
+
+> **Method reference:** If the Method Selection step at Round Complete (see `00-start-and-resume.md § Requirement Complete — Round End`) triggered Dual-Axis Review, run it before this checklist. The review outputs feed directly into the checklist items.
