@@ -102,7 +102,7 @@ function solve(input):
 ## Rules
 
 - Read `init.md § Constitution` to understand the coding constraints for this requirement before designing
-- Read [07-oop-principles.md](07-oop-principles.md) before designing — ensure the algorithm and data structures are compatible with OOP & SOLID principles
+- Read [../constitution/01-oop-principles.md](../constitution/01-oop-principles.md) before designing — ensure the algorithm and data structures are compatible with OOP & SOLID principles
 - **Review the pseudocode for OCP violations** — if it contains `if/elif` chains that depend on type, replace with polymorphism before proceeding
 - Complete this document and review it before writing any implementation code
 - If the pseudocode reveals a flaw, revise the design here first

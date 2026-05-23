@@ -13,9 +13,11 @@ The blueprint exists at `.dev/blueprint.md`, sitting alongside `TODO.md` at the 
 
 | Event | Action |
 |---|---|
-| New requirement initialized (Phase 01 complete) | Add a new entry row |
+| New requirement initialized (Phase 01 complete) | Add a new entry row. Set Round to 1. |
 | Requirement advances to a new phase | Update Phase and Status columns |
-| Requirement completes (all tasks done) | Set Phase to `07 Done`, Status to `✅ done` |
+| Round completes (all tasks done or blocked) | Update Status (`▶ in-progress` → `⏳ pending`). Note open issues and tasks completed in Notes. |
+| Round N+1 starts (user confirms) | Increment Round counter. Set Status to `▶ in-progress`. Update Phase to `01 Init` or the re-entry phase. |
+| Requirement fully completes (no open issues) | Set Phase to `07 Done`, Status to `✅ done` |
 | Requirement is blocked | Set Status to `⏸ blocked`, add a note |
 | Requirement priority or deps change | Update relevant columns |
 
@@ -53,7 +55,7 @@ Overall:          [██████████░░░░░░░░░░]
 | 001 | user-auth | 07 Execution | ▶ in-progress | - | P0 | |
 | 002 | task-crud | 01 Init | ⏳ pending | 001 | P1 | |
 
-**Phase labels:** `01 Init` · `02 Prerequisite` · `03 Algorithm` · `04 Plan` · `05 Tasks` · `06 Start-and-resume` · `07 Execution` · `07 Done`
+**Phase labels:** `01 Init` · `02 Prerequisite` · `03 Algorithm` · `04 Plan` · `05 Tasks` · `06 Start-and-resume` · `07 Execution` · `Round Review` · `Phase 01* (Next Round)` · `07 Done`
 
 **Status labels:** `⏳ pending` · `▶ in-progress` · `⏸ blocked` · `✅ done`
 
@@ -109,7 +111,7 @@ When the user asks for a project-level overview — progress summary, what's blo
 1. **Read 00-agent-execution.md § Handling Project Overview Queries** first — it defines the response format and rules
 2. Read `.dev/blueprint.md` — project-level status
 3. For each active requirement (`▶ in-progress` or `⏸ blocked`), read `tasks.md` and `init.md` for detail
-4. Present the structured summary using the format defined in [00-agent-execution.md](00-agent-execution.md)
+4. Present the structured summary using the format defined in [00-agent-execution.md](../constitution/00-agent-execution.md)
 
 ## Resuming with Blueprint
 
@@ -117,9 +119,10 @@ When resuming work on a project (user returns after an interruption):
 
 1. Read `.dev/blueprint.md` to see the overall landscape
 2. Identify the highest-priority requirement in `⏳ pending` or `▶ in-progress`
-3. Read that requirement's `start-and-resume.md` for continuation context
-4. Read `tasks.md` for next task
-5. Proceed with the next unstarted task
+3. **If the requirement has a Round > 1** (round-based execution in progress), read `issues.md` first to understand open issues from previous rounds
+4. Read that requirement's `start-and-resume.md` for continuation context (includes Round History)
+5. Read `tasks.md` for next task
+6. Proceed with the next unstarted task
 
 ## Out of Scope (not tracked in blueprint)
 

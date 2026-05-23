@@ -1,9 +1,11 @@
 # Phase 05 — Task Planning
 
-Produce `tasks.md` after `plan.md` is complete. This document drives all execution in Phase 06.
+Produce the current round's `tasks.md` after its `plan.md` is complete. This document drives execution in Phase 07.
 
-**Entry:** `plan.md` exists at `.dev/[NNN]-[req-name]/generated/plan.md`.
-**Exit:** `tasks.md` created at `.dev/[NNN]-[req-name]/generated/tasks.md` with all tasks defined.
+**Entry:** `plan.md` exists at `.dev/[NNN]-[req-name]/generated/rounds/round-NNN/plan.md`.
+**Exit:** `tasks.md` created at `.dev/[NNN]-[req-name]/generated/rounds/round-NNN/tasks.md` with all tasks defined.
+
+> **Per-round:** Each round has its own `tasks.md` under `rounds/round-NNN/`. For Round N+1, read `issues.md` and create a new `tasks.md` with tasks addressing open issues. Previous round's tasks.md stays as a historical record under its round directory.
 
 Before writing `tasks.md`:
 1. Read `plan.md` in full — tasks must map directly to the implementation path defined there
@@ -86,7 +88,7 @@ What was actually done. Note any deviation from plan.md.
 
 ## Out-of-Scope Items
 
-If you discover a bug or new requirement while working on a task, do **not** add it to `tasks.md`. Log it to `.dev/TODO.md` instead — see [00-agent-execution.md](00-agent-execution.md) for the format and rules.
+If you discover a bug or new requirement while working on a task, do **not** add it to `tasks.md`. Log it to `.dev/TODO.md` instead — see [00-agent-execution.md](../constitution/00-agent-execution.md) for the format and rules.
 
 ## After Completing Phase 05
 
