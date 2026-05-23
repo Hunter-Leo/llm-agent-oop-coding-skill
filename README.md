@@ -1,29 +1,20 @@
 # spec-coding-skill
 
-A spec-driven skill for LLM agents to plan and implement large-scale coding tasks with structure, consistency, and quality. Includes a project-level **Blueprint** for tracking all requirements, their phases, dependencies, and status at a glance.
+A spec-driven skill for LLM agents to plan and implement large-scale coding tasks with structure, consistency, and quality. Uses **round-based iterative execution** — problems found during implementation are logged and resolved in subsequent rounds rather than silently deviating from the plan. Includes a project-level **Blueprint** for tracking all requirements, their phases, dependencies, and status at a glance.
 
 ## What It Does
 
-Guides an agent through six phases — from requirement definition to code execution — using a disciplined, document-first workflow. Each phase produces a concrete artifact that the next phase builds on.
+Guides an agent through a structured, document-first workflow with round-based execution. Each round is a full pass through the spec-driven flow:
 
 ```
-                 ┌──────────────────────────────┐
-                 │     .dev/blueprint.md         │  ← project-wide req overview
-                 └──────────────────────────────┘
-                              │
-Phase 01 — Initialization    │  (required)
-              ↓              │
-Phase 02 — Prerequisite Tasks     (optional)
-Phase 03 — Algorithm Design       (optional)
-              ↓              │
-Phase 04 — Implementation Plan    │  (required)
-              ↓              │
-Phase 05 — Task Planning          │  (required)
-              ↓              │
-Phase 06 — Create start-and-resume.md  (required)
-              ↓              │
-Phase 07 — Execution          │  (required)
+Task Sizing → Phase 01-05 → Phase 06 → Phase 07 → Review → (done or next round)
+                                                                      |
+                                                                      v
+                                                              Phase 01* (Round N+1)
+                                                              → back to Phase 02-07
 ```
+
+If problems arise during execution, they are captured in `issues.md` and resolved in the next round — the agent never silently deviates from the plan.
 
 ## Usage
 
@@ -42,11 +33,12 @@ Tell your agent:
 
 The agent will:
 
-1. Ask about document language and whether to proceed interactively
+1. Size the task (XS/S skip ceremony, M+ enter full flow)
 2. Create `.dev/[NNN]-[req-name]/init.md` with requirement definition
-3. Register the requirement in `.dev/blueprint.md` (project-level req roadmap)
+3. Register the requirement in `.dev/blueprint.md`
 4. Produce planning documents under `.dev/[NNN]-[req-name]/generated/`
-5. Execute tasks one by one, running tests after each, updating the blueprint at each phase transition
+5. Execute tasks in rounds, each round having its own `plan.md` and `tasks.md`
+6. If issues arise, log them to `issues.md` and resolve in the next round
 
 ### Project Structure
 
@@ -56,11 +48,16 @@ The agent will:
 ├── TODO.md                          # Cross-requirement backlog
 └── 001-your-requirement/
     ├── init.md                      # Requirement definition
+    ├── issues.md                    # Cross-round issue log
     └── generated/
-        ├── plan.md                  # Technical approach
-        ├── tasks.md                 # Task list with status
-        ├── start-and-resume.md      # Resumption guide
-        └── inspect.md / research.md / ...  # Optional prereqs
+        ├── start-and-resume.md      # Shared execution rules + Round History
+        └── rounds/
+            ├── round-001/
+            │   ├── plan.md          # Round 1 technical approach
+            │   └── tasks.md         # Round 1 task list
+            └── round-002/           # Current round
+                ├── plan.md
+                └── tasks.md
 ```
 
 ## Reference Files
@@ -68,17 +65,19 @@ The agent will:
 | File | Purpose |
 |---|---|
 | `SKILL.md` | Entry point — phase overview and core rules |
-| `references/00-agent-execution.md` | Agent behavior rules (interaction, file discipline, self-check) |
-| `references/01-initialization.md` | Phase 01: creating `init.md` |
-| `references/02-prerequisite-tasks.md` | Phase 02: inspect / research / profiling / diagnosis |
-| `references/03-algorithm-design.md` | Phase 03: algorithm design for complex logic |
-| `references/04-implementation-plan.md` | Phase 04: creating `plan.md` |
-| `references/05-task-planning.md` | Phase 05: creating `tasks.md` |
-| `references/06-start-and-resume.md` | Phase 06: execution loop and resumption |
-| `references/10-git-workflow.md` | Git workflow: branch, commit, PR/merge, tagging |
-| `references/07-oop-principles.md` | OOP & SOLID principles with examples |
-| `references/08-coding-standards.md` | Coding standards: universal + Python / TypeScript / Java |
-| `references/09-blueprint-management.md` | Blueprint layer: project-level req roadmap, status tracking |
+| `references/README.md` | Reader's guide — file navigation by category |
+| `references/constitution/00-agent-execution.md` | Agent behavior rules (global, all phases) |
+| `references/constitution/01-oop-principles.md` | OOP & SOLID principles |
+| `references/constitution/02-coding-standards.md` | Coding standards: universal + language-specific |
+| `references/constitution/03-git-workflow.md` | Git: branch, commit, PR/merge, tagging |
+| `references/execution/00-start-and-resume.md` | Execution loop + Deviation Protocol + Round History |
+| `references/execution/01-round-mechanism.md` | Round state machine + decision matrix + issues.md format |
+| `references/phases/00-initialization.md` | Phase 01: creating `init.md` |
+| `references/phases/01-prerequisite-tasks.md` | Phase 02: inspect / research / profiling / diagnosis |
+| `references/phases/02-algorithm-design.md` | Phase 03: algorithm design |
+| `references/phases/03-implementation-plan.md` | Phase 04: creating `plan.md` |
+| `references/phases/04-task-planning.md` | Phase 05: creating `tasks.md` |
+| `references/phases/05-blueprint-management.md` | Blueprint layer: project-level req roadmap |
 
 ## Installation
 
