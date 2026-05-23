@@ -217,7 +217,24 @@ Before marking a task `done`, verify:
 | Requirement is ambiguous | Ask the user before writing any code |
 | Tech choice has multiple valid options | Present options with trade-offs, ask the user to decide |
 | A task cannot proceed due to a dependency or error | Mark as `blocked`, record reason in `tasks.md` Notes, ask the user |
-| Existing code contradicts the plan | Do not silently deviate — surface the conflict and ask |
+| Existing code contradicts the plan | Follow § Deviation Protocol in 06-start-and-resume.md — assess severity, log to issues.md, present options to user |
+| Discovery of unplanned work during execution | Assess severity: low → adjust silently; medium → log to issues.md, continue; high → trigger Deviation Protocol, present options |
+
+---
+
+## Phase Transition Re-read Discipline
+
+Before entering any phase, re-read that phase's reference file:
+
+| Phase | Reference to Re-read |
+|-------|---------------------|
+| Phase 01 (first round) | `01-initialization.md` |
+| Phase 01* (round N+1 re-entry) | `01-initialization.md` + `06-round-mechanism.md` § Phase 01* |
+| Phase 04 | `04-implementation-plan.md` |
+| Phase 05 | `05-task-planning.md` |
+| Phase 07 | **Must** re-read `06-start-and-resume.md` + `06-round-mechanism.md` |
+
+This ensures the agent always has the current execution rules in context before acting.
 
 ---
 
@@ -298,3 +315,31 @@ When the user asks for a project-level overview — progress summary, status che
 5. If the user then asks about a specific requirement, follow the normal per-requirement flow from the relevant phase document.
 
 Do not answer a project overview query by describing only one requirement — always read the blueprint first. If the blueprint is missing, scan `.dev/` directories for `init.md` files and reconstruct it.
+
+---
+
+## Round-based Execution Model
+
+The skill uses a round-based execution model. A round is one full pass through the spec-driven flow:
+
+```
+Round 1: Phase 01-05 -> Phase 06 -> Phase 07 -> Review -> (done or next round)
+Round N+1: Phase 01* (incremental) -> Phase 02-05 -> Phase 06 -> Phase 07 -> Review -> ... -> DONE
+```
+
+### When Multiple Rounds Apply
+
+- Round 1: full create from scratch
+- Round N+1: triggered when `issues.md` has open issues after a round completes
+
+### Round Trigger Summary
+
+| Situation | Action |
+|-----------|--------|
+| First time working on this requirement | Enter Phase 01 as Round 1 |
+| Phase 07 tasks all done, issues.md has open issues | Offer user: "Start Round N+1?" |
+| User confirms Round N+1 | Enter Phase 01* — read issues.md, incrementally update plan/tasks |
+| Phase 07 tasks all done, no open issues | Declare requirement complete |
+| All tasks blocked, blocker depends on another requirement | Mark round blocked; re-enter when blocker resolved |
+
+See [06-round-mechanism.md](06-round-mechanism.md) for the full state machine, decision matrix, and issues.md format.

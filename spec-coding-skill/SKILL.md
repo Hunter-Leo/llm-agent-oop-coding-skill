@@ -100,6 +100,7 @@ Phases 02 and 03 are independent — both, one, or neither may be needed.
 | 05 Task Planning | `tasks.md` | [05-task-planning.md](references/05-task-planning.md) |
 | 06 Create start-and-resume.md | `start-and-resume.md` | [06-start-and-resume.md](references/06-start-and-resume.md) § Step 0 |
 | 07 Execution | code | [06-start-and-resume.md](references/06-start-and-resume.md) |
+| Round Mechanism | `issues.md` + Round History | [06-round-mechanism.md](references/06-round-mechanism.md) |
 
 ## Coding Reference
 
@@ -108,6 +109,7 @@ Phases 02 and 03 are independent — both, one, or neither may be needed.
 | OOP & SOLID Principles | [07-oop-principles.md](references/07-oop-principles.md) |
 | Coding Standards (all languages) | [08-coding-standards.md](references/08-coding-standards.md) |
 | Git Workflow | [10-git-workflow.md](references/10-git-workflow.md) |
+| Round Mechanism | [06-round-mechanism.md](references/06-round-mechanism.md) |
 
 ## Core Rules
 
@@ -118,3 +120,5 @@ Phases 02 and 03 are independent — both, one, or neither may be needed.
 - Never hardcode secrets; use environment variables
 - All identifiers, comments, and docs must be in English
 - **Maintain the blueprint** — update `.dev/blueprint.md` at every phase transition for any requirement
+- **Round-based execution** — after Phase 07, check `issues.md`. If open issues remain, offer user to start Round N+1. Do not silently start new rounds.
+- **Phase 07 entry** — re-read `06-start-and-resume.md` and `06-round-mechanism.md` before entering the execution loop

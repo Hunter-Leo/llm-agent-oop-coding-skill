@@ -5,6 +5,10 @@ Create the requirement definition document before any planning or coding begins.
 **Entry:** A need or requirement has been identified, sized M or larger via [Task Sizing](00-agent-execution.md#task-sizing).
 **Exit:** `init.md` created at `.dev/[NNN]-[req-name]/init.md`, `.dev/blueprint.md` updated with the new requirement.
 
+> **Round check**: Before starting Phase 01, check if `.dev/[NNN]-[req-name]/issues.md` exists.
+> - If **no** issues.md: this is Round 1 — proceed normally (create init.md from scratch).
+> - If **yes** (issues.md exists with open issues): this is Phase 01* (Round N+1 re-entry). Read [06-round-mechanism.md](06-round-mechanism.md) § Phase 01* first, then read issues.md to understand what must change in init.md. Update init.md incrementally based on open issues.
+
 > If the task was sized XS or S, this phase is skipped entirely. See [00-agent-execution.md § Task Sizing](00-agent-execution.md#task-sizing) for the direct execution flow.
 
 ## Step 0 — Requirement Clarity Check

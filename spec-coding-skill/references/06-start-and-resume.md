@@ -73,6 +73,22 @@ When entering an existing project that already has `.dev/` content, bootstrap th
 
 ---
 
+## Round History
+
+Tracked in this document's own `## Round History` section (see template below). Each round adds an entry here when it completes. See [06-round-mechanism.md](06-round-mechanism.md) for the full round-based execution model, state machine definitions, and agent decision matrix.
+
+```markdown
+## Round History
+
+### Round [N] (current)
+- **Status:** [completed / blocked]
+- **Tasks:** X planned, Y completed, Z deferred to issues.md
+- **New issues:** ISS-NNN, ISS-MMM
+- **Summary:** What this round achieved and what remains.
+```
+
+---
+
 ## Constitution
 
 See `init.md § Constitution` for this requirement's design rules, and [07-oop-principles.md](07-oop-principles.md) / [08-coding-standards.md](08-coding-standards.md) for the full standards.
@@ -153,6 +169,8 @@ d. After user confirmation, **agent directly invokes** the chosen execution mode
 
 Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
 
+**Pre-loop: Re-read this document.** Read [06-round-mechanism.md](06-round-mechanism.md) for the state machine, decision matrix, and issues.md format before starting execution for the first time. When resuming a round, re-read this document's § Deviation Protocol and § Round History.
+
 ```
 0.  Ensure the correct feature branch exists and is checked out:
       git branch --show-current
@@ -173,7 +191,15 @@ Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
 
 5.  Implement the minimal change needed
 
-6.  Verify code against standards:
+6.  **During implementation: if you discover a problem that deviates from plan.md or tasks.md:**
+      a. Assess severity (low / medium / high) — see § Deviation Protocol
+      b. Low: adjust directly, note in commit
+      c. Medium: log to `issues.md` (open), continue
+      d. High: **STOP**, trigger Deviation Protocol (see § Deviation Protocol)
+      Do NOT silently modify plan.md, add new files not in plan.md, or change interfaces
+      without going through the protocol.
+
+7.  Verify code against standards:
       [ ] Design follows SOLID principles defined in Constitution
       [ ] All function/method parameters and return types annotated
       [ ] Every new file has a module-level docstring
@@ -183,21 +209,21 @@ Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
       [ ] No linting errors introduced
       [ ] Import rules followed — no lazy imports, no circular deps
 
-7.  Run existing tests — must pass (no regressions)
+8.  Run existing tests — must pass (no regressions)
 
-8.  Read 08-coding-standards.md § Testing to confirm test file naming and coverage
+9.  Read 08-coding-standards.md § Testing to confirm test file naming and coverage
     requirements, then write unit tests:
       [ ] Normal cases covered
       [ ] Edge cases covered
       [ ] Error / exception cases covered
 
-9.  Run new tests — all must pass before continuing
+10. Run new tests — all must pass before continuing
 
-10. Update tasks.md:
+11. Update tasks.md:
       a. Set status to `done`
       b. Write implementation summary in Notes (include any deviation from plan.md)
 
-11. Pre-commit check:
+12. Pre-commit check:
       [ ] All tests pass (existing + new)
       [ ] No linting errors introduced
       [ ] No hardcoded secrets or environment-specific values
@@ -206,31 +232,59 @@ Repeat for each task in `tasks.md` — **never skip a step, never batch tasks**:
       [ ] On the correct feature branch (not main)
       [ ] Commit message follows Google style: ≤72 chars, imperative, English
 
-12. Commit following the [Git Workflow](10-git-workflow.md):
+13. Commit following the [Git Workflow](10-git-workflow.md):
       git add <specific files>
       git commit -m "[NNN] T-XXX <type>: <imperative summary ≤ 72 chars>"
 
-13. If interactive mode: show a task summary and ask before proceeding:
+14. If interactive mode: show a task summary and ask before proceeding:
       "✅ T-XXX complete. Summary: <what was done>. Continue to the next task?
       (reply 'continue' or tell me what to adjust)"
 ```
 
-**Mandatory flow: check branch → review docs → implement → verify → test → update tasks.md → pre-commit check → commit → (interactive pause)**
+**Mandatory flow: check branch → review docs → implement (with deviation check) → verify → test → update tasks.md → pre-commit check → commit → (interactive pause)**
 
 > After task 12 (commit), the loop repeats from step 0 for the next task.
 > If the branch was already created in a previous task's step 0, step 0 will confirm it exists and do nothing.
 
 ---
 
-## Mid-Execution New Tasks
+## Deviation Protocol
 
-If a new task is discovered during execution (e.g. a dependency that was missed in planning):
+When a deviation is discovered during execution (plan doesn't match reality, new bug found, scope creep), follow the protocol below instead of silently modifying course. Deviations are logged to `issues.md` and resolved either within the current round or deferred to Round N+1.
 
-1. **Stop** the current task at a clean checkpoint
-2. **Add the new task** to `tasks.md` (status: `not-started`, with a Notes entry explaining why it was added)
-3. **Resume** the current task or switch to the new task based on dependency order
+See [06-round-mechanism.md](06-round-mechanism.md) for the full state machine, decision matrix, and issues.md format.
+
+### Severity Levels
+
+| Severity | When | Action |
+|----------|------|--------|
+| **Low** | Implementation detail differs (variable naming, helper extraction, minor refactor) | Adjust directly. Note deviation in commit message. No round impact. |
+| **Medium** | Bug in unrelated code, need small new tool/class not in plan | Log to `issues.md` (open). Continue current task. |
+| **High** | `plan.md` module design infeasible, interface contract must change, core dependency incompatible | **STOP** current task at clean checkpoint. Log to `issues.md` (open). Set task to `blocked` if it cannot continue. Present options to user. |
+
+### High Severity Protocol (complete)
+
+1. **STOP** — do not continue writing code until decision is made
+2. **Record** — write to `issues.md` with type, severity, description, evidence, suggested fix
+3. **Generate options** — 2-3 paths (e.g. fix now, defer to next round, rollback approach)
+4. **Present to user** — show the finding, options, and your recommendation
+5. **Wait for decision** — user picks one; if no response after 5 min, execute recommended option as default
+6. **Execute** — implement the decision, update `tasks.md` / `plan.md` if needed
+
+### Mid-Round New Tasks
+
+If a small new task is needed within the current round (user confirms, or low severity):
+
+1. **Stop** current task at a clean checkpoint
+2. **Add the new task** to `tasks.md` (status: `not-started`, with Notes explaining why)
+3. **Resume** the current task or switch to the new based on dependency order
 
 Do not execute an unplanned task without first recording it in `tasks.md`.
+
+### Issues vs TODO.md
+
+- `issues.md` — execution problems within the current requirement that affect plan/task fidelity
+- `.dev/TODO.md` — cross-requirement out-of-scope discoveries (bugs, features, improvements)
 
 ---
 
@@ -251,16 +305,39 @@ All 12 tests pass.
 
 ---
 
-## Requirement Complete
+## Requirement Complete — Round End
 
-When all tasks in `tasks.md` reach `done`:
+When all tasks in `tasks.md` reach `done` (or all runnable tasks are `blocked`):
 
-1. **Update `.dev/blueprint.md`** — set this requirement's Phase to `07 Done` and Status to `✅ done`. Read [09-blueprint-management.md](09-blueprint-management.md) for the full blueprint update rules.
-2. Notify the user:
+1. **Check `issues.md`** — read all open issues and summarize for the user
+
+2. **Write Round Summary** — update `start-and-resume.md § Round History`:
+   ```
+   ### Round [N] (complete)
+   - **Status:** ✅ done (or ⏸ blocked)
+   - **Tasks:** X planned, Y completed, Z deferred
+   - **New issues:** ISS-NNN, ISS-MMM
+   - **Summary:** What this round achieved.
+   ```
+
+3. **Update `.dev/blueprint.md`** — set Round, Phase, Status. Read [09-blueprint-management.md](09-blueprint-management.md).
+
+4. **If no open issues remain:** declare requirement complete, create PR/merge (step 5), and notify:
    > ✅ All tasks complete for requirement [NNN]-[req-name].
    > Summary: X tasks completed, Y deviations from plan recorded in tasks.md.
-3. Check `.dev/TODO.md` — if any items have `Source` matching this requirement, update their status to `pending` (confirm they are still relevant)
-4. Create a pull request or local merge using the format in [§ Pull Request / Local Merge](#pull-request--local-merge). For PRs: `gh pr create --title "<type>(<scope>): <summary>" --body "$(cat <<'EOF'\n...\nEOF\n)"`. For local merge: `git checkout main && git merge --no-ff <type>/[NNN]-[req-name] -m "$(cat <<'EOF'\n<type>(<scope>): <imperative summary>\n\n## Summary\n...\nEOF\n)"`
+   > No open issues. Development complete.
+
+5. **If open issues remain,** notify the user with:
+   > ✅ Round N complete for requirement [NNN]-[req-name].
+   > X/Y tasks done. Open issues: ISS-NNN, ISS-MMM.
+   >
+   > **Start Round N+1?** I'll re-read issues.md, update plan.md and tasks.md incrementally,
+   > and resolve the open issues in a new execution round.
+   > Or reply **no** to finish for now.
+
+   If user confirms Round N+1, proceed to Phase 01* (see [06-round-mechanism.md](06-round-mechanism.md) § Phase 01* — Round N+1 Re-entry Flow).
+
+6. **Create a pull request or local merge** using the format in [§ Pull Request / Local Merge](#pull-request--local-merge). For PRs: `gh pr create --title "<type>(<scope>): <summary>" --body "$(cat <<'EOF'\n...\nEOF\n)"`. For local merge: `git checkout main && git merge --no-ff <type>/[NNN]-[req-name] -m "$(cat <<'EOF'\n<type>(<scope>): <imperative summary>\n\n## Summary\n...\nEOF\n)"`
 
 ---
 

@@ -5,6 +5,8 @@ Produce `plan.md` after all prerequisite and algorithm design documents are comp
 **Entry:** `init.md` exists, optional prerequisite docs (Phase 02/03) are complete if needed.
 **Exit:** `plan.md` created at `.dev/[NNN]-[req-name]/generated/plan.md`, Design Compliance Review passed.
 
+> **Incremental update (Round N+1):** If `plan.md` already exists (not first round), do not rewrite from scratch. Read `issues.md`, identify which plan elements need updating based on open issues, and modify only those sections. Preserve unaffected sections.
+
 Before writing `plan.md`:
 1. Read all completed prerequisite documents (`inspect.md`, `research.md`, `algorithm-design.md` — whichever exist)
 2. Read `init.md § Constitution` — the plan must respect the coding constraints defined there
