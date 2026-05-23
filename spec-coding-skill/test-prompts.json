@@ -1,32 +1,17 @@
 [
   {
     "id": 1,
-    "prompt": "I want to build a REST API for a task management app with user authentication, CRUD for tasks, and team collaboration features. Start the first requirement for user authentication.",
-    "expected": "Agent follows Phase 01-07 flow: creates init.md with clear spec, proceeds through plan.md, tasks.md, and execution. Output includes proper progress display and document structure under .dev/001-user-auth/."
+    "prompt": "I need to add a user authentication feature to my Python FastAPI project. Users should be able to register, login, and get a JWT token. The project is pre-launch. Please walk through the full spec-driven flow.",
+    "expected": "Complete Phase 01-07 flow: init.md (full spec+requirements+action items), optional Phase 02 inspect of existing code, Phase 04 plan.md, Phase 05 tasks.md, Phase 06 start-and-resume.md, Phase 07 execution with task-by-task loop. Respects Method Selection at phase entries. Uses test philosophy (public interface testing). Produces .dev/ artifacts."
   },
   {
     "id": 2,
-    "prompt": "We have three requirements in flight: user auth (in execution), task CRUD (planned), and team collaboration (not started). Show me the overall project blueprint — what stage each requirement is in and the dependencies between them.",
-    "expected": "Agent should provide a top-level view showing all requirements, their current phases/stages, dependencies, and overall project status. This is where the blueprint gap should be visible."
+    "prompt": "The checkout endpoint is returning a 500 error intermittently. I can't figure out why - it works 80% of the time. Can you diagnose this?",
+    "expected": "Triggers Phase 02 with Structured Debugging method. Builds feedback loop first, then hypothesise (3-5 ranked), instrument, fix + regression. Diagnose process is structured, not random guessing. Logs root cause in commit message."
   },
   {
     "id": 3,
-    "prompt": "I'm resuming work on this project. Half of the requirements are done, some are in progress. Give me a bird's-eye view of the entire project — progress summary, what's blocked, what's next, and the overall roadmap.",
-    "expected": "Agent synthesizes across all .dev/ requirements to show project-wide status, remaining work, dependencies, and recommended next steps. Currently the skill only handles single-requirement context."
-  },
-  {
-    "id": 4,
-    "prompt": "Can you add a retry parameter to the send_email function in utils/email.py? It already exists, just need to add an optional retry_count: int = 0 parameter and if > 0 retry up to that many times on failure. Keep it simple.",
-    "expected": "Agent should recognize this as XS, create a brief init.md with an inline plan (what changes, how), present for review, then implement + test after confirmation."
-  },
-  {
-    "id": 5,
-    "prompt": "I need a new utility function to validate email addresses in src/utils/validators.py. Just a simple is_valid_email(email: str) -> bool that checks for @ and a domain part. No external deps.",
-    "expected": "Agent should recognize this as S (1 file, well-defined), create a lightweight init.md with Spec + Requirements + Plan sections, present for review, then implement after confirmation. Should NOT create separate plan.md, tasks.md, or start-and-resume.md."
-  },
-  {
-    "id": 6,
-    "prompt": "I want something like an internal dashboard for my team. You know, to show some metrics and stuff.",
-    "expected": "Agent should recognize the requirement as vague, NOT proceed to sizing or implementation, and ask the user for clarification: what metrics, who is the audience, what tech stack."
+    "prompt": "I'm working on an existing project. Where are we? What's the current status and what should I work on next?",
+    "expected": "Reads .dev/blueprint.md, shows project overview table with all requirements, their phases and status. Recommends next action. Follows the Handling Project Overview Queries flow."
   }
 ]
