@@ -1,4 +1,15 @@
 # Phase 06 — Create start-and-resume.md / Phase 07 — Execution
+
+> ## STOP — Are You Resuming an Interrupted Session?
+>
+> If you are returning to work after any interruption (new conversation, session restart, context switch), you MUST run the [Session Bootstrap](#session-bootstrap-new-agent-session-on-existing-project) before doing anything else. **Do not skip straight to a task — you will miss critical context.**
+>
+> Quick self-check:
+> - [ ] Read `.dev/blueprint.md` — what's the overall project status?
+> - [ ] Read `issues.md` — any open issues from previous rounds?
+> - [ ] Read `tasks.md` — which task is next? Any `in-progress` or `blocked` tasks?
+> - [ ] Read `init.md § Constitution` — what design rules apply?
+
 **Entry (Phase 06):** `tasks.md` exists at `.dev/[NNN]-[req-name]/generated/tasks.md`.
 **Exit (Phase 06):** `start-and-resume.md` created, execution mode confirmed.
 **Entry (Phase 07):** `start-and-resume.md` exists (mandatory gate).
