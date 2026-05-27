@@ -1,5 +1,9 @@
 # Coding Standards
 
+> ## Read Before Writing Any Code
+>
+> These standards apply to **every line of code** in every phase. The execution loop requires you to re-read this file before implementation (step 4). **Do not skip — violations will be caught at pre-commit check and require rework.**
+
 ## Universal Standards (All Languages)
 
 ### Language & Naming

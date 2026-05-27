@@ -1,5 +1,9 @@
 # OOP & SOLID Principles
 
+> ## Read Before Designing or Coding
+>
+> These principles apply to Phase 01 (Constitution), Phase 04 (Design Compliance Review), and Phase 07 (every implementation task). **Violations caught in review will require redesign.**
+
 All code produced under this skill must follow object-oriented design and the SOLID principles.
 
 ---
