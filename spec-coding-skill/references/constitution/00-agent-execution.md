@@ -1,5 +1,23 @@
 # Agent Execution Requirements
 
+> ## STOP. Read this file before doing anything else.
+>
+> These rules override all phase-specific instructions. **If you skip this file, you will violate mandatory process rules.** The most commonly violated rules are summarized below — read each section in full before acting.
+
+## Quick-Reference: Rules You Must Not Break
+
+| # | Rule | Section |
+|---|------|---------|
+| 1 | Run Task Sizing before any work — announce size to user | [§ Task Sizing](#task-sizing) |
+| 2 | Re-read the phase doc before entering ANY phase | [§ Phase Transition Re-read Discipline](#phase-transition-re-read-discipline) |
+| 3 | Run Method Selection at every phase entry — justify skips with specific facts | [§ Phase Transition Re-read Discipline](#phase-transition-re-read-discipline) |
+| 4 | Self-Check after each task: tests pass, no regressions, no secrets | [§ Self-Check After Each Task](#self-check-after-each-task) |
+| 5 | When plan != reality: follow Deviation Protocol, do NOT silently fix | [§ Handling Uncertainty & Blockers](#handling-uncertainty--blockers) |
+| 6 | Update tasks.md status immediately on start and completion | [§ Document Update Discipline](#document-update-discipline) |
+| 7 | Out-of-scope discovery → log to TODO.md, do NOT act on it | [§ Out-of-Scope Discovery](#out-of-scope-discovery--todomd) |
+
+---
+
 These rules govern how the agent must behave throughout **all phases** of this skill. They take precedence over any phase-specific instructions.
 
 ---
