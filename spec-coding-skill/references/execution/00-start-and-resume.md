@@ -218,15 +218,25 @@ Repeat for each task in the current round's `tasks.md` (at `generated/rounds/rou
 
 5.  Implement the minimal change needed
 
-6.  **During implementation: if you discover a problem that deviates from plan.md or tasks.md:**
-      a. Assess severity (low / medium / high) — see § Deviation Protocol
-      b. Low: adjust directly, note in commit
-      c. Medium: log to `issues.md` (open), continue
-      d. High: **STOP**, trigger Deviation Protocol (see § Deviation Protocol)
-      Do NOT silently modify plan.md, add new files not in plan.md, or change interfaces
-      without going through the protocol.
+    ---
 
-7.  Verify code against standards:
+    ## ⚠ DEVIATION CHECK (run after EVERY implementation step)
+
+    > **Before you move on to verification, ask yourself:** did anything in this implementation differ from what `plan.md` or `tasks.md` described?
+
+    | You just... | Severity | Action |
+    |-------------|----------|--------|
+    | Renamed a variable, extracted a helper, adjusted an internal detail | **Low** | Continue. Note in commit message. |
+    | Found a bug in unrelated code, needed a small new class/tool not in plan | **Medium** | **Log to `issues.md` NOW** (status: `open`). Then continue. |
+    | plan.md design won't work, interface contract must change, dependency incompatible | **High** | **STOP immediately.** Do not write another line. Log to `issues.md`. Set task to `blocked`. Present options to user (see [§ High Severity Protocol](#high-severity-protocol-complete)). |
+
+    **If you're unsure about severity, treat it as HIGH.** Presenting options to the user is always safer than silently changing the plan.
+
+    **Forbidden at all severity levels:** silently modifying `plan.md`, adding files not in `plan.md`, or changing public interfaces without logging the deviation.
+
+    ---
+
+6.  Verify code against standards:
       [ ] Design follows SOLID principles defined in Constitution
       [ ] All function/method parameters and return types annotated
       [ ] Every new file has a module-level docstring
@@ -236,9 +246,9 @@ Repeat for each task in the current round's `tasks.md` (at `generated/rounds/rou
       [ ] No linting errors introduced
       [ ] Import rules followed — no lazy imports, no circular deps
 
-8.  Run existing tests — must pass (no regressions)
+7.  Run existing tests — must pass (no regressions)
 
-9.  Read ../constitution/02-coding-standards.md § Testing to confirm test file naming and coverage
+8.  Read ../constitution/02-coding-standards.md § Testing to confirm test file naming and coverage
     requirements, then write unit tests:
 
     > If using [Vertical Slice TDD](../methods/01-vertical-slice-tdd.md), the test-writing step is folded into the RED phase of each RED-GREEN-REFACTOR cycle. Verify that the micro-cycle has produced sufficient coverage instead.
@@ -246,13 +256,13 @@ Repeat for each task in the current round's `tasks.md` (at `generated/rounds/rou
       [ ] Edge cases covered
       [ ] Error / exception cases covered
 
-10. Run new tests — all must pass before continuing
+9. Run new tests — all must pass before continuing
 
-11. Update tasks.md:
+10. Update tasks.md:
       a. Set status to `done`
       b. Write implementation summary in Notes (include any deviation from plan.md)
 
-12. Pre-commit check:
+11. Pre-commit check:
       [ ] All tests pass (existing + new)
       [ ] No linting errors introduced
       [ ] No hardcoded secrets or environment-specific values
@@ -261,11 +271,11 @@ Repeat for each task in the current round's `tasks.md` (at `generated/rounds/rou
       [ ] On the correct feature branch (not main)
       [ ] Commit message follows Google style: ≤72 chars, imperative, English
 
-13. Commit following the [Git Workflow](../constitution/03-git-workflow.md):
+12. Commit following the [Git Workflow](../constitution/03-git-workflow.md):
       git add <specific files>
       git commit -m "[NNN] T-XXX <type>: <imperative summary ≤ 72 chars>"
 
-14. If interactive mode: show a task summary and ask before proceeding:
+13. If interactive mode: show a task summary and ask before proceeding:
       "✅ T-XXX complete. Summary: <what was done>. Continue to the next task?
       (reply 'continue' or tell me what to adjust)"
 ```
