@@ -182,4 +182,4 @@ Rules unique to this skill. See `00-agent-execution.md` for: `§ File Reading Di
 - **Maintain the blueprint** — update `.dev/blueprint.md` at every phase transition
 - **Start with references/README.md** — reader's guide before diving into phase docs
 - **Run Method Selection at every phase entry** — evaluate tagged methods against trigger conditions. Apply if triggers match; justify if they don't.
-- **Follow the Deviation Protocol** — stop, log to `issues.md`, present options. See `execution/00-start-and-resume.md § Deviation Protocol`.
+- **⚠ Follow the Deviation Protocol** — when implementation differs from plan.md: stop, assess severity, log to `issues.md`, present options to user. **Never silently modify plan.md, add unplanned files, or change interfaces without logging the deviation.** See `execution/00-start-and-resume.md § Deviation Protocol`.
