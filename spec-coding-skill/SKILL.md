@@ -33,18 +33,52 @@ metadata:
 
 A spec-driven methodology for LLM agents to define, plan, and implement coding work with quality and consistency. Uses **round-based iterative execution** — when problems arise during implementation, they are logged and resolved in subsequent rounds rather than silently deviating from the plan. Includes automatic **task sizing** — trivial fixes skip document ceremony, while complex features get the full structured flow.
 
-## When Activated
+## STOP — Mandatory Startup Sequence
 
-1. **Read [00-agent-execution.md](references/constitution/00-agent-execution.md) first** — these are global rules that apply to every phase and take precedence over all other instructions
-2. **Check if `.dev/blueprint.md` exists** (project already has requirements):
-   - **If yes**: run the [Session Bootstrap](references/execution/00-start-and-resume.md#session-bootstrap-new-agent-session-on-existing-project) to present project status, then resume the active requirement
-   - **If no**: proceed with the new requirement
-3. **Run Task Sizing** — see [00-agent-execution.md § Task Sizing](references/constitution/00-agent-execution.md#task-sizing). Determines workflow depth:
-   - **XS/S**: lightweight Phase 01 (Pre-flight Checks → inline plan in `init.md`)
-   - **M/L/XL**: full Phase 01–07 flow
-4. **Enter Phase 01** — follow [00-initialization.md](references/phases/00-initialization.md) to create the requirement definition document. XS/S: complete Pre-flight Checks then lightweight init.md. M+: full init.md with Spec, Requirements, Action Items, Constitution.
-5. **Work through phases in order** — consult the reference file for each phase as you enter it
-6. **After Phase 07 (Execution)**, perform a **Round Review**: check `issues.md`. If open issues remain, re-enter Phase 01 for Round N+1 (incremental update based on accumulated issues). If no issues, mark done.
+> **Do each step in order. Do not skip any step. Each step is a hard gate — the next step depends on information from the previous one.**
+
+### Step 1 — Read Global Agent Rules (DO NOT SKIP)
+
+**MUST** read [00-agent-execution.md](references/constitution/00-agent-execution.md) before doing anything else. This file defines rules that override all phase-specific instructions: Task Sizing, Phase Transition Re-read Discipline, Self-Check, Deviation Protocol, and Round-based Execution Model. **If you skip this file, you will miss mandatory rules and violate the process.**
+
+### Step 2 — Check Project State
+
+Check if `.dev/blueprint.md` exists:
+
+| Blueprint exists? | Action |
+|---|---|
+| **Yes** | Run the [Session Bootstrap](references/execution/00-start-and-resume.md#session-bootstrap-new-agent-session-on-existing-project). Present full project status, then resume the active requirement. |
+| **No** | Proceed to Step 3 (new requirement). |
+
+### Step 3 — Task Sizing (MANDATORY)
+
+Run [Task Sizing](references/constitution/00-agent-execution.md#task-sizing) to determine workflow depth. Announce the size to the user before proceeding.
+
+| Size | Workflow |
+|------|----------|
+| **XS** (1 file, trivial) | Brief `init.md` with inline plan → implement → test → commit |
+| **S** (1-3 files, well-defined) | Lightweight `init.md` (Spec + Requirements + Plan) → implement → test → commit |
+| **M** (multi-module) | Full Phase 01–07 flow |
+| **L/XL** (cross-requirement) | Full flow + Blueprint layer + Phase 02 mandatory |
+
+### Step 4 — Phase Transition Rules (applies to ALL phases)
+
+Before entering ANY phase, you MUST:
+
+1. **Re-read the phase reference file** — see [Phase Transition Re-read Discipline](references/constitution/00-agent-execution.md#phase-transition-re-read-discipline) for the exact file per phase. Never enter a phase cold.
+2. **Run Method Selection** — evaluate every method tagged for that phase against trigger conditions. Apply if triggers match; provide specific factual justification if they don't. See [Method Selection](#method-selection--trigger-driven) below. Generic "not needed" is invalid.
+
+### Step 5 — Enter Phase 01
+
+Follow [00-initialization.md](references/phases/00-initialization.md). XS/S: Pre-flight Checks then lightweight init.md. M+: full init.md with Spec, Requirements, Action Items, Constitution.
+
+### Step 6 — Work Through Phases in Order
+
+Proceed through Phase 02–07. At each phase entry, repeat Step 4 (re-read phase doc + run Method Selection). After Phase 07, perform Round Review (Step 7).
+
+### Step 7 — Round Review (MANDATORY after Phase 07)
+
+Check `issues.md`. Open issues → re-enter Phase 01 for Round N+1. No open issues → done.
 
 Execution is **round-based**: problems found during a round are captured in `issues.md` and resolved in the next round, not silently fixed mid-flight. See [01-round-mechanism.md](references/execution/01-round-mechanism.md) for the state machine and decision matrix.
 
