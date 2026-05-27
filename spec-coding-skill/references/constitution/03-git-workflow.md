@@ -162,7 +162,7 @@ After merge, ask the user: "Branch `<type>/[NNN]-[req-name]` can be deleted. Do 
 When the user requests a release, or enough changes have accumulated:
 
 ```bash
-git tag -a v<major>.<minor>.<patch> -m "$(cat)"
+git tag -a v<major>.<minor>.<patch> --cleanup=verbatim -m "$(cat)"
 ```
 
 **Tag message format — full changelog since previous tag:**
