@@ -167,6 +167,21 @@ d. After user confirmation, **agent directly invokes** the chosen execution mode
 ---
 
 ## Execution Loop
+
+> ## STOP — Before You Write Any Code
+>
+> For **every task**, you MUST complete these checks before writing a single line:
+>
+> | # | Check | Skip Consequence |
+> |---|-------|------------------|
+> | 1 | Read `plan.md` for this task's approach | Implement the wrong design |
+> | 2 | Read `init.md § Constitution` for design rules | Violate OOP/SOLID requirements |
+> | 3 | Read affected source files (in sections if large) | Reimplement existing code or break callers |
+> | 4 | Evaluate [Vertical Slice TDD](../methods/01-vertical-slice-tdd.md) trigger for this task | Miss TDD when it applies |
+> | 5 | Confirm you are on the correct feature branch (`git branch --show-current`) | Commit to wrong branch |
+>
+> **After implementing**, you MUST complete the [Self-Check](../constitution/00-agent-execution.md#self-check-after-each-task) before marking the task `done`.
+
 Repeat for each task in the current round's `tasks.md` (at `generated/rounds/round-[NNN]/tasks.md`) — **never skip a step, never batch tasks**:
 
 **Pre-loop:** Determine the current round number from `§ Round History` above, then:
