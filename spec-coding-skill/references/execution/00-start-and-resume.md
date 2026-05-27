@@ -277,8 +277,13 @@ Repeat for each task in the current round's `tasks.md` (at `generated/rounds/rou
 
 ---
 
-## Deviation Protocol
+## STOP — Deviation Protocol
+
+> **The most common process violation is silently fixing problems instead of logging them. Read this section before you start coding — when a deviation happens mid-implementation, you won't have time to read it then.**
+
 **This section is the authority for handling execution deviations.** The state machine and decision matrix in [01-round-mechanism.md](01-round-mechanism.md) tell you *which* state to transition to; this section tells you *how* to handle the deviation itself.
+
+**Rule: never silently modify plan.md, add files not in plan.md, or change interfaces without going through this protocol.**
 
 When a deviation is discovered during execution (plan doesn't match reality, new bug found, scope creep), follow the protocol below instead of silently modifying course. Deviations are logged to `issues.md` and resolved either within the current round or deferred to Round N+1.
 
