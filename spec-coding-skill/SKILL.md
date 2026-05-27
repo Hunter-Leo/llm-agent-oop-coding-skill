@@ -26,7 +26,7 @@ triggers:
   - term alignment
   - ADR
 metadata:
-  version: "1.3"
+  version: "1.4"
 ---
 
 # Spec Coding Skill
