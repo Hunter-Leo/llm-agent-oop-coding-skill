@@ -41,7 +41,7 @@ Each round is a full pass through the spec-driven workflow. The output of Round 
 │
 └── 001-user-auth/
     ├── init.md                            # Requirement definition (stable; scope changes only)
-    ├── issues.md                          # Round-to-round issue log (the bridge)
+    ├── issues.md                          # Issue tracker (discovery round + open/resolved status)
     └── generated/
         ├── start-and-resume.md            # ★ Shared across rounds: execution rules + Round History
         └── rounds/
@@ -50,8 +50,7 @@ Each round is a full pass through the spec-driven workflow. The output of Round 
             │   └── tasks.md               # Round 1 tasks
             └── round-002/                 # Current round
                 ├── plan.md
-                ├── tasks.md
-                └── issues.md              # Issues discovered in this round
+                └── tasks.md
 ```
 
 ## 3. State Machine Architecture
@@ -277,39 +276,31 @@ Phase 01* entry
 
 ---
 
-## 7. issues.md — Dual-Layer Issue Tracking
+## 7. issues.md — Issue Tracking
 
-Issues have two layers:
+A single `issues.md` at the requirement root tracks all issues across rounds. Each issue records its discovery round, type, severity, and current status.
 
-| Layer | File | Role | Content |
-|-------|------|------|---------|
-| Active | `.dev/[NNN]-[req-name]/issues.md` | Cross-round issue tracker | All **open** issues from any round |
-| Snapshot | `.dev/[NNN]-[req-name]/generated/rounds/round-NNN/issues.md` | Per-round log | Issues discovered **in this round** (including resolved) |
+| File | Role |
+|------|------|
+| `.dev/[NNN]-[req-name]/issues.md` | Single source of truth for all issues across all rounds |
 
 ### Writing to issues (during execution)
 
-When a deviation is detected, write to **both** layers:
-
-```
-1. Append to .dev/[NNN]-[req-name]/issues.md (status: open)
-2. Append to generated/rounds/round-NNN/issues.md (status: open)
-```
+When a deviation is detected, append to `issues.md` with `status: open`.
 
 ### At Round Complete
 
-Mark all entries in `rounds/round-NNN/issues.md` with their final status. Entries in `issues.md` that are still open persist to the next round.
+Update the status of all entries to `resolved`, `wontfix`, or keep as `open` for the next round. Entries that remain open drive the next round's planning; resolved entries stay in the log for audit history.
 
-### Active Template (`issues.md`)
+### Template (`issues.md`)
 
 ```markdown
 # Issues — [NNN]-[req-name]
 
-Cross-round issue tracker. Open issues drive the next round's planning.
-
 | ID | Round | Type | Severity | Summary | Status |
 |-----|-------|------|----------|---------|--------|
-| ISS-001 | 1 | plan-deviation | high | ... | open |
-| ISS-002 | 2 | discovered-bug | medium | ... | resolved |
+| ISS-001 | 1 | plan-deviation | high | ... | resolved |
+| ISS-002 | 2 | discovered-bug | medium | ... | open |
 
 ### ISS-001 — [short title]
 
@@ -323,22 +314,6 @@ Cross-round issue tracker. Open issues drive the next round's planning.
 - **Affected files:** [file paths if known]
 - **Status:** [open / in-progress / resolved / wontfix]
 ```
-
-### Round Snapshot Template (`rounds/round-NNN/issues.md`)
-
-```markdown
-# Issues — Round NNN
-
-Issues discovered during Round NNN execution.
-
-| ID | Type | Severity | Summary | Status |
-|-----|------|----------|---------|--------|
-| ISS-001 | plan-deviation | high | ... | resolved |
-
-### ISS-001 — [short title]
-```
-
-The round snapshot is simpler (no cross-round fields). It records what happened in this specific round.
 
 ### Issue Types
 

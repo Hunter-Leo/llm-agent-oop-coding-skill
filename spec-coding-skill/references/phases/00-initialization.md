@@ -165,7 +165,7 @@ Complete all checked prerequisite documents before proceeding to the required do
 - [ ] `generated/start-and-resume.md`          — Phase 06 (must exist before any task execution)
 ```
 
-All generated documents go under `.dev/[NNN]-[req-name]/generated/`. Requirement-level files (`init.md`, `issues.md`) live under `.dev/[NNN]-[req-name]/`. Round-specific docs (plan, tasks, issues) live under `generated/rounds/round-NNN/`.
+All generated documents go under `.dev/[NNN]-[req-name]/generated/`. Requirement-level files (`init.md`, `issues.md`) live under `.dev/[NNN]-[req-name]/`. Round-specific docs (plan, tasks) live under `generated/rounds/round-NNN/`.
 
 ### # Constitution
 

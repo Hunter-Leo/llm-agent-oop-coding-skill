@@ -317,7 +317,7 @@ When a deviation is discovered during execution (plan doesn't match reality, new
 
 ### High Severity Protocol (complete)
 1. **STOP** — do not continue writing code until decision is made
-2. **Record** — write to both `issues.md` and `generated/rounds/round-[NNN]/issues.md` with type, severity, description, evidence, suggested fix
+2. **Record** — write to `issues.md` with type, severity, description, evidence, suggested fix
 3. **Generate options** — use the template below for the deviation's type. Always include your recommendation.
 
    **Template: plan-deviation** (plan.md design infeasible):
@@ -404,7 +404,7 @@ All 12 tests pass.
 ## Requirement Complete — Round End
 When all tasks in `tasks.md` reach `done` (or all runnable tasks are `blocked`):
 
-1. **Finalize round issues** — update `generated/rounds/round-NNN/issues.md`: set status of all entries to their final state (resolved / open / wontfix). Open entries remain in `issues.md` for cross-round tracking.
+1. **Finalize round issues** — update `issues.md`: set status of all entries to their final state (resolved / open / wontfix). Open entries remain `open` for cross-round tracking.
 
 2. **Check `issues.md`** — read all open issues and summarize for the user
 
